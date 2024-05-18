@@ -1,0 +1,38 @@
+// Usuario
+{
+  "nombre": "Juan Pérez",
+  "email": "juan.perez@example.com",
+  "telefono": 987654321,
+  "fechaNacimiento": "1990-01-01T00:00:00.000Z",
+  "edad": 30,
+  "genero": "Hombre",
+  "direcciones": [
+    {
+      "codigoPostalCiudad": 12345,
+      "direccion": "Calle Falsa 123",
+      "detalles": "Departamento 4B"
+    }
+  ],
+  "roles": [
+    {
+      "nombreUsuario": "juanperez",
+      "rol": "Cliente",
+      "clave": "password123"
+    }
+  ]
+}
+
+// Departamento
+{
+  "nombre": "Tecnología",
+  "ciudades": [
+    {
+      "nombre": "Ciudad 1",
+      "codigoPostal": 12345
+    },
+    {
+      "nombre": "Ciudad 2",
+      "codigoPostal": 67890
+    }
+  ]
+}
