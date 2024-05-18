@@ -620,6 +620,15 @@
                             "type": "document",
                             "properties": [
                                 {
+                                    "type": "objectId",
+                                    "isActivated": true,
+                                    "GUID": "7be8d877-21d3-4788-95fc-bfc60ff8c92c",
+                                    "sampleName": "",
+                                    "error": {},
+                                    "hackoladeMeta": {},
+                                    "name": "idProducto"
+                                },
+                                {
                                     "name": "tipo",
                                     "hackoladeMeta": {},
                                     "isActivated": true,
@@ -675,84 +684,45 @@
                                     "error": {}
                                 },
                                 {
-                                    "name": "colorDisponible",
+                                    "name": "color",
                                     "hackoladeMeta": {},
                                     "isActivated": true,
                                     "type": "string",
                                     "GUID": "397c334f-74fa-48fb-97b7-07be8949eddd",
                                     "required": false,
                                     "error": {}
+                                },
+                                {
+                                    "type": "string",
+                                    "isActivated": true,
+                                    "GUID": "d7148dab-7dbf-4c6c-baad-7efd578aeb03",
+                                    "sampleName": "",
+                                    "hackoladeMeta": {},
+                                    "name": "imagenPersonalizacion",
+                                    "error": {}
+                                },
+                                {
+                                    "type": "string",
+                                    "name": "detalles",
+                                    "isActivated": true,
+                                    "GUID": "1a261db3-3bc0-411d-916a-4246b86a5a47",
+                                    "sampleName": "",
+                                    "isPatternField": true,
+                                    "error": {},
+                                    "hackoladeMeta": {}
                                 }
                             ],
                             "additionalProperties": false,
-                            "error": {},
                             "GUID": "51892c7c-805b-442a-ba1d-7470710104af",
-                            "arrayItem": true
+                            "arrayItem": true,
+                            "displayName": "Producto",
+                            "error": {}
                         }
                     ],
                     "additionalItems": true,
                     "GUID": "1531f4c6-2183-459d-88a8-79d8e81039c2",
                     "name": "detallesCompra",
                     "error": {}
-                },
-                {
-                    "name": "personalizacion",
-                    "hackoladeMeta": {},
-                    "isActivated": true,
-                    "type": "array",
-                    "properties": [
-                        {
-                            "hackoladeMeta": {},
-                            "isActivated": true,
-                            "type": "document",
-                            "properties": [
-                                {
-                                    "name": "idProducto",
-                                    "hackoladeMeta": {},
-                                    "isActivated": true,
-                                    "type": "objectId",
-                                    "GUID": "19712263-7885-4e9f-a326-adcb29116d4b",
-                                    "error": {}
-                                },
-                                {
-                                    "hackoladeMeta": {},
-                                    "isActivated": true,
-                                    "type": "string",
-                                    "GUID": "d82daa23-9ac2-496a-98d7-e0731398ef62",
-                                    "name": "imagenPersonalizada",
-                                    "error": {}
-                                },
-                                {
-                                    "name": "colorPersonalizado",
-                                    "hackoladeMeta": {},
-                                    "isActivated": true,
-                                    "type": "string",
-                                    "GUID": "a29218f6-e7af-4a0e-b574-4e55db5758a5",
-                                    "error": {}
-                                },
-                                {
-                                    "name": "detalles",
-                                    "hackoladeMeta": {},
-                                    "isActivated": true,
-                                    "type": "string",
-                                    "GUID": "e04aa520-c17b-4f33-9c1f-638f1c3676f8",
-                                    "error": {}
-                                }
-                            ],
-                            "additionalProperties": false,
-                            "error": {},
-                            "GUID": "1660bde3-2b64-4711-9f51-d4ad70acfd69",
-                            "arrayItem": true
-                        }
-                    ],
-                    "additionalItems": true,
-                    "GUID": "a78c6af5-c400-4fd0-befc-11da89c6f635",
-                    "error": {
-                        "name": false,
-                        "code": false
-                    },
-                    "foreignCollection": "",
-                    "foreignField": []
                 },
                 {
                     "hackoladeMeta": {},
@@ -1092,27 +1062,27 @@
             "childCollection": "dd5dd7d7-45db-4cae-ac7f-7ac81abd62e3",
             "hackoladeStyles": {
                 "GUID": "892a9f5c-c764-4484-8978-dfb3d51993ee",
-                "autoPositioning": false,
+                "autoPositioning": true,
                 "type": "Orthogonal",
                 "thickness": 2,
                 "color": "#79c4ff",
                 "dataType": "",
                 "shape": [
                     {
-                        "x": 1685.7260828625228,
-                        "y": 2720.4131288673657
+                        "x": 1660.126082862524,
+                        "y": 2175.013128867363
                     },
                     {
-                        "x": 1505.530844767286,
-                        "y": 2720.4131288673657
+                        "x": 1481.9308447672859,
+                        "y": 2175.013128867363
                     },
                     {
-                        "x": 1505.530844767286,
-                        "y": 2650.536938391178
+                        "x": 1481.9308447672859,
+                        "y": 2126.5369383911802
                     },
                     {
-                        "x": 1281.3356066720485,
-                        "y": 2650.536938391178
+                        "x": 1303.7356066720477,
+                        "y": 2126.5369383911802
                     }
                 ],
                 "sides": [
@@ -1153,16 +1123,16 @@
                 "dataType": "",
                 "shape": [
                     {
-                        "x": 1460.249892386335,
-                        "y": 2773.513128867371
+                        "x": 1429.1356066720482,
+                        "y": 2217.5131288673756
                     },
                     {
-                        "x": 1460.249892386335,
-                        "y": 2732.936938391177
+                        "x": 1429.1356066720482,
+                        "y": 2159.636938391187
                     },
                     {
-                        "x": 1281.3356066720485,
-                        "y": 2732.936938391177
+                        "x": 1303.7356066720477,
+                        "y": 2159.636938391187
                     }
                 ],
                 "sides": [
@@ -1203,25 +1173,25 @@
                 "dataType": "",
                 "shape": [
                     {
-                        "x": 1663.8000000000004,
-                        "y": 3110.5
+                        "x": 1290.400000000001,
+                        "y": 2430.4999999999936
                     },
                     {
-                        "x": 1636.0820890503096,
-                        "y": 3110.5
+                        "x": 1323.1820890503093,
+                        "y": 2430.4999999999936
                     },
                     {
-                        "x": 1636.0820890503096,
-                        "y": 2925.013128867371
+                        "x": 1323.1820890503093,
+                        "y": 2369.0131288673756
                     },
                     {
-                        "x": 1608.3641781006186,
-                        "y": 2925.013128867371
+                        "x": 1355.9641781006176,
+                        "y": 2369.0131288673756
                     }
                 ],
                 "sides": [
-                    "left",
-                    "right"
+                    "right",
+                    "left"
                 ]
             }
         },
@@ -1259,12 +1229,12 @@
                 "dataType": "",
                 "shape": [
                     {
-                        "x": 1346.8498923863292,
-                        "y": 2562.503605057845
+                        "x": 1368.449892386328,
+                        "y": 2012.9036050578488
                     },
                     {
-                        "x": 1281.3356066720485,
-                        "y": 2562.503605057845
+                        "x": 1303.7356066720477,
+                        "y": 2012.9036050578488
                     }
                 ],
                 "sides": [
@@ -1299,32 +1269,32 @@
             "childCollection": "dd5dd7d7-45db-4cae-ac7f-7ac81abd62e3",
             "hackoladeStyles": {
                 "GUID": "f19a0c17-83b5-450c-8a4a-d8dce394b42d",
-                "autoPositioning": false,
+                "autoPositioning": true,
                 "type": "Orthogonal",
                 "thickness": 2,
                 "color": "#79c4ff",
                 "dataType": "",
                 "shape": [
                     {
-                        "x": 1685.7260828625228,
-                        "y": 2593.2131288673677
+                        "x": 1834.626082862524,
+                        "y": 1924.513128867363
                     },
                     {
-                        "x": 1640.2879876244267,
-                        "y": 2593.2131288673677
+                        "x": 1834.626082862524,
+                        "y": 1899.513128867363
                     },
                     {
-                        "x": 1640.2879876244267,
-                        "y": 2494.2607479149874
+                        "x": 1496.449892386328,
+                        "y": 1899.513128867363
                     },
                     {
-                        "x": 1602.8498923863292,
-                        "y": 2494.2607479149874
+                        "x": 1496.449892386328,
+                        "y": 1934.9607479149893
                     }
                 ],
                 "sides": [
-                    "left",
-                    "right"
+                    "top",
+                    "top"
                 ]
             }
         }
@@ -1384,10 +1354,7 @@
         "64831e8a-90ba-4b84-9db8-11a46e027a89": "rol",
         "9858c1c1-dcea-4394-bc3c-141888e53d37": "cantidad",
         "b920312a-c111-4a3d-bdef-88a4595964e6": "talla",
-        "c29f3f5f-76d4-48a1-b5c1-6c340f3e7e42": "talla",
-        "ca660b43-8aab-4492-b81f-01e9765b6a96": "cantidad",
         "4f78f3a0-40ed-4950-a461-f06c579c7f59": "color",
-        "397c334f-74fa-48fb-97b7-07be8949eddd": "colorDisponible",
         "f2823e2c-7a2a-4e9c-8ae5-7e179237df39": "comentarios",
         "f1365795-85ad-4dab-ad1a-256b1dfc987e": "idUsuario",
         "f287cd7c-32fa-4042-a847-1508d2e9c3be": "texto",
@@ -1405,20 +1372,17 @@
         "f485651e-f070-4867-9c70-b822c4a4597b": "fk promociones.promociones.[0].IdProducto to producto._id",
         "a24bdf02-908c-4f9a-8d46-5c8c50451cab": "fk departamento.ciudades.[0].codigoPostal to usuario.direcciones.[0].codigoPostalCiudad",
         "270fc8c0-9dd3-4f85-892c-29affe214361": "nombreUsuario",
-        "a78c6af5-c400-4fd0-befc-11da89c6f635": "personalizacion",
-        "d82daa23-9ac2-496a-98d7-e0731398ef62": "imagenPersonalizada",
-        "a29218f6-e7af-4a0e-b574-4e55db5758a5": "colorPersonalizado",
-        "19712263-7885-4e9f-a326-adcb29116d4b": "idProducto",
-        "e04aa520-c17b-4f33-9c1f-638f1c3676f8": "detalles",
         "440048e7-2136-4b0f-b042-19711cb1a6d6": "fechaNacimiento",
         "65d426c0-88b7-4e4c-a85d-9b27f0d2faa7": "imagen",
-        "9939d6ca-5829-4cb2-a762-5391a358bc2e": "idTipo",
-        "7fa14814-5689-4118-9a9a-03d5a5ac17e9": "tipo",
         "d6ffcfc7-63ea-4bba-9b69-38f8a9df6d08": "esPaquete",
         "197c0b40-6577-46fb-b6f9-49e021ec1a7c": "productos",
         "8436da66-1f97-4a0b-adb5-707ee9564095": "idProducto",
         "c62b7379-50f3-4b3c-bb13-b3dbc0ef7e34": "cantidad",
-        "32760923-fa7c-4eb9-8e5c-74344703abdb": "fk compra.destinatario.codigoPostalCiudad to departamento.ciudades.[0].codigoPostal"
+        "32760923-fa7c-4eb9-8e5c-74344703abdb": "fk compra.destinatario.codigoPostalCiudad to departamento.ciudades.[0].codigoPostal",
+        "397c334f-74fa-48fb-97b7-07be8949eddd": "color",
+        "1a261db3-3bc0-411d-916a-4246b86a5a47": "detalles",
+        "d7148dab-7dbf-4c6c-baad-7efd578aeb03": "imagenPersonalizacion",
+        "7be8d877-21d3-4788-95fc-bfc60ff8c92c": "idProducto"
     },
     "definitions": {
         "type": "definitions",
@@ -1500,7 +1464,7 @@
     "creationTS": "2024-04-29T14:07:30.405Z",
     "GUID": "a083a9da-419d-49ea-bc2a-e633e6956570",
     "isLineageEnabled": false,
-    "lastModifTS": "2024-05-18T16:34:04.251Z",
+    "lastModifTS": "2024-05-18T23:51:58.273Z",
     "persistenceSchemaVersion": "7",
     "isCreatedByPlugin": true,
     "pluginInformation": {
@@ -1520,40 +1484,40 @@
                 "erd": [
                     {
                         "GUID": "375e7bf2-cd92-4622-91b1-9856a4c82e97",
-                        "x": 1020.3356066720486,
-                        "y": 2485.636938391179,
+                        "x": 1042.7356066720477,
+                        "y": 1968.0369383911805,
                         "width": 261,
                         "height": 317,
                         "color": {}
                     },
                     {
                         "GUID": "af49f7e9-1c16-4201-9c2f-33a7171d3cd3",
-                        "x": 1346.8498923863292,
-                        "y": 2423.7607479149874,
+                        "x": 1368.449892386328,
+                        "y": 1934.9607479149893,
                         "width": 256,
                         "height": 141,
                         "color": {}
                     },
                     {
                         "GUID": "ea334da3-2008-4f4c-a0ca-d6b61bf167f9",
-                        "x": 1338.3641781006186,
-                        "y": 2773.513128867371,
+                        "x": 1355.9641781006176,
+                        "y": 2217.5131288673756,
                         "width": 270,
                         "height": 303,
                         "color": {}
                     },
                     {
                         "GUID": "dd5dd7d7-45db-4cae-ac7f-7ac81abd62e3",
-                        "x": 1685.7260828625228,
-                        "y": 2421.313128867368,
-                        "width": 315,
-                        "height": 555,
+                        "x": 1660.126082862524,
+                        "y": 1924.513128867363,
+                        "width": 349,
+                        "height": 501,
                         "color": {}
                     },
                     {
                         "GUID": "832787c8-51cc-4cf3-a02e-24fb2cc2dc24",
-                        "x": 1663.8000000000004,
-                        "y": 3022,
+                        "x": 1037.400000000001,
+                        "y": 2341.9999999999936,
                         "width": 253,
                         "height": 177,
                         "color": {}
@@ -1567,8 +1531,8 @@
                 },
                 "buckets": [
                     {
-                        "x": 681.6689400053816,
-                        "y": 2200.8369383911772,
+                        "x": 764.0689400053803,
+                        "y": 1743.17027172451,
                         "GUID": "6d26242f-c007-4371-b96d-da3a0d723b4f"
                     }
                 ],
@@ -1595,8 +1559,8 @@
                 "decorativeSymbols": [
                     {
                         "GUID": "0b97b419-7759-4b18-b524-29cb421591c6",
-                        "x": 721.6689400053816,
-                        "y": 2505.8369383911772,
+                        "x": 804.0689400053803,
+                        "y": 2031.4369383911755,
                         "height": 105,
                         "width": 204,
                         "color": {
@@ -1625,8 +1589,8 @@
                     },
                     {
                         "GUID": "48c2584e-785e-43e3-b39e-ae99241cd476",
-                        "x": 940.8689400053805,
-                        "y": 2290.8369383911772,
+                        "x": 970.4689400053795,
+                        "y": 1834.0369383911777,
                         "height": 81,
                         "width": 187,
                         "color": {
@@ -1655,8 +1619,8 @@
                     },
                     {
                         "GUID": "6cf9cd6b-7016-435d-86aa-d8b27f430f1a",
-                        "x": 1724.002273338712,
-                        "y": 2272.7702717245093,
+                        "x": 1728.8022733387097,
+                        "y": 1783.17027172451,
                         "height": 93,
                         "width": 245,
                         "color": {
@@ -1685,8 +1649,8 @@
                     },
                     {
                         "GUID": "7da2e577-4cff-43e5-b976-781eebd84c13",
-                        "x": 1263.668940005383,
-                        "y": 2240.8369383911772,
+                        "x": 1263.6689400053829,
+                        "y": 1798.4369383911792,
                         "height": 104,
                         "width": 150,
                         "color": {
@@ -1715,8 +1679,8 @@
                     },
                     {
                         "GUID": "35a28dd9-53b7-4a62-a9fe-7c18d1ebde38",
-                        "x": 1368.2022733387164,
-                        "y": 3105.1702717245093,
+                        "x": 1413.8022733387147,
+                        "y": 2563.5702717245085,
                         "height": 95,
                         "width": 169,
                         "color": {
@@ -1745,8 +1709,8 @@
                     },
                     {
                         "GUID": "c21137a7-9882-41d1-804d-ac46c494c4d6",
-                        "x": 886.0689400053831,
-                        "y": 2845.2369383911796,
+                        "x": 839.6689400053814,
+                        "y": 2252.436938391179,
                         "height": 102,
                         "width": 150,
                         "color": {
@@ -1775,8 +1739,8 @@
                     },
                     {
                         "GUID": "738cba03-3f7b-4fdb-8650-86113f6d4156",
-                        "x": 1111.802273338716,
-                        "y": 2959.970271724508,
+                        "x": 1079.0022733387145,
+                        "y": 2553.570271724506,
                         "height": 104,
                         "width": 198,
                         "color": {
