@@ -1,0 +1,1843 @@
+{
+    "modelName": "Mondongo",
+    "collections": [
+        {
+            "collectionName": "usuario",
+            "type": "object",
+            "properties": [
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "objectId",
+                    "GUID": "95c12ef3-f6f7-4760-a6f2-f19fce4a6f34",
+                    "name": "_id",
+                    "primaryKey": true,
+                    "error": {},
+                    "childRelationships": [
+                        "3a25bfcb-132f-454b-82f4-a61404be1793",
+                        "8aab63d3-b92d-49fb-a8c1-337c2e387c1f",
+                        "9458c701-a645-4fdf-bb7e-c3fa4a255229"
+                    ]
+                },
+                {
+                    "name": "nombre",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "34830c90-d902-4f48-89ba-64a6d14b3ceb",
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "name": "email",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "b82c3c88-58d7-400b-82df-1f34b394350a",
+                    "required": true,
+                    "format": "email",
+                    "error": {}
+                },
+                {
+                    "name": "telefono",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "numeric",
+                    "GUID": "9b63dec2-f2b6-4a15-bcda-36ef620aa0bb",
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "name": "fechaNacimiento",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "date",
+                    "primaryKey": false,
+                    "GUID": "440048e7-2136-4b0f-b042-19711cb1a6d6",
+                    "error": {}
+                },
+                {
+                    "name": "edad",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "numeric",
+                    "GUID": "972496f5-0a93-4496-b88d-83a101123ad9",
+                    "required": true,
+                    "minimum": 18,
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "875229b5-15e8-4a6a-a5e3-abd02b22a973",
+                    "name": "genero",
+                    "enum": [
+                        "Hombre",
+                        "Mujer"
+                    ],
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "name": "direcciones",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "array",
+                    "properties": [
+                        {
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "document",
+                            "properties": [
+                                {
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "numeric",
+                                    "GUID": "458df50b-2429-4bb2-accb-4c6c687ec467",
+                                    "mode": "integer64",
+                                    "name": "codigoPostalCiudad",
+                                    "childRelationships": [
+                                        "a24bdf02-908c-4f9a-8d46-5c8c50451cab"
+                                    ],
+                                    "required": true,
+                                    "error": {}
+                                },
+                                {
+                                    "name": "direccion",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "string",
+                                    "GUID": "638cca37-7409-48ca-9e7b-66ec9b49c427",
+                                    "required": true,
+                                    "error": {}
+                                },
+                                {
+                                    "name": "detalles",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "string",
+                                    "GUID": "6e5bec10-15e1-4fd1-a6da-05e6febaaa45",
+                                    "error": {}
+                                }
+                            ],
+                            "additionalProperties": false,
+                            "error": {},
+                            "GUID": "f5e3a612-9235-4f68-972d-49290f8498e3",
+                            "arrayItem": true
+                        }
+                    ],
+                    "additionalItems": true,
+                    "error": {},
+                    "primaryKey": false,
+                    "GUID": "f8983457-5d8f-4452-be57-5466e519030a"
+                },
+                {
+                    "name": "roles",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "array",
+                    "properties": [
+                        {
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "document",
+                            "properties": [
+                                {
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "string",
+                                    "GUID": "270fc8c0-9dd3-4f85-892c-29affe214361",
+                                    "name": "nombreUsuario",
+                                    "required": true,
+                                    "error": {}
+                                },
+                                {
+                                    "name": "rol",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "string",
+                                    "GUID": "64831e8a-90ba-4b84-9db8-11a46e027a89",
+                                    "enum": [
+                                        "Cliente",
+                                        "Admin"
+                                    ],
+                                    "required": true,
+                                    "error": {}
+                                },
+                                {
+                                    "name": "clave",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "string",
+                                    "GUID": "4f46df8c-d939-4c98-b1d0-08aa08dc991c",
+                                    "required": true,
+                                    "error": {}
+                                }
+                            ],
+                            "additionalProperties": false,
+                            "error": {},
+                            "GUID": "fdec7f0c-819c-4c7c-a2f7-83054438e0f2",
+                            "arrayItem": true
+                        }
+                    ],
+                    "additionalItems": true,
+                    "error": {},
+                    "GUID": "b96349b6-df22-464f-88f9-8d391d1e3b61"
+                }
+            ],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "7fdd6f4c-0328-4df6-ba47-63e2a80b4432"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "validationLevel": "Moderate",
+            "validationAction": "Warn",
+            "storageEngineName": "WiredTiger",
+            "collectionUsers": [],
+            "indexes": [],
+            "collation": {},
+            "sharding": {
+                "unique": true,
+                "collation": "null"
+            },
+            "GUID": "375e7bf2-cd92-4622-91b1-9856a4c82e97",
+            "bucketId": "6d26242f-c007-4371-b96d-da3a0d723b4f"
+        },
+        {
+            "collectionName": "departamento",
+            "type": "object",
+            "properties": [
+                {
+                    "name": "_id",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "objectId",
+                    "GUID": "c20ca4ef-2732-4a50-955d-de4f9662732c",
+                    "primaryKey": true,
+                    "required": false,
+                    "error": {}
+                },
+                {
+                    "name": "nombre",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "16355489-c8cc-45dd-b74e-d1b70f026339",
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "name": "ciudades",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "array",
+                    "properties": [
+                        {
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "document",
+                            "properties": [
+                                {
+                                    "type": "string",
+                                    "name": "nombre",
+                                    "isActivated": true,
+                                    "GUID": "a14ca161-b144-4f68-a0a7-fe91cc5df26a",
+                                    "required": true,
+                                    "error": {}
+                                },
+                                {
+                                    "name": "codigoPostal",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "numeric",
+                                    "GUID": "590acc7c-5ffe-4af1-bd4e-6cc776c02481",
+                                    "foreignCollection": "375e7bf2-cd92-4622-91b1-9856a4c82e97",
+                                    "foreignField": [
+                                        "375e7bf2-cd92-4622-91b1-9856a4c82e97",
+                                        "f8983457-5d8f-4452-be57-5466e519030a",
+                                        "f5e3a612-9235-4f68-972d-49290f8498e3",
+                                        "458df50b-2429-4bb2-accb-4c6c687ec467"
+                                    ],
+                                    "relationshipType": "Foreign Key",
+                                    "parentRelationship": "a24bdf02-908c-4f9a-8d46-5c8c50451cab",
+                                    "required": true,
+                                    "error": {},
+                                    "childRelationships": [
+                                        "32760923-fa7c-4eb9-8e5c-74344703abdb"
+                                    ]
+                                }
+                            ],
+                            "additionalProperties": false,
+                            "GUID": "8144f5cb-93ca-44ba-a364-7857e1e415fa",
+                            "arrayItem": true,
+                            "error": {}
+                        }
+                    ],
+                    "additionalItems": true,
+                    "GUID": "ae145adb-3b90-41f8-a187-91c1ec4646ad",
+                    "error": {}
+                }
+            ],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "b0fc4182-9e31-452e-bb5c-faeceec0e3f7"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "validationLevel": "Moderate",
+            "validationAction": "Warn",
+            "storageEngineName": "WiredTiger",
+            "collectionUsers": [],
+            "indexes": [],
+            "collation": {},
+            "sharding": {
+                "unique": true,
+                "collation": "null"
+            },
+            "GUID": "af49f7e9-1c16-4201-9c2f-33a7171d3cd3",
+            "bucketId": "6d26242f-c007-4371-b96d-da3a0d723b4f"
+        },
+        {
+            "collectionName": "producto",
+            "type": "object",
+            "properties": [
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "objectId",
+                    "GUID": "23d40cc7-650b-44e1-91d7-7e8475b7db13",
+                    "name": "_id",
+                    "primaryKey": true,
+                    "error": {},
+                    "childRelationships": [
+                        "98bd19d0-7400-4852-b0b6-f8983b90d8ca",
+                        "f485651e-f070-4867-9c70-b822c4a4597b"
+                    ]
+                },
+                {
+                    "name": "nombre",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "5257c229-54c2-4ae1-8d9f-d9e220ed82b3",
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "690690b1-1b0c-4436-8235-e7eed5e9f99c",
+                    "name": "categoria",
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "cac76f71-410c-4214-a81c-5de0cfc13e55",
+                    "name": "descripcion",
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "e8e4e235-971c-4cb7-ac1c-c3ff526565c4",
+                    "name": "genero",
+                    "enum": [
+                        "Hombre",
+                        "Mujer",
+                        "Unisex"
+                    ],
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "name": "imagenes",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "array",
+                    "properties": [
+                        {
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "document",
+                            "properties": [
+                                {
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "string",
+                                    "GUID": "65d426c0-88b7-4e4c-a85d-9b27f0d2faa7",
+                                    "name": "imagen",
+                                    "error": {}
+                                }
+                            ],
+                            "additionalProperties": false,
+                            "error": {},
+                            "GUID": "04f8e344-5861-4659-a052-dca40ddf748e",
+                            "arrayItem": true
+                        }
+                    ],
+                    "additionalItems": true,
+                    "GUID": "61a21637-4918-469e-a8ff-5dfccf438bdf",
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "numeric",
+                    "GUID": "077c1313-2e88-4c96-9567-423df9e47fb8",
+                    "name": "precio",
+                    "mode": "decimal128",
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "name": "esPaquete",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "boolean",
+                    "GUID": "d6ffcfc7-63ea-4bba-9b69-38f8a9df6d08",
+                    "default": "false",
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "array",
+                    "properties": [
+                        {
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "document",
+                            "properties": [
+                                {
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "objectId",
+                                    "GUID": "8436da66-1f97-4a0b-adb5-707ee9564095",
+                                    "name": "idProducto",
+                                    "error": {}
+                                },
+                                {
+                                    "name": "cantidad",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "numeric",
+                                    "GUID": "c62b7379-50f3-4b3c-bb13-b3dbc0ef7e34",
+                                    "mode": "integer64",
+                                    "error": {}
+                                }
+                            ],
+                            "additionalProperties": false,
+                            "error": {},
+                            "GUID": "01c44706-bee4-4d48-89ce-f9d4c9f4d25b",
+                            "arrayItem": true
+                        }
+                    ],
+                    "additionalItems": true,
+                    "GUID": "197c0b40-6577-46fb-b6f9-49e021ec1a7c",
+                    "name": "productos",
+                    "error": {}
+                },
+                {
+                    "name": "stock",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "array",
+                    "properties": [
+                        {
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "document",
+                            "properties": [
+                                {
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "string",
+                                    "GUID": "b920312a-c111-4a3d-bdef-88a4595964e6",
+                                    "name": "talla",
+                                    "enum": [
+                                        "M",
+                                        "S",
+                                        "L",
+                                        "XL"
+                                    ],
+                                    "required": true,
+                                    "error": {}
+                                },
+                                {
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "string",
+                                    "GUID": "4f78f3a0-40ed-4950-a461-f06c579c7f59",
+                                    "name": "color",
+                                    "required": true,
+                                    "error": {}
+                                },
+                                {
+                                    "name": "cantidad",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "numeric",
+                                    "GUID": "9858c1c1-dcea-4394-bc3c-141888e53d37",
+                                    "mode": "integer32",
+                                    "required": true,
+                                    "error": {}
+                                }
+                            ],
+                            "additionalProperties": false,
+                            "error": {},
+                            "GUID": "8746780d-a816-4078-8c2b-827d72941d3d",
+                            "arrayItem": true
+                        }
+                    ],
+                    "additionalItems": true,
+                    "GUID": "d091046a-1b52-4647-aa58-91b74c405c33",
+                    "error": {}
+                },
+                {
+                    "name": "comentarios",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "array",
+                    "properties": [
+                        {
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "document",
+                            "properties": [
+                                {
+                                    "name": "idUsuario",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "objectId",
+                                    "GUID": "f1365795-85ad-4dab-ad1a-256b1dfc987e",
+                                    "foreignCollection": "375e7bf2-cd92-4622-91b1-9856a4c82e97",
+                                    "foreignField": [
+                                        "375e7bf2-cd92-4622-91b1-9856a4c82e97",
+                                        "95c12ef3-f6f7-4760-a6f2-f19fce4a6f34"
+                                    ],
+                                    "relationshipType": "Foreign Key",
+                                    "parentRelationship": "9458c701-a645-4fdf-bb7e-c3fa4a255229",
+                                    "error": {}
+                                },
+                                {
+                                    "name": "texto",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "string",
+                                    "GUID": "f287cd7c-32fa-4042-a847-1508d2e9c3be",
+                                    "error": {}
+                                },
+                                {
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "date",
+                                    "primaryKey": false,
+                                    "GUID": "04b0db6e-d186-49ae-a58e-2dbf77d2fc49",
+                                    "now": true,
+                                    "name": "fecha",
+                                    "error": {}
+                                }
+                            ],
+                            "additionalProperties": false,
+                            "error": {},
+                            "GUID": "d413d418-7263-49a7-ae79-5afdbe574d78",
+                            "arrayItem": true
+                        }
+                    ],
+                    "additionalItems": true,
+                    "GUID": "f2823e2c-7a2a-4e9c-8ae5-7e179237df39",
+                    "error": {}
+                }
+            ],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "f99c3871-4ada-4d5a-855d-05fca019a9b0"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "validationLevel": "Moderate",
+            "validationAction": "Warn",
+            "storageEngineName": "WiredTiger",
+            "collectionUsers": [],
+            "indexes": [],
+            "collation": {},
+            "sharding": {
+                "unique": true,
+                "collation": "null"
+            },
+            "GUID": "ea334da3-2008-4f4c-a0ca-d6b61bf167f9",
+            "bucketId": "6d26242f-c007-4371-b96d-da3a0d723b4f"
+        },
+        {
+            "collectionName": "compra",
+            "type": "object",
+            "properties": [
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "objectId",
+                    "GUID": "c1560569-1f15-43fb-9f97-e9735b04654e",
+                    "name": "_id",
+                    "primaryKey": true,
+                    "childRelationships": [],
+                    "required": false,
+                    "error": {}
+                },
+                {
+                    "name": "idUsuario",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "objectId",
+                    "GUID": "ccd204cf-733a-4760-8774-572227321f20",
+                    "foreignCollection": "375e7bf2-cd92-4622-91b1-9856a4c82e97",
+                    "foreignField": [
+                        "375e7bf2-cd92-4622-91b1-9856a4c82e97",
+                        "95c12ef3-f6f7-4760-a6f2-f19fce4a6f34"
+                    ],
+                    "relationshipType": "Foreign Key",
+                    "parentRelationship": "3a25bfcb-132f-454b-82f4-a61404be1793",
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "array",
+                    "properties": [
+                        {
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "document",
+                            "properties": [
+                                {
+                                    "name": "tipo",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "string",
+                                    "error": {
+                                        "enum": false,
+                                        "enums": [
+                                            false,
+                                            false
+                                        ]
+                                    },
+                                    "required": true,
+                                    "GUID": "7fa14814-5689-4118-9a9a-03d5a5ac17e9",
+                                    "enum": [
+                                        "Producto",
+                                        "Paquete"
+                                    ]
+                                },
+                                {
+                                    "name": "idTipo",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "objectId",
+                                    "required": true,
+                                    "GUID": "9939d6ca-5829-4cb2-a762-5391a358bc2e",
+                                    "error": {}
+                                },
+                                {
+                                    "name": "cantidad",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "numeric",
+                                    "GUID": "ca660b43-8aab-4492-b81f-01e9765b6a96",
+                                    "mode": "integer64",
+                                    "required": true,
+                                    "error": {}
+                                },
+                                {
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "string",
+                                    "GUID": "c29f3f5f-76d4-48a1-b5c1-6c340f3e7e42",
+                                    "name": "talla",
+                                    "enum": [
+                                        "M",
+                                        "S",
+                                        "L",
+                                        "XL"
+                                    ],
+                                    "foreignCollection": "",
+                                    "foreignField": [],
+                                    "required": false,
+                                    "error": {}
+                                },
+                                {
+                                    "name": "colorDisponible",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "string",
+                                    "GUID": "397c334f-74fa-48fb-97b7-07be8949eddd",
+                                    "required": false,
+                                    "error": {}
+                                }
+                            ],
+                            "additionalProperties": false,
+                            "error": {},
+                            "GUID": "51892c7c-805b-442a-ba1d-7470710104af",
+                            "arrayItem": true
+                        }
+                    ],
+                    "additionalItems": true,
+                    "GUID": "1531f4c6-2183-459d-88a8-79d8e81039c2",
+                    "name": "detallesCompra",
+                    "error": {}
+                },
+                {
+                    "name": "personalizacion",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "array",
+                    "properties": [
+                        {
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "document",
+                            "properties": [
+                                {
+                                    "name": "idProducto",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "objectId",
+                                    "GUID": "19712263-7885-4e9f-a326-adcb29116d4b",
+                                    "error": {}
+                                },
+                                {
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "string",
+                                    "GUID": "d82daa23-9ac2-496a-98d7-e0731398ef62",
+                                    "name": "imagenPersonalizada",
+                                    "error": {}
+                                },
+                                {
+                                    "name": "colorPersonalizado",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "string",
+                                    "GUID": "a29218f6-e7af-4a0e-b574-4e55db5758a5",
+                                    "error": {}
+                                },
+                                {
+                                    "name": "detalles",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "string",
+                                    "GUID": "e04aa520-c17b-4f33-9c1f-638f1c3676f8",
+                                    "error": {}
+                                }
+                            ],
+                            "additionalProperties": false,
+                            "error": {},
+                            "GUID": "1660bde3-2b64-4711-9f51-d4ad70acfd69",
+                            "arrayItem": true
+                        }
+                    ],
+                    "additionalItems": true,
+                    "GUID": "a78c6af5-c400-4fd0-befc-11da89c6f635",
+                    "error": {
+                        "name": false,
+                        "code": false
+                    },
+                    "foreignCollection": "",
+                    "foreignField": []
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "document",
+                    "properties": [
+                        {
+                            "name": "tipo",
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "string",
+                            "GUID": "8d984321-9754-4c8d-88cf-8a44ae3f1a15",
+                            "enum": [
+                                "Visa",
+                                "Mastercard",
+                                "Maestro"
+                            ],
+                            "required": true,
+                            "error": {}
+                        },
+                        {
+                            "name": "numero",
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "numeric",
+                            "GUID": "7fb2a0c9-b6fc-469c-ae8a-93ca276a8d96",
+                            "mode": "integer64",
+                            "required": true,
+                            "error": {}
+                        },
+                        {
+                            "name": "fechaVencimiento",
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "date",
+                            "primaryKey": false,
+                            "GUID": "22e8f77c-ab67-4b57-ae69-c1cd7653b581",
+                            "required": true,
+                            "error": {}
+                        }
+                    ],
+                    "additionalProperties": false,
+                    "GUID": "257a3ec4-3639-49bb-b188-8ed56e4b5371",
+                    "name": "tarjeta",
+                    "error": {}
+                },
+                {
+                    "name": "estado",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "error": {
+                        "enum": false,
+                        "enums": [
+                            false,
+                            false,
+                            false,
+                            false,
+                            false
+                        ]
+                    },
+                    "GUID": "101f34a6-3240-4f54-89f8-cb493ecd8273",
+                    "enum": [
+                        "Pendiente",
+                        "Completado",
+                        "Enviado",
+                        "Cancelado",
+                        "Entregado"
+                    ]
+                },
+                {
+                    "name": "descripcion",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "71e9c20b-c240-4cff-abde-a41cb80beb40",
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "date",
+                    "primaryKey": false,
+                    "GUID": "f19878f4-abf1-4508-b578-abc50574bd7b",
+                    "name": "fechaCompra",
+                    "now": true,
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "document",
+                    "properties": [
+                        {
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "string",
+                            "GUID": "84ff4567-b3b1-4ece-8b2b-26baf124c312",
+                            "name": "nombre",
+                            "required": true,
+                            "error": {}
+                        },
+                        {
+                            "name": "apellido",
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "string",
+                            "GUID": "fcc7508f-96ed-4b9a-8e1a-7dd82a7ddd59",
+                            "required": true,
+                            "error": {}
+                        },
+                        {
+                            "name": "codigoPostalCiudad",
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "numeric",
+                            "required": true,
+                            "GUID": "d0bd69fa-e5a1-481a-b205-074233782237",
+                            "foreignCollection": "af49f7e9-1c16-4201-9c2f-33a7171d3cd3",
+                            "foreignField": [
+                                "af49f7e9-1c16-4201-9c2f-33a7171d3cd3",
+                                "ae145adb-3b90-41f8-a187-91c1ec4646ad",
+                                "8144f5cb-93ca-44ba-a364-7857e1e415fa",
+                                "590acc7c-5ffe-4af1-bd4e-6cc776c02481"
+                            ],
+                            "relationshipType": "Foreign Key",
+                            "parentRelationship": "32760923-fa7c-4eb9-8e5c-74344703abdb",
+                            "error": {}
+                        },
+                        {
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "string",
+                            "GUID": "25789f63-3245-4021-bd76-3b2b8479b0e4",
+                            "name": "direccion",
+                            "required": true,
+                            "error": {}
+                        },
+                        {
+                            "name": "detallesDireccion",
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "string",
+                            "GUID": "2b29bf58-c4e7-42dd-a15a-fbeb1522928c",
+                            "error": {}
+                        },
+                        {
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "numeric",
+                            "GUID": "2fdb9c1b-98da-47cd-9449-40ae69660629",
+                            "name": "telefono",
+                            "required": true,
+                            "error": {}
+                        }
+                    ],
+                    "additionalProperties": false,
+                    "GUID": "8cc91053-af84-4a0e-b98c-6fc26552ca48",
+                    "name": "destinatario",
+                    "error": {}
+                }
+            ],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "690542db-346d-4ac3-9024-2042a183552c"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "validationLevel": "Moderate",
+            "validationAction": "Warn",
+            "storageEngineName": "WiredTiger",
+            "collectionUsers": [],
+            "indexes": [],
+            "collation": {},
+            "sharding": {
+                "unique": true,
+                "collation": "null"
+            },
+            "GUID": "dd5dd7d7-45db-4cae-ac7f-7ac81abd62e3",
+            "bucketId": "6d26242f-c007-4371-b96d-da3a0d723b4f",
+            "error": {}
+        },
+        {
+            "collectionName": "promociones",
+            "type": "object",
+            "properties": [
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "objectId",
+                    "GUID": "3486d189-6c77-4f0f-9cb8-8d44b31b6a6a",
+                    "name": "_id",
+                    "error": {}
+                },
+                {
+                    "name": "promociones",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "array",
+                    "properties": [
+                        {
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "document",
+                            "properties": [
+                                {
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "string",
+                                    "GUID": "059da9e0-83cc-4629-98bd-735893cce852",
+                                    "name": "nombre",
+                                    "error": {}
+                                },
+                                {
+                                    "name": "idProducto",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "objectId",
+                                    "GUID": "a192a45a-bbb7-4bbb-980a-8ae86fa82210",
+                                    "foreignCollection": "ea334da3-2008-4f4c-a0ca-d6b61bf167f9",
+                                    "foreignField": [
+                                        "ea334da3-2008-4f4c-a0ca-d6b61bf167f9",
+                                        "23d40cc7-650b-44e1-91d7-7e8475b7db13"
+                                    ],
+                                    "relationshipType": "Foreign Key",
+                                    "parentRelationship": "f485651e-f070-4867-9c70-b822c4a4597b",
+                                    "required": false,
+                                    "error": {}
+                                },
+                                {
+                                    "name": "descuento",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "numeric",
+                                    "GUID": "def1ab89-39bc-446e-ab88-08ddea57900e",
+                                    "required": true,
+                                    "error": {}
+                                },
+                                {
+                                    "name": "fechaInicio",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "date",
+                                    "primaryKey": false,
+                                    "GUID": "fb84d704-0387-468f-a9b8-809d58b71ac3",
+                                    "required": true,
+                                    "error": {}
+                                },
+                                {
+                                    "name": "fechaFin",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "date",
+                                    "primaryKey": false,
+                                    "GUID": "33726b2a-4289-4fb3-9f26-cb7e4c548fd7",
+                                    "error": {}
+                                }
+                            ],
+                            "additionalProperties": false,
+                            "error": {},
+                            "GUID": "5c8a688c-3242-48e8-8194-5c22581e63fc",
+                            "arrayItem": true
+                        }
+                    ],
+                    "additionalItems": true,
+                    "GUID": "feb12b65-87e0-4dac-a26d-7f101ee8fd9b",
+                    "error": {}
+                }
+            ],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "86f8d11b-24ad-4c67-8bfb-8a881bd620cc"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "validationLevel": "Moderate",
+            "validationAction": "Warn",
+            "storageEngineName": "WiredTiger",
+            "collectionUsers": [],
+            "indexes": [],
+            "collation": {},
+            "sharding": {
+                "unique": true,
+                "collation": "null"
+            },
+            "GUID": "832787c8-51cc-4cf3-a02e-24fb2cc2dc24",
+            "bucketId": "6d26242f-c007-4371-b96d-da3a0d723b4f"
+        }
+    ],
+    "buckets": [
+        {
+            "name": "ProyectoMongo",
+            "type": "bucket",
+            "collectionIds": [
+                "375e7bf2-cd92-4622-91b1-9856a4c82e97",
+                "af49f7e9-1c16-4201-9c2f-33a7171d3cd3",
+                "ea334da3-2008-4f4c-a0ca-d6b61bf167f9",
+                "dd5dd7d7-45db-4cae-ac7f-7ac81abd62e3",
+                "832787c8-51cc-4cf3-a02e-24fb2cc2dc24"
+            ],
+            "backgroundColor": {
+                "r": 216,
+                "g": 0,
+                "b": 115,
+                "a": 1
+            },
+            "show": true,
+            "isActivated": true,
+            "GUID": "6d26242f-c007-4371-b96d-da3a0d723b4f"
+        }
+    ],
+    "views": [],
+    "relationships": [
+        {
+            "name": "fk compra.IdUsuario to usuario._id",
+            "relationshipType": "Foreign Key",
+            "parentField": [
+                [
+                    "375e7bf2-cd92-4622-91b1-9856a4c82e97",
+                    "95c12ef3-f6f7-4760-a6f2-f19fce4a6f34"
+                ]
+            ],
+            "parentCardinality": "1",
+            "childField": [
+                [
+                    "dd5dd7d7-45db-4cae-ac7f-7ac81abd62e3",
+                    "ccd204cf-733a-4760-8774-572227321f20"
+                ]
+            ],
+            "isActivated": true,
+            "childCardinality": "0..n",
+            "GUID": "3a25bfcb-132f-454b-82f4-a61404be1793",
+            "parentCollection": "375e7bf2-cd92-4622-91b1-9856a4c82e97",
+            "childCollection": "dd5dd7d7-45db-4cae-ac7f-7ac81abd62e3",
+            "hackoladeStyles": {
+                "GUID": "892a9f5c-c764-4484-8978-dfb3d51993ee",
+                "autoPositioning": false,
+                "type": "Orthogonal",
+                "thickness": 2,
+                "color": "#79c4ff",
+                "dataType": "",
+                "shape": [
+                    {
+                        "x": 1685.7260828625228,
+                        "y": 2720.4131288673657
+                    },
+                    {
+                        "x": 1505.530844767286,
+                        "y": 2720.4131288673657
+                    },
+                    {
+                        "x": 1505.530844767286,
+                        "y": 2650.536938391178
+                    },
+                    {
+                        "x": 1281.3356066720485,
+                        "y": 2650.536938391178
+                    }
+                ],
+                "sides": [
+                    "left",
+                    "right"
+                ]
+            }
+        },
+        {
+            "name": "fk producto.comentarios.[0].idUsuario to usuario._id",
+            "relationshipType": "Foreign Key",
+            "parentField": [
+                [
+                    "375e7bf2-cd92-4622-91b1-9856a4c82e97",
+                    "95c12ef3-f6f7-4760-a6f2-f19fce4a6f34"
+                ]
+            ],
+            "parentCardinality": "1",
+            "childField": [
+                [
+                    "ea334da3-2008-4f4c-a0ca-d6b61bf167f9",
+                    "f2823e2c-7a2a-4e9c-8ae5-7e179237df39",
+                    "d413d418-7263-49a7-ae79-5afdbe574d78",
+                    "f1365795-85ad-4dab-ad1a-256b1dfc987e"
+                ]
+            ],
+            "isActivated": true,
+            "childCardinality": "1",
+            "GUID": "9458c701-a645-4fdf-bb7e-c3fa4a255229",
+            "parentCollection": "375e7bf2-cd92-4622-91b1-9856a4c82e97",
+            "childCollection": "ea334da3-2008-4f4c-a0ca-d6b61bf167f9",
+            "hackoladeStyles": {
+                "GUID": "43354d93-7c69-44c5-a521-18bb14d4962c",
+                "autoPositioning": false,
+                "type": "Orthogonal",
+                "thickness": 2,
+                "color": "#79c4ff",
+                "dataType": "",
+                "shape": [
+                    {
+                        "x": 1460.249892386335,
+                        "y": 2773.513128867371
+                    },
+                    {
+                        "x": 1460.249892386335,
+                        "y": 2732.936938391177
+                    },
+                    {
+                        "x": 1281.3356066720485,
+                        "y": 2732.936938391177
+                    }
+                ],
+                "sides": [
+                    "top",
+                    "right"
+                ]
+            }
+        },
+        {
+            "name": "fk promociones.promociones.[0].IdProducto to producto._id",
+            "relationshipType": "Foreign Key",
+            "parentField": [
+                [
+                    "ea334da3-2008-4f4c-a0ca-d6b61bf167f9",
+                    "23d40cc7-650b-44e1-91d7-7e8475b7db13"
+                ]
+            ],
+            "parentCardinality": "1..n",
+            "childField": [
+                [
+                    "832787c8-51cc-4cf3-a02e-24fb2cc2dc24",
+                    "feb12b65-87e0-4dac-a26d-7f101ee8fd9b",
+                    "5c8a688c-3242-48e8-8194-5c22581e63fc",
+                    "a192a45a-bbb7-4bbb-980a-8ae86fa82210"
+                ]
+            ],
+            "isActivated": true,
+            "childCardinality": "1",
+            "GUID": "f485651e-f070-4867-9c70-b822c4a4597b",
+            "parentCollection": "ea334da3-2008-4f4c-a0ca-d6b61bf167f9",
+            "childCollection": "832787c8-51cc-4cf3-a02e-24fb2cc2dc24",
+            "hackoladeStyles": {
+                "GUID": "e425a2c6-4a44-43ae-ac88-47100e9a1ff8",
+                "autoPositioning": true,
+                "type": "Orthogonal",
+                "thickness": 2,
+                "color": "#79c4ff",
+                "dataType": "",
+                "shape": [
+                    {
+                        "x": 1663.8000000000004,
+                        "y": 3110.5
+                    },
+                    {
+                        "x": 1636.0820890503096,
+                        "y": 3110.5
+                    },
+                    {
+                        "x": 1636.0820890503096,
+                        "y": 2925.013128867371
+                    },
+                    {
+                        "x": 1608.3641781006186,
+                        "y": 2925.013128867371
+                    }
+                ],
+                "sides": [
+                    "left",
+                    "right"
+                ]
+            }
+        },
+        {
+            "name": "fk departamento.ciudades.[0].codigoPostal to usuario.direcciones.[0].codigoPostalCiudad",
+            "relationshipType": "Foreign Key",
+            "parentField": [
+                [
+                    "375e7bf2-cd92-4622-91b1-9856a4c82e97",
+                    "f8983457-5d8f-4452-be57-5466e519030a",
+                    "f5e3a612-9235-4f68-972d-49290f8498e3",
+                    "458df50b-2429-4bb2-accb-4c6c687ec467"
+                ]
+            ],
+            "parentCardinality": "1..n",
+            "childField": [
+                [
+                    "af49f7e9-1c16-4201-9c2f-33a7171d3cd3",
+                    "ae145adb-3b90-41f8-a187-91c1ec4646ad",
+                    "8144f5cb-93ca-44ba-a364-7857e1e415fa",
+                    "590acc7c-5ffe-4af1-bd4e-6cc776c02481"
+                ]
+            ],
+            "isActivated": true,
+            "childCardinality": "1",
+            "GUID": "a24bdf02-908c-4f9a-8d46-5c8c50451cab",
+            "parentCollection": "375e7bf2-cd92-4622-91b1-9856a4c82e97",
+            "childCollection": "af49f7e9-1c16-4201-9c2f-33a7171d3cd3",
+            "hackoladeStyles": {
+                "GUID": "b340ac0c-53eb-4622-9fc2-48d70e598355",
+                "autoPositioning": false,
+                "type": "Orthogonal",
+                "thickness": 2,
+                "color": "#79c4ff",
+                "dataType": "",
+                "shape": [
+                    {
+                        "x": 1346.8498923863292,
+                        "y": 2562.503605057845
+                    },
+                    {
+                        "x": 1281.3356066720485,
+                        "y": 2562.503605057845
+                    }
+                ],
+                "sides": [
+                    "left",
+                    "right"
+                ]
+            }
+        },
+        {
+            "name": "fk compra.destinatario.codigoPostalCiudad to departamento.ciudades.[0].codigoPostal",
+            "relationshipType": "Foreign Key",
+            "parentField": [
+                [
+                    "af49f7e9-1c16-4201-9c2f-33a7171d3cd3",
+                    "ae145adb-3b90-41f8-a187-91c1ec4646ad",
+                    "8144f5cb-93ca-44ba-a364-7857e1e415fa",
+                    "590acc7c-5ffe-4af1-bd4e-6cc776c02481"
+                ]
+            ],
+            "parentCardinality": "1",
+            "childField": [
+                [
+                    "dd5dd7d7-45db-4cae-ac7f-7ac81abd62e3",
+                    "8cc91053-af84-4a0e-b98c-6fc26552ca48",
+                    "d0bd69fa-e5a1-481a-b205-074233782237"
+                ]
+            ],
+            "isActivated": true,
+            "childCardinality": "1..n",
+            "GUID": "32760923-fa7c-4eb9-8e5c-74344703abdb",
+            "parentCollection": "af49f7e9-1c16-4201-9c2f-33a7171d3cd3",
+            "childCollection": "dd5dd7d7-45db-4cae-ac7f-7ac81abd62e3",
+            "hackoladeStyles": {
+                "GUID": "f19a0c17-83b5-450c-8a4a-d8dce394b42d",
+                "autoPositioning": false,
+                "type": "Orthogonal",
+                "thickness": 2,
+                "color": "#79c4ff",
+                "dataType": "",
+                "shape": [
+                    {
+                        "x": 1685.7260828625228,
+                        "y": 2593.2131288673677
+                    },
+                    {
+                        "x": 1640.2879876244267,
+                        "y": 2593.2131288673677
+                    },
+                    {
+                        "x": 1640.2879876244267,
+                        "y": 2494.2607479149874
+                    },
+                    {
+                        "x": 1602.8498923863292,
+                        "y": 2494.2607479149874
+                    }
+                ],
+                "sides": [
+                    "left",
+                    "right"
+                ]
+            }
+        }
+    ],
+    "users": [],
+    "diagramViews": [],
+    "idToNameHashTable": {
+        "6d26242f-c007-4371-b96d-da3a0d723b4f": "ProyectoMongo",
+        "375e7bf2-cd92-4622-91b1-9856a4c82e97": "usuario",
+        "95c12ef3-f6f7-4760-a6f2-f19fce4a6f34": "_id",
+        "34830c90-d902-4f48-89ba-64a6d14b3ceb": "nombre",
+        "b82c3c88-58d7-400b-82df-1f34b394350a": "email",
+        "9b63dec2-f2b6-4a15-bcda-36ef620aa0bb": "telefono",
+        "972496f5-0a93-4496-b88d-83a101123ad9": "edad",
+        "875229b5-15e8-4a6a-a5e3-abd02b22a973": "genero",
+        "af49f7e9-1c16-4201-9c2f-33a7171d3cd3": "departamento",
+        "c20ca4ef-2732-4a50-955d-de4f9662732c": "_id",
+        "16355489-c8cc-45dd-b74e-d1b70f026339": "nombre",
+        "ae145adb-3b90-41f8-a187-91c1ec4646ad": "ciudades",
+        "ea599d2f-ad63-4c4e-b6d3-b418cb535ca9": "ciudades",
+        "f8983457-5d8f-4452-be57-5466e519030a": "direcciones",
+        "a14ca161-b144-4f68-a0a7-fe91cc5df26a": "nombre",
+        "a3d5002c-2f86-4def-b39d-64ca5b878ae8": "rol",
+        "0568eb4e-5bcd-4e3f-8b52-93323b099197": "_id",
+        "2fb0ea1e-bbe1-443c-a78a-f61b55e0b862": "nombre",
+        "b96349b6-df22-464f-88f9-8d391d1e3b61": "roles",
+        "ea334da3-2008-4f4c-a0ca-d6b61bf167f9": "producto",
+        "23d40cc7-650b-44e1-91d7-7e8475b7db13": "_id",
+        "5257c229-54c2-4ae1-8d9f-d9e220ed82b3": "nombre",
+        "cac76f71-410c-4214-a81c-5de0cfc13e55": "descripcion",
+        "61a21637-4918-469e-a8ff-5dfccf438bdf": "imagenes",
+        "690690b1-1b0c-4436-8235-e7eed5e9f99c": "categoria",
+        "e8e4e235-971c-4cb7-ac1c-c3ff526565c4": "genero",
+        "077c1313-2e88-4c96-9567-423df9e47fb8": "precio",
+        "dd5dd7d7-45db-4cae-ac7f-7ac81abd62e3": "compra",
+        "c1560569-1f15-43fb-9f97-e9735b04654e": "_id",
+        "ccd204cf-733a-4760-8774-572227321f20": "idUsuario",
+        "1531f4c6-2183-459d-88a8-79d8e81039c2": "detallesCompra",
+        "101f34a6-3240-4f54-89f8-cb493ecd8273": "estado",
+        "f19878f4-abf1-4508-b578-abc50574bd7b": "fechaCompra",
+        "458df50b-2429-4bb2-accb-4c6c687ec467": "codigoPostalCiudad",
+        "6e5bec10-15e1-4fd1-a6da-05e6febaaa45": "detalles",
+        "3a25bfcb-132f-454b-82f4-a61404be1793": "fk compra.IdUsuario to usuario._id",
+        "590acc7c-5ffe-4af1-bd4e-6cc776c02481": "codigoPostal",
+        "638cca37-7409-48ca-9e7b-66ec9b49c427": "direccion",
+        "8cc91053-af84-4a0e-b98c-6fc26552ca48": "destinatario",
+        "257a3ec4-3639-49bb-b188-8ed56e4b5371": "tarjeta",
+        "84ff4567-b3b1-4ece-8b2b-26baf124c312": "nombre",
+        "fcc7508f-96ed-4b9a-8e1a-7dd82a7ddd59": "apellido",
+        "25789f63-3245-4021-bd76-3b2b8479b0e4": "direccion",
+        "2b29bf58-c4e7-42dd-a15a-fbeb1522928c": "detallesDireccion",
+        "d0bd69fa-e5a1-481a-b205-074233782237": "codigoPostalCiudad",
+        "2fdb9c1b-98da-47cd-9449-40ae69660629": "telefono",
+        "22e8f77c-ab67-4b57-ae69-c1cd7653b581": "fechaVencimiento",
+        "71e9c20b-c240-4cff-abde-a41cb80beb40": "descripcion",
+        "d091046a-1b52-4647-aa58-91b74c405c33": "stock",
+        "64831e8a-90ba-4b84-9db8-11a46e027a89": "rol",
+        "9858c1c1-dcea-4394-bc3c-141888e53d37": "cantidad",
+        "b920312a-c111-4a3d-bdef-88a4595964e6": "talla",
+        "c29f3f5f-76d4-48a1-b5c1-6c340f3e7e42": "talla",
+        "ca660b43-8aab-4492-b81f-01e9765b6a96": "cantidad",
+        "4f78f3a0-40ed-4950-a461-f06c579c7f59": "color",
+        "397c334f-74fa-48fb-97b7-07be8949eddd": "colorDisponible",
+        "f2823e2c-7a2a-4e9c-8ae5-7e179237df39": "comentarios",
+        "f1365795-85ad-4dab-ad1a-256b1dfc987e": "idUsuario",
+        "f287cd7c-32fa-4042-a847-1508d2e9c3be": "texto",
+        "04b0db6e-d186-49ae-a58e-2dbf77d2fc49": "fecha",
+        "9458c701-a645-4fdf-bb7e-c3fa4a255229": "fk producto.comentarios.[0].idUsuario to usuario._id",
+        "4f46df8c-d939-4c98-b1d0-08aa08dc991c": "clave",
+        "832787c8-51cc-4cf3-a02e-24fb2cc2dc24": "promociones",
+        "3486d189-6c77-4f0f-9cb8-8d44b31b6a6a": "_id",
+        "feb12b65-87e0-4dac-a26d-7f101ee8fd9b": "promociones",
+        "a192a45a-bbb7-4bbb-980a-8ae86fa82210": "idProducto",
+        "def1ab89-39bc-446e-ab88-08ddea57900e": "descuento",
+        "fb84d704-0387-468f-a9b8-809d58b71ac3": "fechaInicio",
+        "33726b2a-4289-4fb3-9f26-cb7e4c548fd7": "fechaFin",
+        "059da9e0-83cc-4629-98bd-735893cce852": "nombre",
+        "f485651e-f070-4867-9c70-b822c4a4597b": "fk promociones.promociones.[0].IdProducto to producto._id",
+        "a24bdf02-908c-4f9a-8d46-5c8c50451cab": "fk departamento.ciudades.[0].codigoPostal to usuario.direcciones.[0].codigoPostalCiudad",
+        "270fc8c0-9dd3-4f85-892c-29affe214361": "nombreUsuario",
+        "a78c6af5-c400-4fd0-befc-11da89c6f635": "personalizacion",
+        "d82daa23-9ac2-496a-98d7-e0731398ef62": "imagenPersonalizada",
+        "a29218f6-e7af-4a0e-b574-4e55db5758a5": "colorPersonalizado",
+        "19712263-7885-4e9f-a326-adcb29116d4b": "idProducto",
+        "e04aa520-c17b-4f33-9c1f-638f1c3676f8": "detalles",
+        "440048e7-2136-4b0f-b042-19711cb1a6d6": "fechaNacimiento",
+        "65d426c0-88b7-4e4c-a85d-9b27f0d2faa7": "imagen",
+        "9939d6ca-5829-4cb2-a762-5391a358bc2e": "idTipo",
+        "7fa14814-5689-4118-9a9a-03d5a5ac17e9": "tipo",
+        "d6ffcfc7-63ea-4bba-9b69-38f8a9df6d08": "esPaquete",
+        "197c0b40-6577-46fb-b6f9-49e021ec1a7c": "productos",
+        "8436da66-1f97-4a0b-adb5-707ee9564095": "idProducto",
+        "c62b7379-50f3-4b3c-bb13-b3dbc0ef7e34": "cantidad",
+        "32760923-fa7c-4eb9-8e5c-74344703abdb": "fk compra.destinatario.codigoPostalCiudad to departamento.ciudades.[0].codigoPostal"
+    },
+    "definitions": {
+        "type": "definitions",
+        "properties": [],
+        "GUID": "f1148dff-3086-4056-9d70-516dc0a43227"
+    },
+    "polyglotDefinitions": {
+        "type": "polyglotDefinitions",
+        "properties": [],
+        "GUID": "6cbcc4e8-5676-42e2-95e5-adae8f748950"
+    },
+    "externalDefinitions": {
+        "type": "externalDefinitions",
+        "properties": [],
+        "GUID": "f02b9d17-618c-419b-99b6-580478da6779"
+    },
+    "sources": [],
+    "decorativeSymbols": [
+        {
+            "GUID": "0b97b419-7759-4b18-b524-29cb421591c6",
+            "name": "Relacion Rol y Usuario",
+            "type": "annotation",
+            "bucketId": "6d26242f-c007-4371-b96d-da3a0d723b4f",
+            "disableInitialFocus": true,
+            "value": "Se supone que un usuario puede tener cualquiera de los 2 roles, ya sea administrador o cliente"
+        },
+        {
+            "GUID": "48c2584e-785e-43e3-b39e-ae99241cd476",
+            "name": "Relacion Ciudad Usuario",
+            "type": "annotation",
+            "bucketId": "6d26242f-c007-4371-b96d-da3a0d723b4f",
+            "disableInitialFocus": true,
+            "value": "Un usuario pertenece a una sola ciudad, pero en una ciudad hay muchos usuario."
+        },
+        {
+            "GUID": "6cf9cd6b-7016-435d-86aa-d8b27f430f1a",
+            "name": "compra de usuario",
+            "type": "annotation",
+            "bucketId": "6d26242f-c007-4371-b96d-da3a0d723b4f",
+            "disableInitialFocus": true,
+            "value": "El usuario puede hacer compras de varios productos con un método de pago y enviarlos a si mismo o a otra persona."
+        },
+        {
+            "GUID": "7da2e577-4cff-43e5-b976-781eebd84c13",
+            "name": "Correción",
+            "type": "annotation",
+            "bucketId": "6d26242f-c007-4371-b96d-da3a0d723b4f",
+            "disableInitialFocus": true,
+            "value": "Se quita el _id dentro de ciudades, y se manejar el códigoPostal como el identificador"
+        },
+        {
+            "GUID": "35a28dd9-53b7-4a62-a9fe-7c18d1ebde38",
+            "name": "Correción(3)",
+            "type": "annotation",
+            "bucketId": "6d26242f-c007-4371-b96d-da3a0d723b4f",
+            "disableInitialFocus": true,
+            "value": "Se crea la tabla de promociones para manejar de 1 a muchos productos"
+        },
+        {
+            "GUID": "c21137a7-9882-41d1-804d-ac46c494c4d6",
+            "name": "Correción(2)(1)",
+            "type": "annotation",
+            "bucketId": "6d26242f-c007-4371-b96d-da3a0d723b4f",
+            "disableInitialFocus": true,
+            "value": "Se manejará el nombre de usuario respecto al Rol"
+        },
+        {
+            "GUID": "738cba03-3f7b-4fdb-8650-86113f6d4156",
+            "name": "Corección (4)",
+            "type": "annotation",
+            "bucketId": "6d26242f-c007-4371-b96d-da3a0d723b4f",
+            "disableInitialFocus": true,
+            "value": "Se crear a EsPaquete como un booleano, si un producto es paquete entonces se insertan productos al array\n"
+        }
+    ],
+    "dbVersion": "v7.x",
+    "dbVendor": "MongoDB",
+    "appTarget": "MONGODB",
+    "creationTS": "2024-04-29T14:07:30.405Z",
+    "GUID": "a083a9da-419d-49ea-bc2a-e633e6956570",
+    "isLineageEnabled": false,
+    "lastModifTS": "2024-05-18T16:34:04.251Z",
+    "persistenceSchemaVersion": "7",
+    "isCreatedByPlugin": true,
+    "pluginInformation": {
+        "pluginEngineVersion": "1.0.0"
+    },
+    "applicationInformation": {
+        "version": "7.4.3"
+    },
+    "hackoladeMeta": {
+        "validationErrors": {
+            "modelName": false
+        }
+    },
+    "settings": {
+        "centralPane": {
+            "dbLevel": {
+                "erd": [
+                    {
+                        "GUID": "375e7bf2-cd92-4622-91b1-9856a4c82e97",
+                        "x": 1020.3356066720486,
+                        "y": 2485.636938391179,
+                        "width": 261,
+                        "height": 317,
+                        "color": {}
+                    },
+                    {
+                        "GUID": "af49f7e9-1c16-4201-9c2f-33a7171d3cd3",
+                        "x": 1346.8498923863292,
+                        "y": 2423.7607479149874,
+                        "width": 256,
+                        "height": 141,
+                        "color": {}
+                    },
+                    {
+                        "GUID": "ea334da3-2008-4f4c-a0ca-d6b61bf167f9",
+                        "x": 1338.3641781006186,
+                        "y": 2773.513128867371,
+                        "width": 270,
+                        "height": 303,
+                        "color": {}
+                    },
+                    {
+                        "GUID": "dd5dd7d7-45db-4cae-ac7f-7ac81abd62e3",
+                        "x": 1685.7260828625228,
+                        "y": 2421.313128867368,
+                        "width": 315,
+                        "height": 555,
+                        "color": {}
+                    },
+                    {
+                        "GUID": "832787c8-51cc-4cf3-a02e-24fb2cc2dc24",
+                        "x": 1663.8000000000004,
+                        "y": 3022,
+                        "width": 253,
+                        "height": 177,
+                        "color": {}
+                    }
+                ],
+                "erdDefinitions": {
+                    "erd": [],
+                    "rootPath": [],
+                    "entities": [],
+                    "decorativeSymbols": []
+                },
+                "buckets": [
+                    {
+                        "x": 681.6689400053816,
+                        "y": 2200.8369383911772,
+                        "GUID": "6d26242f-c007-4371-b96d-da3a0d723b4f"
+                    }
+                ],
+                "collapsedNodes": [
+                    "ea334da3-2008-4f4c-a0ca-d6b61bf167f9d091046a-1b52-4647-aa58-91b74c405c338746780d-a816-4078-8c2b-827d72941d3d",
+                    "ea334da3-2008-4f4c-a0ca-d6b61bf167f961a21637-4918-469e-a8ff-5dfccf438bdf",
+                    "ea334da3-2008-4f4c-a0ca-d6b61bf167f9f2823e2c-7a2a-4e9c-8ae5-7e179237df39"
+                ],
+                "activeRelationship": "",
+                "activeRelationshipFields": {
+                    "childField": [],
+                    "parentField": []
+                },
+                "selectedCollections": [],
+                "displayColorPicker": false,
+                "graphView": {
+                    "erd": [],
+                    "buckets": [],
+                    "decorativeSymbols": [],
+                    "forceLayout": true,
+                    "defaultLinkLength": 300
+                },
+                "diagramViews": [],
+                "decorativeSymbols": [
+                    {
+                        "GUID": "0b97b419-7759-4b18-b524-29cb421591c6",
+                        "x": 721.6689400053816,
+                        "y": 2505.8369383911772,
+                        "height": 105,
+                        "width": 204,
+                        "color": {
+                            "hsl": {
+                                "h": 261.2903225806451,
+                                "s": 0.5123966942148761,
+                                "l": 0.4745098039215686,
+                                "a": 1
+                            },
+                            "hex": "#673bb7",
+                            "rgb": {
+                                "r": 103,
+                                "g": 59,
+                                "b": 183,
+                                "a": 1
+                            },
+                            "hsv": {
+                                "h": 261.2903225806451,
+                                "s": 0.6775956284153005,
+                                "v": 0.7176470588235294,
+                                "a": 1
+                            },
+                            "oldHue": 261.2903225806451,
+                            "source": "hex"
+                        }
+                    },
+                    {
+                        "GUID": "48c2584e-785e-43e3-b39e-ae99241cd476",
+                        "x": 940.8689400053805,
+                        "y": 2290.8369383911772,
+                        "height": 81,
+                        "width": 187,
+                        "color": {
+                            "hsl": {
+                                "h": 261.2903225806451,
+                                "s": 0.5123966942148761,
+                                "l": 0.4745098039215686,
+                                "a": 1
+                            },
+                            "hex": "#673bb7",
+                            "rgb": {
+                                "r": 103,
+                                "g": 59,
+                                "b": 183,
+                                "a": 1
+                            },
+                            "hsv": {
+                                "h": 261.2903225806451,
+                                "s": 0.6775956284153005,
+                                "v": 0.7176470588235294,
+                                "a": 1
+                            },
+                            "oldHue": 261.2903225806451,
+                            "source": "hex"
+                        }
+                    },
+                    {
+                        "GUID": "6cf9cd6b-7016-435d-86aa-d8b27f430f1a",
+                        "x": 1724.002273338712,
+                        "y": 2272.7702717245093,
+                        "height": 93,
+                        "width": 245,
+                        "color": {
+                            "hsl": {
+                                "h": 261.2903225806451,
+                                "s": 0.5123966942148761,
+                                "l": 0.4745098039215686,
+                                "a": 1
+                            },
+                            "hex": "#673bb7",
+                            "rgb": {
+                                "r": 103,
+                                "g": 59,
+                                "b": 183,
+                                "a": 1
+                            },
+                            "hsv": {
+                                "h": 261.2903225806451,
+                                "s": 0.6775956284153005,
+                                "v": 0.7176470588235294,
+                                "a": 1
+                            },
+                            "oldHue": 261.2903225806451,
+                            "source": "hex"
+                        }
+                    },
+                    {
+                        "GUID": "7da2e577-4cff-43e5-b976-781eebd84c13",
+                        "x": 1263.668940005383,
+                        "y": 2240.8369383911772,
+                        "height": 104,
+                        "width": 150,
+                        "color": {
+                            "hsl": {
+                                "h": 261.2903225806451,
+                                "s": 0.5123966942148761,
+                                "l": 0.4745098039215686,
+                                "a": 1
+                            },
+                            "hex": "#673bb7",
+                            "rgb": {
+                                "r": 103,
+                                "g": 59,
+                                "b": 183,
+                                "a": 1
+                            },
+                            "hsv": {
+                                "h": 261.2903225806451,
+                                "s": 0.6775956284153005,
+                                "v": 0.7176470588235294,
+                                "a": 1
+                            },
+                            "oldHue": 261.2903225806451,
+                            "source": "hex"
+                        }
+                    },
+                    {
+                        "GUID": "35a28dd9-53b7-4a62-a9fe-7c18d1ebde38",
+                        "x": 1368.2022733387164,
+                        "y": 3105.1702717245093,
+                        "height": 95,
+                        "width": 169,
+                        "color": {
+                            "hsl": {
+                                "h": 261.2903225806451,
+                                "s": 0.5123966942148761,
+                                "l": 0.4745098039215686,
+                                "a": 1
+                            },
+                            "hex": "#673bb7",
+                            "rgb": {
+                                "r": 103,
+                                "g": 59,
+                                "b": 183,
+                                "a": 1
+                            },
+                            "hsv": {
+                                "h": 261.2903225806451,
+                                "s": 0.6775956284153005,
+                                "v": 0.7176470588235294,
+                                "a": 1
+                            },
+                            "oldHue": 261.2903225806451,
+                            "source": "hex"
+                        }
+                    },
+                    {
+                        "GUID": "c21137a7-9882-41d1-804d-ac46c494c4d6",
+                        "x": 886.0689400053831,
+                        "y": 2845.2369383911796,
+                        "height": 102,
+                        "width": 150,
+                        "color": {
+                            "hsl": {
+                                "h": 261.2903225806451,
+                                "s": 0.5123966942148761,
+                                "l": 0.4745098039215686,
+                                "a": 1
+                            },
+                            "hex": "#673bb7",
+                            "rgb": {
+                                "r": 103,
+                                "g": 59,
+                                "b": 183,
+                                "a": 1
+                            },
+                            "hsv": {
+                                "h": 261.2903225806451,
+                                "s": 0.6775956284153005,
+                                "v": 0.7176470588235294,
+                                "a": 1
+                            },
+                            "oldHue": 261.2903225806451,
+                            "source": "hex"
+                        }
+                    },
+                    {
+                        "GUID": "738cba03-3f7b-4fdb-8650-86113f6d4156",
+                        "x": 1111.802273338716,
+                        "y": 2959.970271724508,
+                        "height": 104,
+                        "width": 198,
+                        "color": {
+                            "hsl": {
+                                "h": 261.2903225806451,
+                                "s": 0.5123966942148761,
+                                "l": 0.4745098039215686,
+                                "a": 1
+                            },
+                            "hex": "#673bb7",
+                            "rgb": {
+                                "r": 103,
+                                "g": 59,
+                                "b": 183,
+                                "a": 1
+                            },
+                            "hsv": {
+                                "h": 261.2903225806451,
+                                "s": 0.6775956284153005,
+                                "v": 0.7176470588235294,
+                                "a": 1
+                            },
+                            "oldHue": 261.2903225806451,
+                            "source": "hex"
+                        }
+                    }
+                ],
+                "nestedCollectionsLayout": "horizontal",
+                "options": [
+                    {
+                        "GUID": "48c2584e-785e-43e3-b39e-ae99241cd476"
+                    },
+                    {
+                        "GUID": "6cf9cd6b-7016-435d-86aa-d8b27f430f1a"
+                    },
+                    {
+                        "autoWidth": false,
+                        "autoHeight": false,
+                        "GUID": "375e7bf2-cd92-4622-91b1-9856a4c82e97"
+                    },
+                    {
+                        "GUID": "7da2e577-4cff-43e5-b976-781eebd84c13"
+                    },
+                    {
+                        "GUID": "35a28dd9-53b7-4a62-a9fe-7c18d1ebde38"
+                    },
+                    {
+                        "GUID": "c21137a7-9882-41d1-804d-ac46c494c4d6"
+                    },
+                    {
+                        "GUID": "738cba03-3f7b-4fdb-8650-86113f6d4156"
+                    }
+                ],
+                "relationshipUpdateDisabled": false
+            },
+            "collectionLevel": {},
+            "changed": false
+        },
+        "dtDiagram": {
+            "collapsedNodes": [],
+            "shouldDistributeCollections": false
+        }
+    }
+}
