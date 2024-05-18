@@ -1,3 +1,18 @@
+// Departamento
+{
+  "nombre": "Tecnología",
+  "ciudades": [
+    {
+      "nombre": "Ciudad 1",
+      "codigoPostal": 12345
+    },
+    {
+      "nombre": "Ciudad 2",
+      "codigoPostal": 67890
+    }
+  ]
+}
+
 // Usuario
 {
   "nombre": "Juan Pérez",
@@ -18,21 +33,6 @@
       "nombreUsuario": "juanperez",
       "rol": "Cliente",
       "clave": "password123"
-    }
-  ]
-}
-
-// Departamento
-{
-  "nombre": "Tecnología",
-  "ciudades": [
-    {
-      "nombre": "Ciudad 1",
-      "codigoPostal": 12345
-    },
-    {
-      "nombre": "Ciudad 2",
-      "codigoPostal": 67890
     }
   ]
 }
