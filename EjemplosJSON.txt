@@ -1,0 +1,51 @@
+{
+  "idUsuario": ObjectId("60d5ec49f8d2a1a1d4e8b8e8"), // Usuario que hace la compra
+  "detallesCompra": [
+    {
+      "tipo": "Producto", // Indica si es producto o paquete lo que va a comprar
+      "idTipo": ObjectId("60d5ec49f8d2a1a1d4e8b8ea"),
+      "cantidad": 1,
+      "talla": "M",
+      "colorDisponible": "Rojo",
+      "personalizacion": { // Por si el usuario desea personalizar un Producto.
+        "imagenPersonalizada": "imagen1.png",
+        "colorPersonalizado": "Azul",
+        "detalles": "Texto personalizado"
+      }
+    },
+    {
+      "tipo": "Paquete", 
+      "idTipo": ObjectId("60d5ec49f8d2a1a1d4e8b8eb"),
+      "cantidad": 1,
+      "productos": [
+        {
+          "idTipo": ObjectId("60d5ec49f8d2a1a1d4e8b8ec"),
+          "cantidad": 2,
+          "talla": "L",
+          "colorDisponible": "Verde",
+          "personalizacion": { // Cuando el usuario quiere personalizar Productos dentro de paquetes.
+            "imagenPersonalizada": "imagen2.png",
+            "colorPersonalizado": "Amarillo",
+            "detalles": "Texto personalizado para el producto en el paquete"
+          }
+        }
+      ]
+    }
+  ],
+  "tarjeta": {
+    "tipo": "Visa",
+    "numero": 1234567890123456,
+    "fechaVencimiento": ISODate("2024-12-31T00:00:00Z")
+  },
+  "estado": "Pendiente",
+  "descripcion": "Compra de prueba",
+  "fechaCompra": ISODate("2023-05-18T00:00:00Z"),
+  "destinatario": {
+    "nombre": "Juan",
+    "apellido": "Perez",
+    "codigoPostalCiudad": 12345,
+    "direccion": "Calle Falsa 123",
+    "detallesDireccion": "Departamento 4B",
+    "telefono": 987654321
+  }
+}
