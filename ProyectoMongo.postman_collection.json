@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "05836f90-59a9-4756-a42f-b706e43afe07",
+		"name": "ProyectoMongo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33590937"
+	},
+	"item": [
+		{
+			"name": "Departamento",
+			"item": [
+				{
+					"name": "crearDepartamento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// Departamento\r\n{\r\n  \"nombre\": \"Tecnología\",\r\n  \"ciudades\": [\r\n    {\r\n      \"nombre\": \"Ciudad 1\",\r\n      \"codigoPostal\": 12345\r\n    },\r\n    {\r\n      \"nombre\": \"Ciudad 2\",\r\n      \"codigoPostal\": 67890\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/departamentos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"departamentos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarDepartamento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// Departamento\r\n{\r\n  \"nombre\": \"Tecnología\",\r\n  \"ciudades\": [\r\n    {\r\n      \"nombre\": \"Ciudad 1\",\r\n      \"codigoPostal\": 12345\r\n    },\r\n    {\r\n      \"nombre\": \"Ciudad 2\",\r\n      \"codigoPostal\": 67890\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/departamento/66490e9c2d886c18a98dfb0f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"departamento",
+								"66490e9c2d886c18a98dfb0f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "leerDepartamento",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "eliminarDepartamento",
+					"request": {
+						"method": "DELETE",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "crearUsuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Juan Pérez\",\r\n  \"email\": \"juan.p@example.com\",\r\n  \"telefono\": 9876521,\r\n  \"fechaNacimiento\": \"1990-01-01T00:00:00.000Z\",\r\n  \"edad\": 30,\r\n  \"genero\": \"Mujer\",\r\n  \"direcciones\": [\r\n    {\r\n      \"codigoPostalCiudad\": 12345,\r\n      \"direccion\": \"Calle Falsa 123\",\r\n      \"detalles\": \"Departamento 4B\"\r\n    }\r\n  ],\r\n  \"roles\": [\r\n    {\r\n      \"nombreUsuario\": \"juanperez\",\r\n      \"rol\": \"Cliente\",\r\n      \"clave\": \"password123\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/usuarios/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"usuarios",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarUsuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Juan Pérez\",\r\n  \"email\": \"juan.perez@exmple.com\",\r\n  \"telefono\": 9654321,\r\n  \"fechaNacimiento\": \"1990-01-01T00:00:00.000Z\",\r\n  \"edad\": 30,\r\n  \"genero\": \"Hombre\",\r\n  \"direcciones\": [\r\n    {\r\n      \"codigoPostalCiudad\": 12345,\r\n      \"direccion\": \"Calle Falsa 123\",\r\n      \"detalles\": \"Departamento 4B\"\r\n    }\r\n  ],\r\n  \"roles\": [\r\n    {\r\n      \"nombreUsuario\": \"juanrez\",\r\n      \"rol\": \"Cliente\",\r\n      \"clave\": \"password123\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/usuarios/66490f132d886c18a98dfb14",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"usuarios",
+								"66490f132d886c18a98dfb14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "leerUsuario",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "eliminarUsuario",
+					"request": {
+						"method": "DELETE",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Proyecto",
+			"item": []
+		}
+	]
+}
