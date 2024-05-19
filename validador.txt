@@ -1,4 +1,4 @@
-use ProyectoMongo;
+use ProyectoMongo
 
 db.createCollection("usuario", {
     "capped": false,
@@ -457,4 +457,361 @@ db.createCollection("promociones", {
     },
     "validationLevel": "moderate",
     "validationAction": "warn"
+});
+{ ok: 1 }
+use ProyectoMongo;
+
+db.createCollection("compra", {
+  capped: false,
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      title: "compra",
+      properties: {
+        _id: {
+          bsonType: "objectId"
+        },
+        idUsuario: {
+          bsonType: "objectId"
+        },
+        detallesCompra: {
+          bsonType: "array",
+          items: {
+            bsonType: "object",
+            properties: {
+              tipo: {
+                bsonType: "string",
+                enum: ["Producto", "Paquete"]
+              },
+              idTipo: {
+                bsonType: "objectId"
+              },
+              cantidad: {
+                bsonType: "long"
+              },
+              talla: {
+                bsonType: "string",
+                enum: ["M", "S", "L", "XL"]
+              },
+              colorDisponible: {
+                bsonType: "string"
+              },
+              personalizacion: {
+                bsonType: "object",
+                properties: {
+                  imagenPersonalizada: {
+                    bsonType: "string"
+                  },
+                  colorPersonalizado: {
+                    bsonType: "string"
+                  },
+                  detalles: {
+                    bsonType: "string"
+                  }
+                },
+                additionalProperties: false
+              }
+            },
+            additionalProperties: false,
+            required: ["tipo", "idTipo", "cantidad"]
+          },
+          additionalItems: true
+        },
+        tarjeta: {
+          bsonType: "object",
+          properties: {
+            tipo: {
+              bsonType: "string",
+              enum: ["Visa", "Mastercard", "Maestro"]
+            },
+            numero: {
+              bsonType: "long"
+            },
+            fechaVencimiento: {
+              bsonType: "date"
+            }
+          },
+          additionalProperties: false,
+          required: ["tipo", "numero", "fechaVencimiento"]
+        },
+        estado: {
+          bsonType: "string",
+          enum: ["Pendiente", "Completado", "Enviado", "Cancelado", "Entregado"]
+        },
+        descripcion: {
+          bsonType: "string"
+        },
+        fechaCompra: {
+          bsonType: "date"
+        },
+        destinatario: {
+          bsonType: "object",
+          properties: {
+            nombre: {
+              bsonType: "string"
+            },
+            apellido: {
+              bsonType: "string"
+            },
+            codigoPostalCiudad: {
+              bsonType: "number"
+            },
+            direccion: {
+              bsonType: "string"
+            },
+            detallesDireccion: {
+              bsonType: "string"
+            },
+            telefono: {
+              bsonType: "number"
+            }
+          },
+          additionalProperties: false,
+          required: ["nombre", "apellido", "codigoPostalCiudad", "direccion", "telefono"]
+        }
+      },
+      additionalProperties: false,
+      required: ["idUsuario", "fechaCompra"]
+    }
+  },
+  validationLevel: "moderate",
+  validationAction: "warn"
+});
+switched to db ProyectoMongo;
+
+db.createCollection("compra", {
+  capped: false,
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      title: "compra",
+      properties: {
+        _id: {
+          bsonType: "objectId"
+        },
+        idUsuario: {
+          bsonType: "objectId"
+        },
+        detallesCompra: {
+          bsonType: "array",
+          items: {
+            bsonType: "object",
+            properties: {
+              tipo: {
+                bsonType: "string",
+                enum: ["Producto", "Paquete"]
+              },
+              idTipo: {
+                bsonType: "objectId"
+              },
+              cantidad: {
+                bsonType: "long"
+              },
+              talla: {
+                bsonType: "string",
+                enum: ["M", "S", "L", "XL"]
+              },
+              colorDisponible: {
+                bsonType: "string"
+              },
+              personalizacion: {
+                bsonType: "object",
+                properties: {
+                  imagenPersonalizada: {
+                    bsonType: "string"
+                  },
+                  colorPersonalizado: {
+                    bsonType: "string"
+                  },
+                  detalles: {
+                    bsonType: "string"
+                  }
+                },
+                additionalProperties: false
+              }
+            },
+            additionalProperties: false,
+            required: ["tipo", "idTipo", "cantidad"]
+          },
+          additionalItems: true
+        },
+        tarjeta: {
+          bsonType: "object",
+          properties: {
+            tipo: {
+              bsonType: "string",
+              enum: ["Visa", "Mastercard", "Maestro"]
+            },
+            numero: {
+              bsonType: "long"
+            },
+            fechaVencimiento: {
+              bsonType: "date"
+            }
+          },
+          additionalProperties: false,
+          required: ["tipo", "numero", "fechaVencimiento"]
+        },
+        estado: {
+          bsonType: "string",
+          enum: ["Pendiente", "Completado", "Enviado", "Cancelado", "Entregado"]
+        },
+        descripcion: {
+          bsonType: "string"
+        },
+        fechaCompra: {
+          bsonType: "date"
+        },
+        destinatario: {
+          bsonType: "object",
+          properties: {
+            nombre: {
+              bsonType: "string"
+            },
+            apellido: {
+              bsonType: "string"
+            },
+            codigoPostalCiudad: {
+              bsonType: "number"
+            },
+            direccion: {
+              bsonType: "string"
+            },
+            detallesDireccion: {
+              bsonType: "string"
+            },
+            telefono: {
+              bsonType: "number"
+            }
+          },
+          additionalProperties: false,
+          required: ["nombre", "apellido", "codigoPostalCiudad", "direccion", "telefono"]
+        }
+      },
+      additionalProperties: false,
+      required: ["idUsuario", "fechaCompra"]
+    }
+  },
+  validationLevel: "moderate",
+  validationAction: "warn"
+});
+{ ok: 1 }
+use ProyectoMongo
+
+switched to db ProyectoMongo
+db.createCollection("compra", {
+  capped: false,
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      title: "compra",
+      properties: {
+        _id: {
+          bsonType: "objectId"
+        },
+        idUsuario: {
+          bsonType: "objectId"
+        },
+        detallesCompra: {
+          bsonType: "array",
+          items: {
+            bsonType: "object",
+            properties: {
+              tipo: {
+                bsonType: "string",
+                enum: ["Producto", "Paquete"]
+              },
+              idTipo: {
+                bsonType: "objectId"
+              },
+              cantidad: {
+                bsonType: "long"
+              },
+              talla: {
+                bsonType: "string",
+                enum: ["M", "S", "L", "XL"]
+              },
+              colorDisponible: {
+                bsonType: "string"
+              },
+              personalizacion: {
+                bsonType: "object",
+                properties: {
+                  imagenPersonalizada: {
+                    bsonType: "string"
+                  },
+                  colorPersonalizado: {
+                    bsonType: "string"
+                  },
+                  detalles: {
+                    bsonType: "string"
+                  }
+                },
+                additionalProperties: false
+              }
+            },
+            additionalProperties: false,
+            required: ["tipo", "idTipo", "cantidad"]
+          },
+          additionalItems: true
+        },
+        tarjeta: {
+          bsonType: "object",
+          properties: {
+            tipo: {
+              bsonType: "string",
+              enum: ["Visa", "Mastercard", "Maestro"]
+            },
+            numero: {
+              bsonType: "long"
+            },
+            fechaVencimiento: {
+              bsonType: "date"
+            }
+          },
+          additionalProperties: false,
+          required: ["tipo", "numero", "fechaVencimiento"]
+        },
+        estado: {
+          bsonType: "string",
+          enum: ["Pendiente", "Completado", "Enviado", "Cancelado", "Entregado"]
+        },
+        descripcion: {
+          bsonType: "string"
+        },
+        fechaCompra: {
+          bsonType: "date"
+        },
+        destinatario: {
+          bsonType: "object",
+          properties: {
+            nombre: {
+              bsonType: "string"
+            },
+            apellido: {
+              bsonType: "string"
+            },
+            codigoPostalCiudad: {
+              bsonType: "number"
+            },
+            direccion: {
+              bsonType: "string"
+            },
+            detallesDireccion: {
+              bsonType: "string"
+            },
+            telefono: {
+              bsonType: "number"
+            }
+          },
+          additionalProperties: false,
+          required: ["nombre", "apellido", "codigoPostalCiudad", "direccion", "telefono"]
+        }
+      },
+      additionalProperties: false,
+      required: ["idUsuario", "fechaCompra"]
+    }
+  },
+  validationLevel: "moderate",
+  validationAction: "warn"
 });
