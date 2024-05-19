@@ -176,18 +176,8 @@ db.createCollection("producto", {
                         "Unisex"
                     ]
                 },
-                "imagenes": {
-                    "bsonType": "array",
-                    "additionalItems": true,
-                    "items": {
-                        "bsonType": "object",
-                        "properties": {
-                            "imagen": {
-                                "bsonType": "string"
-                            }
-                        },
-                        "additionalProperties": false
-                    }
+                "imagen": {
+                    "bsonType": "string"
                 },
                 "precio": {
                     "bsonType": "decimal"
