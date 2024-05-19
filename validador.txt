@@ -28,10 +28,14 @@ db.createCollection("usuario", {
                 },
                 "genero": {
                     "bsonType": "string",
-                    "enum": ["Hombre", "Mujer"]
+                    "enum": [
+                        "Hombre",
+                        "Mujer"
+                    ]
                 },
                 "direcciones": {
                     "bsonType": "array",
+                    "additionalItems": true,
                     "items": {
                         "bsonType": "object",
                         "properties": {
@@ -46,12 +50,15 @@ db.createCollection("usuario", {
                             }
                         },
                         "additionalProperties": false,
-                        "required": ["codigoPostalCiudad", "direccion"]
-                    },
-                    "additionalItems": true
+                        "required": [
+                            "codigoPostalCiudad",
+                            "direccion"
+                        ]
+                    }
                 },
                 "roles": {
                     "bsonType": "array",
+                    "additionalItems": true,
                     "items": {
                         "bsonType": "object",
                         "properties": {
@@ -60,25 +67,40 @@ db.createCollection("usuario", {
                             },
                             "rol": {
                                 "bsonType": "string",
-                                "enum": ["Cliente", "Admin"]
+                                "enum": [
+                                    "Cliente",
+                                    "Admin"
+                                ]
                             },
                             "clave": {
                                 "bsonType": "string"
                             }
                         },
                         "additionalProperties": false,
-                        "required": ["nombreUsuario", "rol", "clave"]
-                    },
-                    "additionalItems": true
+                        "required": [
+                            "nombreUsuario",
+                            "rol",
+                            "clave"
+                        ]
+                    }
                 }
             },
             "additionalProperties": false,
-            "required": ["nombre", "email", "telefono", "edad", "genero"]
+            "required": [
+                "nombre",
+                "email",
+                "telefono",
+                "edad",
+                "genero"
+            ]
         }
     },
     "validationLevel": "moderate",
     "validationAction": "warn"
 });
+
+
+
 
 db.createCollection("departamento", {
     "capped": false,
@@ -95,6 +117,7 @@ db.createCollection("departamento", {
                 },
                 "ciudades": {
                     "bsonType": "array",
+                    "additionalItems": true,
                     "items": {
                         "bsonType": "object",
                         "properties": {
@@ -106,18 +129,25 @@ db.createCollection("departamento", {
                             }
                         },
                         "additionalProperties": false,
-                        "required": ["nombre", "codigoPostal"]
-                    },
-                    "additionalItems": true
+                        "required": [
+                            "nombre",
+                            "codigoPostal"
+                        ]
+                    }
                 }
             },
             "additionalProperties": false,
-            "required": ["nombre"]
+            "required": [
+                "nombre"
+            ]
         }
     },
     "validationLevel": "moderate",
     "validationAction": "warn"
 });
+
+
+
 
 db.createCollection("producto", {
     "capped": false,
@@ -140,10 +170,15 @@ db.createCollection("producto", {
                 },
                 "genero": {
                     "bsonType": "string",
-                    "enum": ["Hombre", "Mujer", "Unisex"]
+                    "enum": [
+                        "Hombre",
+                        "Mujer",
+                        "Unisex"
+                    ]
                 },
                 "imagenes": {
                     "bsonType": "array",
+                    "additionalItems": true,
                     "items": {
                         "bsonType": "object",
                         "properties": {
@@ -152,8 +187,7 @@ db.createCollection("producto", {
                             }
                         },
                         "additionalProperties": false
-                    },
-                    "additionalItems": true
+                    }
                 },
                 "precio": {
                     "bsonType": "decimal"
@@ -163,6 +197,7 @@ db.createCollection("producto", {
                 },
                 "productos": {
                     "bsonType": "array",
+                    "additionalItems": true,
                     "items": {
                         "bsonType": "object",
                         "properties": {
@@ -171,35 +206,25 @@ db.createCollection("producto", {
                             },
                             "cantidad": {
                                 "bsonType": "long"
-                            },
-                            "personalizacion": {
-                                "bsonType": "object",
-                                "properties": {
-                                    "imagenPersonalizada": {
-                                        "bsonType": "string"
-                                    },
-                                    "colorPersonalizado": {
-                                        "bsonType": "string"
-                                    },
-                                    "detalles": {
-                                        "bsonType": "string"
-                                    }
-                                },
-                                "additionalProperties": false
                             }
                         },
                         "additionalProperties": false
-                    },
-                    "additionalItems": true
+                    }
                 },
                 "stock": {
                     "bsonType": "array",
+                    "additionalItems": true,
                     "items": {
                         "bsonType": "object",
                         "properties": {
                             "talla": {
                                 "bsonType": "string",
-                                "enum": ["M", "S", "L", "XL"]
+                                "enum": [
+                                    "M",
+                                    "S",
+                                    "L",
+                                    "XL"
+                                ]
                             },
                             "color": {
                                 "bsonType": "string"
@@ -209,12 +234,16 @@ db.createCollection("producto", {
                             }
                         },
                         "additionalProperties": false,
-                        "required": ["talla", "color", "cantidad"]
-                    },
-                    "additionalItems": true
+                        "required": [
+                            "talla",
+                            "color",
+                            "cantidad"
+                        ]
+                    }
                 },
                 "comentarios": {
                     "bsonType": "array",
+                    "additionalItems": true,
                     "items": {
                         "bsonType": "object",
                         "properties": {
@@ -229,17 +258,24 @@ db.createCollection("producto", {
                             }
                         },
                         "additionalProperties": false
-                    },
-                    "additionalItems": true
+                    }
                 }
             },
             "additionalProperties": false,
-            "required": ["nombre", "categoria", "genero", "precio"]
+            "required": [
+                "nombre",
+                "categoria",
+                "genero",
+                "precio"
+            ]
         }
     },
     "validationLevel": "moderate",
     "validationAction": "warn"
 });
+
+
+
 
 db.createCollection("compra", {
     "capped": false,
@@ -256,14 +292,21 @@ db.createCollection("compra", {
                 },
                 "detallesCompra": {
                     "bsonType": "array",
+                    "additionalItems": true,
                     "items": {
                         "bsonType": "object",
                         "properties": {
+                            "idProducto": {
+                                "bsonType": "objectId"
+                            },
                             "tipo": {
                                 "bsonType": "string",
-                                "enum": ["Producto", "Paquete"]
+                                "enum": [
+                                    "Producto",
+                                    "Paquete"
+                                ]
                             },
-                            "idProducto": {
+                            "idTipo": {
                                 "bsonType": "objectId"
                             },
                             "cantidad": {
@@ -271,68 +314,43 @@ db.createCollection("compra", {
                             },
                             "talla": {
                                 "bsonType": "string",
-                                "enum": ["M", "S", "L", "XL"]
+                                "enum": [
+                                    "M",
+                                    "S",
+                                    "L",
+                                    "XL"
+                                ]
                             },
-                            "colorDisponible": {
+                            "color": {
                                 "bsonType": "string"
                             },
-                            "personalizacion": {
-                                "bsonType": "object",
-                                "properties": {
-                                    "imagenPersonalizada": {
-                                        "bsonType": "string"
-                                    },
-                                    "colorPersonalizado": {
-                                        "bsonType": "string"
-                                    },
-                                    "detalles": {
-                                        "bsonType": "string"
-                                    }
-                                },
-                                "additionalProperties": false
-                            },
-                            "productos": {
-                                "bsonType": "array",
-                                "items": {
-                                    "bsonType": "object",
-                                    "properties": {
-                                        "idProducto": {
-                                            "bsonType": "objectId"
-                                        },
-                                        "cantidad": {
-                                            "bsonType": "long"
-                                        },
-                                        "personalizacion": {
-                                            "bsonType": "object",
-                                            "properties": {
-                                                "imagenPersonalizada": {
-                                                    "bsonType": "string"
-                                                },
-                                                "colorPersonalizado": {
-                                                    "bsonType": "string"
-                                                },
-                                                "detalles": {
-                                                    "bsonType": "string"
-                                                }
-                                            },
-                                            "additionalProperties": false
-                                        }
-                                    },
-                                    "additionalProperties": false
-                                }
+                            "imagenPersonalizacion": {
+                                "bsonType": "string"
                             }
                         },
                         "additionalProperties": false,
-                        "required": ["tipo", "idProducto", "cantidad"]
-                    },
-                    "additionalItems": true
+                        "patternProperties": {
+                            "detalles": {
+                                "bsonType": "string"
+                            }
+                        },
+                        "required": [
+                            "tipo",
+                            "idTipo",
+                            "cantidad"
+                        ]
+                    }
                 },
                 "tarjeta": {
                     "bsonType": "object",
                     "properties": {
                         "tipo": {
                             "bsonType": "string",
-                            "enum": ["Visa", "Mastercard", "Maestro"]
+                            "enum": [
+                                "Visa",
+                                "Mastercard",
+                                "Maestro"
+                            ]
                         },
                         "numero": {
                             "bsonType": "long"
@@ -342,11 +360,21 @@ db.createCollection("compra", {
                         }
                     },
                     "additionalProperties": false,
-                    "required": ["tipo", "numero", "fechaVencimiento"]
+                    "required": [
+                        "tipo",
+                        "numero",
+                        "fechaVencimiento"
+                    ]
                 },
                 "estado": {
                     "bsonType": "string",
-                    "enum": ["Pendiente", "Completado", "Enviado", "Cancelado", "Entregado"]
+                    "enum": [
+                        "Pendiente",
+                        "Completado",
+                        "Enviado",
+                        "Cancelado",
+                        "Entregado"
+                    ]
                 },
                 "descripcion": {
                     "bsonType": "string"
@@ -377,16 +405,28 @@ db.createCollection("compra", {
                         }
                     },
                     "additionalProperties": false,
-                    "required": ["nombre", "apellido", "codigoPostalCiudad", "direccion", "telefono"]
+                    "required": [
+                        "nombre",
+                        "apellido",
+                        "codigoPostalCiudad",
+                        "direccion",
+                        "telefono"
+                    ]
                 }
             },
             "additionalProperties": false,
-            "required": ["idUsuario", "fechaCompra"]
+            "required": [
+                "idUsuario",
+                "fechaCompra"
+            ]
         }
     },
     "validationLevel": "moderate",
     "validationAction": "warn"
 });
+
+
+
 
 db.createCollection("promociones", {
     "capped": false,
@@ -400,6 +440,7 @@ db.createCollection("promociones", {
                 },
                 "promociones": {
                     "bsonType": "array",
+                    "additionalItems": true,
                     "items": {
                         "bsonType": "object",
                         "properties": {
@@ -420,9 +461,11 @@ db.createCollection("promociones", {
                             }
                         },
                         "additionalProperties": false,
-                        "required": ["descuento", "fechaInicio"]
-                    },
-                    "additionalItems": true
+                        "required": [
+                            "descuento",
+                            "fechaInicio"
+                        ]
+                    }
                 }
             },
             "additionalProperties": false
