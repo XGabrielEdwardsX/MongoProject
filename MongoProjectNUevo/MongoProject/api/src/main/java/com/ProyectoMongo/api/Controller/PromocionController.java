@@ -33,10 +33,15 @@ public class PromocionController {
     }
 
     @GetMapping("/{id}")
-    public PromocionesModel getPromoById(@PathVariable String id) {
-        return promocionesService.findPromoById(new ObjectId(id));
+    public ResponseEntity<?> getPromoById(@PathVariable String id) {
+        try {
+            PromocionesModel promo = promocionesService.findPromoById(new ObjectId(id));
+            return ResponseEntity.ok(promo);
+        } catch (RecursoNoEncontradoException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
     }
-
+    
     @PostMapping("/")
     public ResponseEntity<?> createPromo(@RequestBody PromocionesModel promo) {
         try {

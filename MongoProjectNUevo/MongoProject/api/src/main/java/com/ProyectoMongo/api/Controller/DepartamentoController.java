@@ -25,8 +25,13 @@ public class DepartamentoController {
     }
 
     @GetMapping("/{id}")
-    public DepartamentosModel getDepartamentoById(@PathVariable String id) {
-        return departamentosService.findDepartamentoById(new ObjectId(id));
+    public ResponseEntity<?> getDepartamentoById(@PathVariable String id) {
+        try {
+            DepartamentosModel departamento = departamentosService.findDepartamentoById(new ObjectId(id));
+            return ResponseEntity.ok(departamento);
+        } catch (RecursoNoEncontradoException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
     }
 
     @PostMapping("/")

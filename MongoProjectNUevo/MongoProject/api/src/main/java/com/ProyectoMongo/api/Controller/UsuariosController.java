@@ -25,8 +25,13 @@ public class UsuariosController {
     }
 
     @GetMapping("/{id}")
-    public UsuariosModel getUsuarioById(@PathVariable String id) {
-        return usuariosService.findUsuarioById(new ObjectId(id));
+    public ResponseEntity<?> getUsuarioById(@PathVariable String id) {
+        try {
+            UsuariosModel usuario = usuariosService.findUsuarioById(new ObjectId(id));
+            return ResponseEntity.ok(usuario);
+        } catch (RecursoNoEncontradoException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
     }
 
     @PostMapping("/")
@@ -36,7 +41,10 @@ public class UsuariosController {
             return ResponseEntity.ok(savedUsuario);
         } catch (RecursoYaExistenteException | ValorInvalidoException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+        } catch (RecursoNoEncontradoException ex){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }
+
     }
 
     @DeleteMapping("/{id}")

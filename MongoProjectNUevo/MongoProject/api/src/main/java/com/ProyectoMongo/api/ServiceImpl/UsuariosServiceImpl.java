@@ -5,8 +5,10 @@ import com.ProyectoMongo.api.Enum.Rol;
 import com.ProyectoMongo.api.Exception.RecursoNoEncontradoException;
 import com.ProyectoMongo.api.Exception.RecursoYaExistenteException;
 import com.ProyectoMongo.api.Exception.ValorInvalidoException;
+import com.ProyectoMongo.api.Model.DireccionesModel;
 import com.ProyectoMongo.api.Model.RolesModel;
 import com.ProyectoMongo.api.Model.UsuariosModel;
+import com.ProyectoMongo.api.Repository.IDepartamentosRepository;
 import com.ProyectoMongo.api.Repository.IUsuariosRepository;
 import com.ProyectoMongo.api.Service.IUsuariosService;
 import org.bson.types.ObjectId;
@@ -24,6 +26,8 @@ public class UsuariosServiceImpl implements IUsuariosService {
 
     @Autowired
     IUsuariosRepository usuarioRepository;
+    @Autowired
+    IDepartamentosRepository departamentosRepository;
 
     @Override
     public List<UsuariosModel> findAllUsuarios() {
@@ -63,6 +67,17 @@ public class UsuariosServiceImpl implements IUsuariosService {
                 throw new RecursoYaExistenteException("El nombre de usuario " + rolModel.getNombreUsuario() + " ya está en uso.");
             }
 
+            Set<Integer> codigosPostales = new HashSet<>();
+            departamentosRepository.findAll().forEach(departamento -> 
+            departamento.getCiudades().forEach(ciudad -> codigosPostales.add((int) ciudad.getCodigoPostal()))
+        );
+
+        for (DireccionesModel direccion : usuario.getDirecciones()) {
+            if (!codigosPostales.contains(direccion.getCodigoPostalCiudad())) {
+                throw new RecursoNoEncontradoException("Código postal " + direccion.getCodigoPostalCiudad() + " no encontrado");
+            }
+        }
+
             nombresUsuarios.add(rolModel.getNombreUsuario());
         }
 
@@ -81,16 +96,15 @@ public class UsuariosServiceImpl implements IUsuariosService {
 
     @Override
     public UsuariosModel updateUsuario(ObjectId id, UsuariosModel usuario) {
-        // Find the existing user by ID
+ 
         UsuariosModel existingUsuario = usuarioRepository.findById(id)
             .orElseThrow(() -> new RecursoNoEncontradoException("Usuario no encontrado con ID: " + id));
 
-        // Check if the user trying to update is the same as the existing user
+
         if (!existingUsuario.getId().equals(usuario.getId())) {
             throw new RecursoNoEncontradoException("El id no coincide");
         }
 
-        // Validate new email and phone number (excluding current user)
         boolean updateEmail = !existingUsuario.getEmail().equals(usuario.getEmail());
         boolean updatePhone = !existingUsuario.getTelefono().equals(usuario.getTelefono());
 
@@ -105,10 +119,21 @@ public class UsuariosServiceImpl implements IUsuariosService {
         List<RolesModel> NombreUsuarioUpdate = new ArrayList<>();
         for (RolesModel rol : usuario.getRoles()) {
 
-            if (usuarioRepository.existsByRolesNombreUsuarioAndIdNot(rol.getNombreUsuario(), id)) {
-                throw new RecursoYaExistenteException("El nombre de usuario " + rol.getNombreUsuario() + " ya lo tiene otro usuario");
+        if (usuarioRepository.existsByRolesNombreUsuarioAndIdNot(rol.getNombreUsuario(), id)) {
+            throw new RecursoYaExistenteException("El nombre de usuario " + rol.getNombreUsuario() + " ya lo tiene otro usuario");
+        }
+
+        Set<Integer> codigosPostales = new HashSet<>();
+        departamentosRepository.findAll().forEach(departamento -> 
+            departamento.getCiudades().forEach(ciudad -> codigosPostales.add((int) ciudad.getCodigoPostal()))
+        );
+
+        for (DireccionesModel direccion : usuario.getDirecciones()) {
+            if (!codigosPostales.contains(direccion.getCodigoPostalCiudad())) {
+                throw new RecursoNoEncontradoException("Código postal " + direccion.getCodigoPostalCiudad() + " no encontrado");
             }
-                
+
+        }     
             existingUsuario.setNombre(usuario.getNombre());
             existingUsuario.setEmail(updateEmail ? usuario.getEmail() : existingUsuario.getEmail());
             existingUsuario.setTelefono(updatePhone ? usuario.getTelefono() : existingUsuario.getTelefono());

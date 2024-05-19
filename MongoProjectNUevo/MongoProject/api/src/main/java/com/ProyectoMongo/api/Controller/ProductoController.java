@@ -25,9 +25,14 @@ public class ProductoController {
     }
 
     @GetMapping("/{id}")
-    public ProductoModel getProductoById(@PathVariable String id) {
-        return productoService.findProductoById(new ObjectId(id));
+    public ResponseEntity<?> getProductoById(@PathVariable String id) {
+    try {
+        ProductoModel producto = productoService.findProductoById(new ObjectId(id));
+        return ResponseEntity.ok(producto);
+    } catch (RecursoNoEncontradoException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+}
 
     @PostMapping("/")
     public ResponseEntity<?> createProducto(@RequestBody ProductoModel producto) {
