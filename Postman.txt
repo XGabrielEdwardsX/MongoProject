@@ -36,3 +36,155 @@
     }
   ]
 }
+
+// Producto
+
+[
+  {
+    "nombre": "Camiseta Deportiva",
+    "categoria": "Ropa",
+    "descripcion": "Camiseta deportiva de alta calidad",
+    "genero": "Unisex",
+    "imagenes": [
+      { "imagen": "url_de_imagen_1.jpg" },
+      { "imagen": "url_de_imagen_2.jpg" }
+    ],
+    "precio": 29.99,
+    "stock": [
+      {
+        "talla": "M",
+        "color": "Azul",
+        "cantidad": 50
+      },
+      {
+        "talla": "L",
+        "color": "Negro",
+        "cantidad": 30
+      }
+    ],
+    "comentarios": [
+      {
+        "idUsuario": "6647bb7248f1072bade05116",
+        "texto": "Muy buena calidad, me encantó!",
+        "fecha": "2023-05-01T12:34:56.000Z"
+      }
+    ]
+  },
+  {
+    "nombre": "Zapatillas Running",
+    "categoria": "Calzado",
+    "descripcion": "Zapatillas para correr, cómodas y ligeras",
+    "genero": "Unisex",
+    "imagenes": [
+      { "imagen": "url_de_imagen_zapatillas_1.jpg" }
+    ],
+    "precio": 59.99,
+    "stock": [
+      {
+        "talla": "40",
+        "color": "Blanco",
+        "cantidad": 20
+      },
+      {
+        "talla": "42",
+        "color": "Negro",
+        "cantidad": 15
+      }
+    ],
+    "comentarios": [
+      {
+        "idUsuario": "6647bb7248f1072bade05116",
+        "texto": "Muy cómodas para correr!",
+        "fecha": "2023-05-10T08:20:30.000Z"
+      }
+    ]
+  },
+  {
+    "nombre": "Mochila Escolar",
+    "categoria": "Accesorios",
+    "descripcion": "Mochila resistente con múltiples compartimentos",
+    "genero": "Unisex",
+    "imagenes": [
+      { "imagen": "url_de_imagen_mochila_1.jpg" }
+    ],
+    "precio": 39.99,
+    "stock": [
+      {
+        "talla": "Única",
+        "color": "Rojo",
+        "cantidad": 25
+      },
+      {
+        "talla": "Única",
+        "color": "Azul",
+        "cantidad": 10
+      }
+    ],
+    "comentarios": [
+      {
+        "idUsuario": "6647bb7248f1072bade05116",
+        "texto": "Muy espaciosa y cómoda!",
+        "fecha": "2023-06-01T15:45:30.000Z"
+      }
+    ]
+  },
+  {
+    "nombre": "Chaqueta Impermeable",
+    "categoria": "Ropa",
+    "descripcion": "Chaqueta impermeable para climas lluviosos",
+    "genero": "Hombre",
+    "imagenes": [
+      { "imagen": "url_de_imagen_chaqueta_1.jpg" }
+    ],
+    "precio": 79.99,
+    "stock": [
+      {
+        "talla": "M",
+        "color": "Verde",
+        "cantidad": 40
+      },
+      {
+        "talla": "L",
+        "color": "Negro",
+        "cantidad": 35
+      }
+    ],
+    "comentarios": [
+      {
+        "idUsuario": "6647bb7248f1072bade05116",
+        "texto": "Perfecta para la lluvia!",
+        "fecha": "2023-07-01T12:00:00.000Z"
+      }
+    ]
+  },
+  {
+    "nombre": "Reloj Inteligente",
+    "categoria": "Electrónica",
+    "descripcion": "Reloj inteligente con múltiples funcionalidades",
+    "genero": "Unisex",
+    "imagenes": [
+      { "imagen": "url_de_imagen_reloj_1.jpg" }
+    ],
+    "precio": 99.99,
+    "stock": [
+      {
+        "talla": "Única",
+        "color": "Negro",
+        "cantidad": 50
+      },
+      {
+        "talla": "Única",
+        "color": "Plateado",
+        "cantidad": 30
+      }
+    ],
+    "comentarios": [
+      {
+        "idUsuario": "6647bb7248f1072bade05116",
+        "texto": "Muy útil y práctico!",
+        "fecha": "2023-08-01T09:15:45.000Z"
+      }
+    ]
+  }
+]
+
