@@ -63,7 +63,6 @@ public class UsuariosServiceImpl implements IUsuariosService {
                 throw new RecursoYaExistenteException("El nombre de usuario " + rolModel.getNombreUsuario() + " ya está en uso.");
             }
 
-
             nombresUsuarios.add(rolModel.getNombreUsuario());
         }
 

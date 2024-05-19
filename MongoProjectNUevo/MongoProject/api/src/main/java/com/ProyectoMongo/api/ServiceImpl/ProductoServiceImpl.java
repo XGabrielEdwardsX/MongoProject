@@ -33,17 +33,10 @@ public class ProductoServiceImpl implements IProductoService {
     @Override
     public ProductoModel saveProducto(ProductoModel producto) {
         if (productoRepository.existsByNombre(producto.getNombre())) {
-            throw new RecursoYaExistenteException("El producto ya existe.");
-        }
-        if (productoRepository.existsByCategoria(producto.getCategoria())) {
-            throw new RecursoYaExistenteException("El producto ya tiene una categoría asignada");
+            throw new RecursoYaExistenteException("El producto \"" + producto.getNombre() + "\" ya existe.");
         }
 
-        try {
-            if (!producto.getGenero().matches("Hombre|Mujer|Unisex")) {
-                throw new ValorInvalidoException("Valor inválido para el género: " + producto.getGenero());
-            }
-        } catch (IllegalArgumentException e) {
+        if (!producto.getGenero().matches("Hombre|Mujer|Unisex")) {
             throw new ValorInvalidoException("Valor inválido para el género: " + producto.getGenero());
         }
 
@@ -66,18 +59,21 @@ public class ProductoServiceImpl implements IProductoService {
                 .orElseThrow(() -> new RecursoNoEncontradoException("Producto no encontrado con ID: " + id));
 
         if (!existingProducto.getId().equals(producto.getId())) {
-            throw new RecursoNoEncontradoException("El id del producto no coincide con sus datos");
+            throw new RecursoNoEncontradoException("El id no coincide");
         }
 
         boolean updateNombre = !existingProducto.getNombre().equals(producto.getNombre());
-        boolean updateCategoria = !existingProducto.getCategoria().equals(producto.getCategoria());
+        // No asignar hasta la explicación de Juan Jacobo
+        // boolean updateCategoria = !existingProducto.getCategoria().equals(producto.getCategoria());
 
         if (updateNombre && productoRepository.existsByNombre(producto.getNombre())) {
             throw new RecursoYaExistenteException("Ya existe un producto con este nombre");
         }
+        /* // No asignar hasta la explicación de Juan Jacobo
         if (updateCategoria && productoRepository.existsByCategoria(producto.getCategoria())) {
             throw new RecursoYaExistenteException("El producto ya pertenece a una categoría");
         }
+        */
 
         existingProducto.setNombre(producto.getNombre());
         existingProducto.setCategoria(producto.getCategoria());
@@ -90,11 +86,18 @@ public class ProductoServiceImpl implements IProductoService {
         existingProducto.setStock(producto.getStock());
         existingProducto.setComentarios(producto.getComentarios());
 
+        /*
         try {
             if (!producto.getGenero().matches("Hombre|Mujer|Unisex")) {
                 throw new ValorInvalidoException("Valor inválido para el género: " + producto.getGenero());
             }
         } catch (IllegalArgumentException e) {
+            throw new ValorInvalidoException("Valor inválido para el género: " + producto.getGenero());
+        }
+        */
+       
+        // Esta es mejor, la hizo Gabriel... Sapa Jacobo
+        if (!producto.getGenero().matches("Hombre|Mujer|Unisex")) {
             throw new ValorInvalidoException("Valor inválido para el género: " + producto.getGenero());
         }
 

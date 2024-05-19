@@ -1,7 +1,9 @@
 package com.ProyectoMongo.api.Service;
 
-import com.ProyectoMongo.api.Model.UsuariosModel;
 import org.bson.types.ObjectId;
+
+import com.ProyectoMongo.api.Model.UsuariosModel;
+
 import java.util.List;
 
 public interface IUsuariosService {

@@ -41,13 +41,14 @@ public class ProductoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProducto(@PathVariable String id) {
-        ObjectId objectId = new ObjectId(id);
-        ProductoModel deletedProducto = productoService.deleteProducto(objectId);
-        if (deletedProducto != null) {
+        try {
+            ObjectId objectId = new ObjectId(id);
+            ProductoModel deletedProducto = productoService.deleteProducto(objectId);
             return ResponseEntity.ok(deletedProducto);
-        } else {
-            throw new RecursoNoEncontradoException("Producto no encontrado con ID: " + id);
+        } catch (RecursoNoEncontradoException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }
+    
     }
 
     @PutMapping("/{id}")

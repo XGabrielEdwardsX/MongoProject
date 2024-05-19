@@ -7,21 +7,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "usuario")
-public class UsuariosModel {
+@Document(collection = "promociones")
+public class PromocionesModel {
     @Id
     private ObjectId id;
-    private String nombre;
-    private String email;
-    private Date fechaNacimiento;
-    private Long telefono;
-    private Integer edad;
-    private String genero; // "Hombre" o "Mujer"
-    private List<DireccionesModel> direcciones; 
-    private List<RolesModel> roles;
+    private List<ProductoPromocionModel> productoPromocion;
 }

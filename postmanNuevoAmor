@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "05836f90-59a9-4756-a42f-b706e43afe07",
+		"_postman_id": "be912149-8b48-4cdb-905c-dd2057715396",
 		"name": "ProyectoMongo",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "33590937"
+		"_exporter_id": "33591085",
+		"_collection_link": "https://winter-water-25973.postman.co/workspace/My-Workspace~beaa6c1a-728b-48b4-8b9b-a98afc296457/collection/33591085-be912149-8b48-4cdb-905c-dd2057715396?action=share&source=collection_link&creator=33591085"
 	},
 	"item": [
 		{
@@ -46,7 +47,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "// Departamento\r\n{\r\n  \"nombre\": \"Tecnología\",\r\n  \"ciudades\": [\r\n    {\r\n      \"nombre\": \"Ciudad 1\",\r\n      \"codigoPostal\": 12345\r\n    },\r\n    {\r\n      \"nombre\": \"Ciudad 2\",\r\n      \"codigoPostal\": 67890\r\n    }\r\n  ]\r\n}",
+							"raw": "// Departamento\r\n{\r\n    \"nombre\": \"Tecnología\",\r\n    \"ciudades\": [\r\n        {\r\n            \"nombre\": \"Ciudad 1\",\r\n            \"codigoPostal\": 98765\r\n        },\r\n        {\r\n            \"nombre\": \"Ciudad 2\",\r\n            \"codigoPostal\": 67890\r\n        },\r\n        {\r\n            \"nombre\": \"Ciudad 3\",\r\n            \"codigoPostal\": 12345\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -54,7 +55,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/departamento/66490e9c2d886c18a98dfb0f",
+							"raw": "http://localhost:8080/api/departamentos/66496690b1dec16cd32b443b",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -62,8 +63,8 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"departamento",
-								"66490e9c2d886c18a98dfb0f"
+								"departamentos",
+								"66496690b1dec16cd32b443b"
 							]
 						}
 					},
@@ -73,7 +74,20 @@
 					"name": "leerDepartamento",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/departamentos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"departamentos",
+								""
+							]
+						}
 					},
 					"response": []
 				},
@@ -81,7 +95,20 @@
 					"name": "eliminarDepartamento",
 					"request": {
 						"method": "DELETE",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/departamentos/66496690b1dec16cd32b443b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"departamentos",
+								"66496690b1dec16cd32b443b"
+							]
+						}
 					},
 					"response": []
 				}
@@ -97,7 +124,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"nombre\": \"Juan Pérez\",\r\n  \"email\": \"juan.p@example.com\",\r\n  \"telefono\": 9876521,\r\n  \"fechaNacimiento\": \"1990-01-01T00:00:00.000Z\",\r\n  \"edad\": 30,\r\n  \"genero\": \"Mujer\",\r\n  \"direcciones\": [\r\n    {\r\n      \"codigoPostalCiudad\": 12345,\r\n      \"direccion\": \"Calle Falsa 123\",\r\n      \"detalles\": \"Departamento 4B\"\r\n    }\r\n  ],\r\n  \"roles\": [\r\n    {\r\n      \"nombreUsuario\": \"juanperez\",\r\n      \"rol\": \"Cliente\",\r\n      \"clave\": \"password123\"\r\n    }\r\n  ]\r\n}",
+							"raw": "{\r\n    \"nombre\": \"Yáxul Cárdenas\",\r\n    \"email\": \"yaxul.cardenas@example.com\",\r\n    \"telefono\": 3009876521,\r\n    \"fechaNacimiento\": \"2002-04-26T00:00:00.000Z\",\r\n    \"edad\": 22,\r\n    \"genero\": \"Hombre\",\r\n    \"direcciones\": [\r\n        {\r\n            \"codigoPostalCiudad\": 12345,\r\n            \"direccion\": \"Calle Falsa 123\",\r\n            \"detalles\": \"Departamento 4B\"\r\n        }\r\n    ],\r\n    \"roles\": [\r\n        {\r\n            \"nombreUsuario\": \"yaxul.cardenas\",\r\n            \"rol\": \"Admin\",\r\n            \"clave\": \"123\"\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -127,7 +154,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"nombre\": \"Juan Pérez\",\r\n  \"email\": \"juan.perez@exmple.com\",\r\n  \"telefono\": 9654321,\r\n  \"fechaNacimiento\": \"1990-01-01T00:00:00.000Z\",\r\n  \"edad\": 30,\r\n  \"genero\": \"Hombre\",\r\n  \"direcciones\": [\r\n    {\r\n      \"codigoPostalCiudad\": 12345,\r\n      \"direccion\": \"Calle Falsa 123\",\r\n      \"detalles\": \"Departamento 4B\"\r\n    }\r\n  ],\r\n  \"roles\": [\r\n    {\r\n      \"nombreUsuario\": \"juanrez\",\r\n      \"rol\": \"Cliente\",\r\n      \"clave\": \"password123\"\r\n    }\r\n  ]\r\n}",
+							"raw": "{\r\n    \"id\": \"664966aab1dec16cd32b443c\",\r\n    \"nombre\": \"Juan Pérez\",\r\n    \"email\": \"juan.perez@example.com\",\r\n    \"telefono\": 3009654321,\r\n    \"fechaNacimiento\": \"1990-01-01T00:00:00.000Z\",\r\n    \"edad\": 30,\r\n    \"genero\": \"Hombre\",\r\n    \"direcciones\": [\r\n        {\r\n        \"codigoPostalCiudad\": 12345,\r\n        \"direccion\": \"Calle Falsa 123\",\r\n        \"detalles\": \"Departamento 4B\"\r\n        }\r\n    ],\r\n    \"roles\": [\r\n        {\r\n        \"nombreUsuario\": \"juan.perez\",\r\n        \"rol\": \"Cliente\",\r\n        \"clave\": \"password123\"\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -135,7 +162,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/usuarios/66490f132d886c18a98dfb14",
+							"raw": "http://localhost:8080/api/usuarios/664966aab1dec16cd32b443c",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -144,7 +171,7 @@
 							"path": [
 								"api",
 								"usuarios",
-								"66490f132d886c18a98dfb14"
+								"664966aab1dec16cd32b443c"
 							]
 						}
 					},
@@ -154,7 +181,20 @@
 					"name": "leerUsuario",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/usuarios/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"usuarios",
+								""
+							]
+						}
 					},
 					"response": []
 				},
@@ -162,15 +202,238 @@
 					"name": "eliminarUsuario",
 					"request": {
 						"method": "DELETE",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/usuarios/66496cecb1dec16cd32b4447",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"usuarios",
+								"66496cecb1dec16cd32b4447"
+							]
+						}
 					},
 					"response": []
 				}
 			]
 		},
 		{
-			"name": "Proyecto",
-			"item": []
+			"name": "Producto",
+			"item": [
+				{
+					"name": "CrearProducto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Camiseta Deportiva\",\r\n    \"categoria\": \"Ropa Deportiva\",\r\n    \"descripcion\": \"Camiseta transpirable para actividades deportivas\",\r\n    \"genero\": \"Unisex\",\r\n    \"imagen\": \"http://ejemplo.com/imagen.jpg\",\r\n    \"precio\": 29.99,\r\n    \"esPaquete\": false,\r\n    \"productos\": [],\r\n    \"stock\": [\r\n        {\r\n            \"talla\": \"M\",\r\n            \"color\": \"Rojo\",\r\n            \"cantidad\": 100\r\n        },\r\n        {\r\n            \"talla\": \"L\",\r\n            \"color\": \"Azul\",\r\n            \"cantidad\": 50\r\n        }\r\n    ],\r\n    \"comentarios\": []\r\n}\r\n/*\r\n{\r\n    \"nombre\": \"Zapatillas Running\",\r\n    \"categoria\": \"Calzado Deportivo\",\r\n    \"descripcion\": \"Zapatillas ligeras y cómodas para correr\",\r\n    \"genero\": \"Hombre\",\r\n    \"imagen\": \"http://ejemplo.com/zapatillas.jpg\",\r\n    \"precio\": 59.99,\r\n    \"esPaquete\": false,\r\n    \"productos\": [],\r\n    \"stock\": [\r\n        {\r\n            \"talla\": \"42\",\r\n            \"color\": \"Negro\",\r\n            \"cantidad\": 30\r\n        },\r\n        {\r\n            \"talla\": \"43\",\r\n            \"color\": \"Blanco\",\r\n            \"cantidad\": 20\r\n        }\r\n    ],\r\n    \"comentarios\": []\r\n}\r\n*//*\r\n{\r\n    \"nombre\": \"Pantalones de Yoga\",\r\n    \"categoria\": \"Ropa Deportiva\",\r\n    \"descripcion\": \"Pantalones elásticos y cómodos para yoga\",\r\n    \"genero\": \"Mujer\",\r\n    \"imagen\": \"http://ejemplo.com/pantalones.jpg\",\r\n    \"precio\": 39.99,\r\n    \"esPaquete\": false,\r\n    \"productos\": [],\r\n    \"stock\": [\r\n        {\r\n            \"talla\": \"S\",\r\n            \"color\": \"Negro\",\r\n            \"cantidad\": 80\r\n        },\r\n        {\r\n            \"talla\": \"M\",\r\n            \"color\": \"Gris\",\r\n            \"cantidad\": 60\r\n        }\r\n    ],\r\n    \"comentarios\": []\r\n}\r\n*/",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/productos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"productos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "leerProducto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/productos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"productos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarProducto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"664982a9b1dec16cd32b445c\",\r\n    \"nombre\": \"Camiseta Deportiva\",\r\n    \"categoria\": \"Ropa Deportiva\",\r\n    \"descripcion\": \"Camiseta transpirable para actividades deportivas\",\r\n    \"genero\": \"Unisex\",\r\n    \"imagen\": \"http://ejemplo.com/imagen.jpg\",\r\n    \"precio\": 29.99,\r\n    \"esPaquete\": false,\r\n    \"productos\": [],\r\n    \"stock\": [\r\n        {\r\n            \"talla\": \"M\",\r\n            \"color\": \"Rojo\",\r\n            \"cantidad\": 100\r\n        },\r\n        {\r\n            \"talla\": \"L\",\r\n            \"color\": \"Azul\",\r\n            \"cantidad\": 50\r\n        }\r\n    ],\r\n    \"comentarios\": []\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/productos/664982a9b1dec16cd32b445c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"productos",
+								"664982a9b1dec16cd32b445c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminarProducto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/productos/664982a9b1dec16cd32b445c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"productos",
+								"664982a9b1dec16cd32b445c"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Promocion",
+			"item": [
+				{
+					"name": "CrearPromocion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productoPromocion\": [\r\n        {\r\n            \"nombre\": \"Descuento Primavera Zapatillas Running\",\r\n            \"idProducto\": \"66497e0fb1dec16cd32b4456\",\r\n            \"descuento\": 20,\r\n            \"fechaInicio\": \"2024-05-01T00:00:00.000Z\",\r\n            \"fechaFin\": \"2024-05-31T23:59:59.000Z\"\r\n        },\r\n        {\r\n            \"nombre\": \"Descuento Especial Pantalones de Yoga\",\r\n            \"idProducto\": \"66497e15b1dec16cd32b4457\",\r\n            \"descuento\": 15,\r\n            \"fechaInicio\": \"2024-06-01T00:00:00.000Z\",\r\n            \"fechaFin\": \"2024-06-15T23:59:59.000Z\"\r\n        },\r\n        {\r\n            \"nombre\": \"Oferta Verano Camiseta Deportiva\",\r\n            \"idProducto\": \"6649842bb1dec16cd32b4462\",\r\n            \"descuento\": 10,\r\n            \"fechaInicio\": \"2024-07-01T00:00:00.000Z\",\r\n            \"fechaFin\": \"2024-07-31T23:59:59.000Z\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/promociones/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"promociones",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "leerPromocion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/promociones/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"promociones",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarProducto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"66499cda17f67a26d10ca4fb\",\r\n    \"productoPromocion\": [\r\n        {\r\n            \"nombre\": \"Descuento Primavera Zapatillas Running\",\r\n            \"idProducto\": \"66497e0fb1dec16cd32b4456\",\r\n            \"descuento\": 20,\r\n            \"fechaInicio\": \"2024-05-01T00:00:00.000Z\",\r\n            \"fechaFin\": \"2024-05-31T23:59:59.000Z\"\r\n        },\r\n        {\r\n            \"nombre\": \"Descuento Especial Pantalones de Yoga\",\r\n            \"idProducto\": \"66497e15b1dec16cd32b4457\",\r\n            \"descuento\": 15,\r\n            \"fechaInicio\": \"2024-06-01T00:00:00.000Z\",\r\n            \"fechaFin\": \"2024-06-15T23:59:59.000Z\"\r\n        },\r\n        {\r\n            \"nombre\": \"Oferta Verano Camiseta Deportiva\",\r\n            \"idProducto\": \"6649842bb1dec16cd32b4462\",\r\n            \"descuento\": 10,\r\n            \"fechaInicio\": \"2024-07-01T00:00:00.000Z\",\r\n            \"fechaFin\": \"2024-07-31T23:59:59.000Z\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/promociones/66499cda17f67a26d10ca4fb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"promociones",
+								"66499cda17f67a26d10ca4fb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminarProducto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/promociones/66499cda17f67a26d10ca4fb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"promociones",
+								"66499cda17f67a26d10ca4fb"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
