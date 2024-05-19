@@ -208,13 +208,7 @@ db.createCollection("producto", {
                         "bsonType": "object",
                         "properties": {
                             "talla": {
-                                "bsonType": "string",
-                                "enum": [
-                                    "M",
-                                    "S",
-                                    "L",
-                                    "XL"
-                                ]
+                                "bsonType": "string"
                             },
                             "color": {
                                 "bsonType": "string"
