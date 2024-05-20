@@ -1,92 +1,92 @@
 use ProyectoMongo
 
 db.createCollection("usuario", {
-    "capped": false,
-    "validator": {
-        "$jsonSchema": {
-            "bsonType": "object",
-            "title": "usuario",
-            "properties": {
-                "_id": {
-                    "bsonType": "objectId"
+    capped: false,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            title: "usuario",
+            properties: {
+                _id: {
+                    bsonType: "objectId"
                 },
-                "nombre": {
-                    "bsonType": "string"
+                nombre: {
+                    bsonType: "string"
                 },
-                "email": {
-                    "bsonType": "string"
+                email: {
+                    bsonType: "string"
                 },
-                "telefono": {
-                    "bsonType": "number"
+                telefono: {
+                    bsonType: "number"
                 },
-                "fechaNacimiento": {
-                    "bsonType": "date"
+                fechaNacimiento: {
+                    bsonType: "date"
                 },
-                "edad": {
-                    "bsonType": "number",
-                    "minimum": 18
+                edad: {
+                    bsonType: "number",
+                    minimum: 18
                 },
-                "genero": {
-                    "bsonType": "string",
-                    "enum": [
+                genero: {
+                    bsonType: "string",
+                    enum: [
                         "Hombre",
                         "Mujer"
                     ]
                 },
-                "direcciones": {
-                    "bsonType": "array",
-                    "additionalItems": true,
-                    "items": {
-                        "bsonType": "object",
-                        "properties": {
-                            "codigoPostalCiudad": {
-                                "bsonType": "long"
+                direcciones: {
+                    bsonType: "array",
+                    items: {
+                        bsonType: "object",
+                        properties: {
+                            codigoPostalCiudad: {
+                                bsonType: "long"
                             },
-                            "direccion": {
-                                "bsonType": "string"
+                            direccion: {
+                                bsonType: "string"
                             },
-                            "detalles": {
-                                "bsonType": "string"
+                            detalles: {
+                                bsonType: "string"
                             }
                         },
-                        "additionalProperties": false,
-                        "required": [
+                        additionalProperties: false,
+                        required: [
                             "codigoPostalCiudad",
                             "direccion"
                         ]
-                    }
+                    },
+                    additionalItems: true
                 },
-                "roles": {
-                    "bsonType": "array",
-                    "additionalItems": true,
-                    "items": {
-                        "bsonType": "object",
-                        "properties": {
-                            "nombreUsuario": {
-                                "bsonType": "string"
+                roles: {
+                    bsonType: "array",
+                    items: {
+                        bsonType: "object",
+                        properties: {
+                            nombreUsuario: {
+                                bsonType: "string"
                             },
-                            "rol": {
-                                "bsonType": "string",
-                                "enum": [
+                            rol: {
+                                bsonType: "string",
+                                enum: [
                                     "Cliente",
                                     "Admin"
                                 ]
                             },
-                            "clave": {
-                                "bsonType": "string"
+                            clave: {
+                                bsonType: "string"
                             }
                         },
-                        "additionalProperties": false,
-                        "required": [
+                        additionalProperties: false,
+                        required: [
                             "nombreUsuario",
                             "rol",
                             "clave"
                         ]
-                    }
+                    },
+                    additionalItems: true
                 }
             },
-            "additionalProperties": false,
-            "required": [
+            additionalProperties: false,
+            required: [
                 "nombre",
                 "email",
                 "telefono",
@@ -95,158 +95,152 @@ db.createCollection("usuario", {
             ]
         }
     },
-    "validationLevel": "moderate",
-    "validationAction": "warn"
+    validationLevel: "moderate",
+    validationAction: "warn"
 });
 
-
-
-
 db.createCollection("departamento", {
-    "capped": false,
-    "validator": {
-        "$jsonSchema": {
-            "bsonType": "object",
-            "title": "departamento",
-            "properties": {
-                "_id": {
-                    "bsonType": "objectId"
+    capped: false,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            title: "departamento",
+            properties: {
+                _id: {
+                    bsonType: "objectId"
                 },
-                "nombre": {
-                    "bsonType": "string"
+                nombre: {
+                    bsonType: "string"
                 },
-                "ciudades": {
-                    "bsonType": "array",
-                    "additionalItems": true,
-                    "items": {
-                        "bsonType": "object",
-                        "properties": {
-                            "nombre": {
-                                "bsonType": "string"
+                ciudades: {
+                    bsonType: "array",
+                    items: {
+                        bsonType: "object",
+                        properties: {
+                            nombre: {
+                                bsonType: "string"
                             },
-                            "codigoPostal": {
-                                "bsonType": "number"
+                            codigoPostal: {
+                                bsonType: "number"
                             }
                         },
-                        "additionalProperties": false,
-                        "required": [
+                        additionalProperties: false,
+                        required: [
                             "nombre",
                             "codigoPostal"
                         ]
-                    }
+                    },
+                    additionalItems: true
                 }
             },
-            "additionalProperties": false,
-            "required": [
+            additionalProperties: false,
+            required: [
                 "nombre"
             ]
         }
     },
-    "validationLevel": "moderate",
-    "validationAction": "warn"
+    validationLevel: "moderate",
+    validationAction: "warn"
 });
 
-
-
-
 db.createCollection("producto", {
-    "capped": false,
-    "validator": {
-        "$jsonSchema": {
-            "bsonType": "object",
-            "title": "producto",
-            "properties": {
-                "_id": {
-                    "bsonType": "objectId"
+    capped: false,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            title: "producto",
+            properties: {
+                _id: {
+                    bsonType: "objectId"
                 },
-                "nombre": {
-                    "bsonType": "string"
+                nombre: {
+                    bsonType: "string"
                 },
-                "categoria": {
-                    "bsonType": "string"
+                categoria: {
+                    bsonType: "string"
                 },
-                "descripcion": {
-                    "bsonType": "string"
+                descripcion: {
+                    bsonType: "string"
                 },
-                "genero": {
-                    "bsonType": "string",
-                    "enum": [
+                genero: {
+                    bsonType: "string",
+                    enum: [
                         "Hombre",
                         "Mujer",
                         "Unisex"
                     ]
                 },
-                "imagen": {
-                    "bsonType": "string"
+                imagen: {
+                    bsonType: "string"
                 },
-                "precio": {
-                    "bsonType": "decimal"
+                precio: {
+                    bsonType: "decimal"
                 },
-                "esPaquete": {
-                    "bsonType": "bool"
+                esPaquete: {
+                    bsonType: "bool"
                 },
-                "productos": {
-                    "bsonType": "array",
-                    "additionalItems": true,
-                    "items": {
-                        "bsonType": "object",
-                        "properties": {
-                            "idProducto": {
-                                "bsonType": "objectId"
+                productos: {
+                    bsonType: "array",
+                    items: {
+                        bsonType: "object",
+                        properties: {
+                            idProducto: {
+                                bsonType: "objectId"
                             },
-                            "cantidad": {
-                                "bsonType": "long"
+                            cantidad: {
+                                bsonType: "long"
                             }
                         },
-                        "additionalProperties": false
-                    }
+                        additionalProperties: false
+                    },
+                    additionalItems: true
                 },
-                "stock": {
-                    "bsonType": "array",
-                    "additionalItems": true,
-                    "items": {
-                        "bsonType": "object",
-                        "properties": {
-                            "talla": {
-                                "bsonType": "string"
+                stock: {
+                    bsonType: "array",
+                    items: {
+                        bsonType: "object",
+                        properties: {
+                            talla: {
+                                bsonType: "string"
                             },
-                            "color": {
-                                "bsonType": "string"
+                            color: {
+                                bsonType: "string"
                             },
-                            "cantidad": {
-                                "bsonType": "int"
+                            cantidad: {
+                                bsonType: "int"
                             }
                         },
-                        "additionalProperties": false,
-                        "required": [
+                        additionalProperties: false,
+                        required: [
                             "talla",
                             "color",
                             "cantidad"
                         ]
-                    }
+                    },
+                    additionalItems: true
                 },
-                "comentarios": {
-                    "bsonType": "array",
-                    "additionalItems": true,
-                    "items": {
-                        "bsonType": "object",
-                        "properties": {
-                            "idUsuario": {
-                                "bsonType": "objectId"
+                comentarios: {
+                    bsonType: "array",
+                    items: {
+                        bsonType: "object",
+                        properties: {
+                            idUsuario: {
+                                bsonType: "objectId"
                             },
-                            "texto": {
-                                "bsonType": "string"
+                            texto: {
+                                bsonType: "string"
                             },
-                            "fecha": {
-                                "bsonType": "date"
+                            fecha: {
+                                bsonType: "date"
                             }
                         },
-                        "additionalProperties": false
-                    }
+                        additionalProperties: false
+                    },
+                    additionalItems: true
                 }
             },
-            "additionalProperties": false,
-            "required": [
+            additionalProperties: false,
+            required: [
                 "nombre",
                 "categoria",
                 "genero",
@@ -254,105 +248,106 @@ db.createCollection("producto", {
             ]
         }
     },
-    "validationLevel": "moderate",
-    "validationAction": "warn"
+    validationLevel: "moderate",
+    validationAction: "warn"
 });
 
-
-
-
 db.createCollection("compra", {
-    "capped": false,
-    "validator": {
-        "$jsonSchema": {
-            "bsonType": "object",
-            "title": "compra",
-            "properties": {
-                "_id": {
-                    "bsonType": "objectId"
+    capped: false,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            title: "compra",
+            properties: {
+                _id: {
+                    bsonType: "objectId"
                 },
-                "idUsuario": {
-                    "bsonType": "objectId"
+                idUsuario: {
+                    bsonType: "objectId"
                 },
-                "detallesCompra": {
-                    "bsonType": "array",
-                    "additionalItems": true,
-                    "items": {
-                        "bsonType": "object",
-                        "properties": {
-                            "idProducto": {
-                                "bsonType": "objectId"
-                            },
-                            "tipo": {
-                                "bsonType": "string",
-                                "enum": [
+                detallesCompra: {
+                    bsonType: "array",
+                    items: {
+                        bsonType: "object",
+                        properties: {
+                            tipo: {
+                                bsonType: "string",
+                                enum: [
                                     "Producto",
                                     "Paquete"
                                 ]
                             },
-                            "idTipo": {
-                                "bsonType": "objectId"
+                            idTipo: {
+                                bsonType: "objectId"
                             },
-                            "cantidad": {
-                                "bsonType": "long"
+                            cantidad: {
+                                bsonType: "long"
                             },
-                            "talla": {
-                                "bsonType": "string",
-                                "enum": [
+                            talla: {
+                                bsonType: "string",
+                                enum: [
                                     "M",
                                     "S",
                                     "L",
                                     "XL"
                                 ]
                             },
-                            "color": {
-                                "bsonType": "string"
+                            colorDisponible: {
+                                bsonType: "string"
                             },
-                            "imagenPersonalizacion": {
-                                "bsonType": "string"
+                            personalizacion: {
+                                bsonType: "object",
+                                properties: {
+                                    imagenPersonalizada: {
+                                        bsonType: "string"
+                                    },
+                                    colorPersonalizado: {
+                                        bsonType: "string"
+                                    },
+                                    detalles: {
+                                        bsonType: "string"
+                                    }
+                                },
+                                additionalProperties: false
                             }
                         },
-                        "additionalProperties": false,
-                        "patternProperties": {
-                            "detalles": {
-                                "bsonType": "string"
-                            }
-                        },
-                        "required": [
+                        additionalProperties: false,
+                        required: [
                             "tipo",
                             "idTipo",
                             "cantidad"
                         ]
-                    }
+                    },
+                    additionalItems: true
                 },
-                "tarjeta": {
-                    "bsonType": "object",
-                    "properties": {
-                        "tipo": {
-                            "bsonType": "string",
-                            "enum": [
+                tarjeta: {
+                    bsonType: "object",
+                    properties: {
+                        tipo: {
+                            bsonType: "string",
+                            enum: [
                                 "Visa",
                                 "Mastercard",
                                 "Maestro"
                             ]
                         },
-                        "numero": {
-                            "bsonType": "long"
+                        numero: {
+                            bsonType: "long"
                         },
-                        "fechaVencimiento": {
-                            "bsonType": "date"
+                        fechaVencimiento: {
+                            bsonType: "date"
                         }
                     },
-                    "additionalProperties": false,
-                    "required": [
+                    additionalProperties: false,
+                    required: [
                         "tipo",
                         "numero",
                         "fechaVencimiento"
                     ]
                 },
-                "estado": {
-                    "bsonType": "string",
-                    "enum": [
+                estado: {
+                    bsonType: "string",
+                    enum: [
                         "Pendiente",
                         "Completado",
                         "Enviado",
@@ -360,36 +355,36 @@ db.createCollection("compra", {
                         "Entregado"
                     ]
                 },
-                "descripcion": {
-                    "bsonType": "string"
+                descripcion: {
+                    bsonType: "string"
                 },
-                "fechaCompra": {
-                    "bsonType": "date"
+                fechaCompra: {
+                    bsonType: "date"
                 },
-                "destinatario": {
-                    "bsonType": "object",
-                    "properties": {
-                        "nombre": {
-                            "bsonType": "string"
+                destinatario: {
+                    bsonType: "object",
+                    properties: {
+                        nombre: {
+                            bsonType: "string"
                         },
-                        "apellido": {
-                            "bsonType": "string"
+                        apellido: {
+                            bsonType: "string"
                         },
-                        "codigoPostalCiudad": {
-                            "bsonType": "number"
+                        codigoPostalCiudad: {
+                            bsonType: "number"
                         },
-                        "direccion": {
-                            "bsonType": "string"
+                        direccion: {
+                            bsonType: "string"
                         },
-                        "detallesDireccion": {
-                            "bsonType": "string"
+                        detallesDireccion: {
+                            bsonType: "string"
                         },
-                        "telefono": {
-                            "bsonType": "number"
+                        telefono: {
+                            bsonType: "number"
                         }
                     },
-                    "additionalProperties": false,
-                    "required": [
+                    additionalProperties: false,
+                    required: [
                         "nombre",
                         "apellido",
                         "codigoPostalCiudad",
@@ -398,420 +393,60 @@ db.createCollection("compra", {
                     ]
                 }
             },
-            "additionalProperties": false,
-            "required": [
+            additionalProperties: false,
+            required: [
                 "idUsuario",
                 "fechaCompra"
             ]
         }
     },
-    "validationLevel": "moderate",
-    "validationAction": "warn"
+    validationLevel: "moderate",
+    validationAction: "warn"
 });
 
-
-
-
 db.createCollection("promociones", {
-    "capped": false,
-    "validator": {
-        "$jsonSchema": {
-            "bsonType": "object",
-            "title": "promociones",
-            "properties": {
-                "_id": {
-                    "bsonType": "objectId"
+    capped: false,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            title: "promociones",
+            properties: {
+                _id: {
+                    bsonType: "objectId"
                 },
-                "promociones": {
-                    "bsonType": "array",
-                    "additionalItems": true,
-                    "items": {
-                        "bsonType": "object",
-                        "properties": {
-                            "nombre": {
-                                "bsonType": "string"
+                promociones: {
+                    bsonType: "array",
+                    items: {
+                        bsonType: "object",
+                        properties: {
+                            nombre: {
+                                bsonType: "string"
                             },
-                            "idProducto": {
-                                "bsonType": "objectId"
+                            idProducto: {
+                                bsonType: "objectId"
                             },
-                            "descuento": {
-                                "bsonType": "number"
+                            descuento: {
+                                bsonType: "number"
                             },
-                            "fechaInicio": {
-                                "bsonType": "date"
+                            fechaInicio: {
+                                bsonType: "date"
                             },
-                            "fechaFin": {
-                                "bsonType": "date"
+                            fechaFin: {
+                                bsonType: "date"
                             }
                         },
-                        "additionalProperties": false,
-                        "required": [
+                        additionalProperties: false,
+                        required: [
                             "descuento",
                             "fechaInicio"
                         ]
-                    }
+                    },
+                    additionalItems: true
                 }
             },
-            "additionalProperties": false
+            additionalProperties: false
         }
     },
-    "validationLevel": "moderate",
-    "validationAction": "warn"
-});
-{ ok: 1 }
-use ProyectoMongo;
-
-db.createCollection("compra", {
-  capped: false,
-  validator: {
-    $jsonSchema: {
-      bsonType: "object",
-      title: "compra",
-      properties: {
-        _id: {
-          bsonType: "objectId"
-        },
-        idUsuario: {
-          bsonType: "objectId"
-        },
-        detallesCompra: {
-          bsonType: "array",
-          items: {
-            bsonType: "object",
-            properties: {
-              tipo: {
-                bsonType: "string",
-                enum: ["Producto", "Paquete"]
-              },
-              idTipo: {
-                bsonType: "objectId"
-              },
-              cantidad: {
-                bsonType: "long"
-              },
-              talla: {
-                bsonType: "string",
-                enum: ["M", "S", "L", "XL"]
-              },
-              colorDisponible: {
-                bsonType: "string"
-              },
-              personalizacion: {
-                bsonType: "object",
-                properties: {
-                  imagenPersonalizada: {
-                    bsonType: "string"
-                  },
-                  colorPersonalizado: {
-                    bsonType: "string"
-                  },
-                  detalles: {
-                    bsonType: "string"
-                  }
-                },
-                additionalProperties: false
-              }
-            },
-            additionalProperties: false,
-            required: ["tipo", "idTipo", "cantidad"]
-          },
-          additionalItems: true
-        },
-        tarjeta: {
-          bsonType: "object",
-          properties: {
-            tipo: {
-              bsonType: "string",
-              enum: ["Visa", "Mastercard", "Maestro"]
-            },
-            numero: {
-              bsonType: "long"
-            },
-            fechaVencimiento: {
-              bsonType: "date"
-            }
-          },
-          additionalProperties: false,
-          required: ["tipo", "numero", "fechaVencimiento"]
-        },
-        estado: {
-          bsonType: "string",
-          enum: ["Pendiente", "Completado", "Enviado", "Cancelado", "Entregado"]
-        },
-        descripcion: {
-          bsonType: "string"
-        },
-        fechaCompra: {
-          bsonType: "date"
-        },
-        destinatario: {
-          bsonType: "object",
-          properties: {
-            nombre: {
-              bsonType: "string"
-            },
-            apellido: {
-              bsonType: "string"
-            },
-            codigoPostalCiudad: {
-              bsonType: "number"
-            },
-            direccion: {
-              bsonType: "string"
-            },
-            detallesDireccion: {
-              bsonType: "string"
-            },
-            telefono: {
-              bsonType: "number"
-            }
-          },
-          additionalProperties: false,
-          required: ["nombre", "apellido", "codigoPostalCiudad", "direccion", "telefono"]
-        }
-      },
-      additionalProperties: false,
-      required: ["idUsuario", "fechaCompra"]
-    }
-  },
-  validationLevel: "moderate",
-  validationAction: "warn"
-});
-switched to db ProyectoMongo;
-
-db.createCollection("compra", {
-  capped: false,
-  validator: {
-    $jsonSchema: {
-      bsonType: "object",
-      title: "compra",
-      properties: {
-        _id: {
-          bsonType: "objectId"
-        },
-        idUsuario: {
-          bsonType: "objectId"
-        },
-        detallesCompra: {
-          bsonType: "array",
-          items: {
-            bsonType: "object",
-            properties: {
-              tipo: {
-                bsonType: "string",
-                enum: ["Producto", "Paquete"]
-              },
-              idTipo: {
-                bsonType: "objectId"
-              },
-              cantidad: {
-                bsonType: "long"
-              },
-              talla: {
-                bsonType: "string",
-                enum: ["M", "S", "L", "XL"]
-              },
-              colorDisponible: {
-                bsonType: "string"
-              },
-              personalizacion: {
-                bsonType: "object",
-                properties: {
-                  imagenPersonalizada: {
-                    bsonType: "string"
-                  },
-                  colorPersonalizado: {
-                    bsonType: "string"
-                  },
-                  detalles: {
-                    bsonType: "string"
-                  }
-                },
-                additionalProperties: false
-              }
-            },
-            additionalProperties: false,
-            required: ["tipo", "idTipo", "cantidad"]
-          },
-          additionalItems: true
-        },
-        tarjeta: {
-          bsonType: "object",
-          properties: {
-            tipo: {
-              bsonType: "string",
-              enum: ["Visa", "Mastercard", "Maestro"]
-            },
-            numero: {
-              bsonType: "long"
-            },
-            fechaVencimiento: {
-              bsonType: "date"
-            }
-          },
-          additionalProperties: false,
-          required: ["tipo", "numero", "fechaVencimiento"]
-        },
-        estado: {
-          bsonType: "string",
-          enum: ["Pendiente", "Completado", "Enviado", "Cancelado", "Entregado"]
-        },
-        descripcion: {
-          bsonType: "string"
-        },
-        fechaCompra: {
-          bsonType: "date"
-        },
-        destinatario: {
-          bsonType: "object",
-          properties: {
-            nombre: {
-              bsonType: "string"
-            },
-            apellido: {
-              bsonType: "string"
-            },
-            codigoPostalCiudad: {
-              bsonType: "number"
-            },
-            direccion: {
-              bsonType: "string"
-            },
-            detallesDireccion: {
-              bsonType: "string"
-            },
-            telefono: {
-              bsonType: "number"
-            }
-          },
-          additionalProperties: false,
-          required: ["nombre", "apellido", "codigoPostalCiudad", "direccion", "telefono"]
-        }
-      },
-      additionalProperties: false,
-      required: ["idUsuario", "fechaCompra"]
-    }
-  },
-  validationLevel: "moderate",
-  validationAction: "warn"
-});
-{ ok: 1 }
-use ProyectoMongo
-
-switched to db ProyectoMongo
-db.createCollection("compra", {
-  capped: false,
-  validator: {
-    $jsonSchema: {
-      bsonType: "object",
-      title: "compra",
-      properties: {
-        _id: {
-          bsonType: "objectId"
-        },
-        idUsuario: {
-          bsonType: "objectId"
-        },
-        detallesCompra: {
-          bsonType: "array",
-          items: {
-            bsonType: "object",
-            properties: {
-              tipo: {
-                bsonType: "string",
-                enum: ["Producto", "Paquete"]
-              },
-              idTipo: {
-                bsonType: "objectId"
-              },
-              cantidad: {
-                bsonType: "long"
-              },
-              talla: {
-                bsonType: "string",
-                enum: ["M", "S", "L", "XL"]
-              },
-              colorDisponible: {
-                bsonType: "string"
-              },
-              personalizacion: {
-                bsonType: "object",
-                properties: {
-                  imagenPersonalizada: {
-                    bsonType: "string"
-                  },
-                  colorPersonalizado: {
-                    bsonType: "string"
-                  },
-                  detalles: {
-                    bsonType: "string"
-                  }
-                },
-                additionalProperties: false
-              }
-            },
-            additionalProperties: false,
-            required: ["tipo", "idTipo", "cantidad"]
-          },
-          additionalItems: true
-        },
-        tarjeta: {
-          bsonType: "object",
-          properties: {
-            tipo: {
-              bsonType: "string",
-              enum: ["Visa", "Mastercard", "Maestro"]
-            },
-            numero: {
-              bsonType: "long"
-            },
-            fechaVencimiento: {
-              bsonType: "date"
-            }
-          },
-          additionalProperties: false,
-          required: ["tipo", "numero", "fechaVencimiento"]
-        },
-        estado: {
-          bsonType: "string",
-          enum: ["Pendiente", "Completado", "Enviado", "Cancelado", "Entregado"]
-        },
-        descripcion: {
-          bsonType: "string"
-        },
-        fechaCompra: {
-          bsonType: "date"
-        },
-        destinatario: {
-          bsonType: "object",
-          properties: {
-            nombre: {
-              bsonType: "string"
-            },
-            apellido: {
-              bsonType: "string"
-            },
-            codigoPostalCiudad: {
-              bsonType: "number"
-            },
-            direccion: {
-              bsonType: "string"
-            },
-            detallesDireccion: {
-              bsonType: "string"
-            },
-            telefono: {
-              bsonType: "number"
-            }
-          },
-          additionalProperties: false,
-          required: ["nombre", "apellido", "codigoPostalCiudad", "direccion", "telefono"]
-        }
-      },
-      additionalProperties: false,
-      required: ["idUsuario", "fechaCompra"]
-    }
-  },
-  validationLevel: "moderate",
-  validationAction: "warn"
+    validationLevel: "moderate",
+    validationAction: "warn"
 });
