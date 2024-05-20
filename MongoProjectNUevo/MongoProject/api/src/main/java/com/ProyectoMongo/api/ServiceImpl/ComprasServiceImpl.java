@@ -7,6 +7,7 @@ import com.ProyectoMongo.api.Exception.ValorInvalidoException;
 import com.ProyectoMongo.api.Model.ComprasModel;
 import com.ProyectoMongo.api.Model.DetallesCompraModel;
 import com.ProyectoMongo.api.Model.ProductoModel;
+import com.ProyectoMongo.api.Model.StockModel;
 import com.ProyectoMongo.api.Repository.IComprasRepository;
 import com.ProyectoMongo.api.Repository.IDepartamentosRepository;
 import com.ProyectoMongo.api.Repository.IProductoRepository;
@@ -53,13 +54,6 @@ public class ComprasServiceImpl implements IComprasService {
          if (!usuarioRepository.existsById(compra.getIdUsuario())) {
             throw new RecursoNoEncontradoException("Usuario con ID: " + compra.getIdUsuario() + " no encontrado");
         }
-
-        for (DetallesCompraModel detalle : compra.getDetallesCompra()) {
-            if (!productoRepository.existsById(detalle.getIdTipo())) {
-                throw new RecursoNoEncontradoException("Producto con ID: " + detalle.getIdTipo() + " no encontrado");
-            }
-        }
-
         String tipoTarjetaNormalizado = compra.getTarjeta().getTipo().trim().toUpperCase();
             
         try {
@@ -110,24 +104,28 @@ public class ComprasServiceImpl implements IComprasService {
     if (!codigosPostales.contains((int)compra.getDestinatario().getCodigoPostalCiudad())) {
         throw new RecursoNoEncontradoException("Código postal " + compra.getDestinatario().getCodigoPostalCiudad() + " no encontrado");
     }
+    
+    // Verificar existencia de los productos y stock disponible
+    for (DetallesCompraModel detalle : compra.getDetallesCompra()) {
+        ProductoModel producto = productoRepository.findById(detalle.getIdTipo())
+                .orElseThrow(() -> new RecursoNoEncontradoException("El " + detalle.getTipo() + " con ID: " + detalle.getIdTipo() + " no encontrado"));
 
-    // Verificar existencia de los productos
-        for (DetallesCompraModel detalle : compra.getDetallesCompra())  {
-            ProductoModel producto = productoRepository.findById(detalle.getIdTipo())
-                    .orElseThrow(() -> new RecursoNoEncontradoException("El " + detalle.getTipo() + " con ID: " + detalle.getIdTipo() + " no encontrado"));
-            
-            // Verificar stock disponible
-            boolean stockSuficiente = producto.getStock().stream().anyMatch(stock ->
-                stock.getTalla().equals(detalle.getTalla()) &&
-                stock.getColor().equals(detalle.getColor()) &&
-                stock.getCantidad() >= detalle.getCantidad()
-            );
+        boolean stockSuficiente = false;
+        for (StockModel stock : producto.getStock()) {
+            boolean tallaCoincide = stock.getTalla().equals(detalle.getTalla());
+            boolean colorCoincide = stock.getColor().equals(detalle.getColor());
+            boolean cantidadSuficiente = stock.getCantidad() >= detalle.getCantidad();
 
-            if (!stockSuficiente) {
-                throw new StockInsuficienteException("Stock insuficiente para el producto con ID: " + detalle.getIdTipo());
+            if (tallaCoincide && colorCoincide && cantidadSuficiente) {
+                stockSuficiente = true;
+                break;
             }
         }
 
+        if (!stockSuficiente) {
+            throw new StockInsuficienteException("Stock insuficiente para el producto con ID: " + detalle.getIdTipo());
+        }
+    }
         return compraRepository.save(compra);
     }
 
@@ -150,14 +148,6 @@ public class ComprasServiceImpl implements IComprasService {
         if (!usuarioRepository.existsById(compra.getIdUsuario())) {
             throw new RecursoNoEncontradoException("Usuario con ID: " + compra.getIdUsuario() + " no encontrado");
         }
-
-    // Verificar existencia de los productos
-    for (DetallesCompraModel detalle : compra.getDetallesCompra()) {
-        if (!productoRepository.existsById(detalle.getIdTipo())) {
-            throw new RecursoNoEncontradoException("El " + detalle.getTipo() + " con ID: " + detalle.getIdTipo() + " no encontrado");
-        }
-    }
-
     // Normalizar y validar el tipo de tarjeta
         String tipoTarjetaNormalizado = compra.getTarjeta().getTipo().trim().toUpperCase();
         try {
@@ -211,23 +201,28 @@ public class ComprasServiceImpl implements IComprasService {
     if (!codigosPostales.contains((int)compra.getDestinatario().getCodigoPostalCiudad())) {
         throw new RecursoNoEncontradoException("Código postal " + compra.getDestinatario().getCodigoPostalCiudad() + " no encontrado");
     }
-
-    // Verificar existencia de los productos
-    for (DetallesCompraModel detalle : compra.getDetallesCompra())  {
+    
+    for (DetallesCompraModel detalle : compra.getDetallesCompra()) {
         ProductoModel producto = productoRepository.findById(detalle.getIdTipo())
                 .orElseThrow(() -> new RecursoNoEncontradoException("El " + detalle.getTipo() + " con ID: " + detalle.getIdTipo() + " no encontrado"));
-        
-        // Verificar stock disponible
-        boolean stockSuficiente = producto.getStock().stream().anyMatch(stock ->
-            stock.getTalla().equals(detalle.getTalla()) &&
-            stock.getColor().equals(detalle.getColor()) &&
-            stock.getCantidad() >= detalle.getCantidad()
-        );
+
+        boolean stockSuficiente = false;
+        for (StockModel stock : producto.getStock()) {
+            boolean tallaCoincide = stock.getTalla().equals(detalle.getTalla());
+            boolean colorCoincide = stock.getColor().equals(detalle.getColor());
+            boolean cantidadSuficiente = stock.getCantidad() >= detalle.getCantidad();
+
+            if (tallaCoincide && colorCoincide && cantidadSuficiente) {
+                stockSuficiente = true;
+                break;
+            }
+        }
 
         if (!stockSuficiente) {
             throw new StockInsuficienteException("Stock insuficiente para el producto con ID: " + detalle.getIdTipo());
         }
     }
+
             // Actualizar los campos de la compra existente solo si todas las validaciones han pasado
             existingCompra.setIdUsuario(compra.getIdUsuario());
             existingCompra.setDetallesCompra(compra.getDetallesCompra());
