@@ -176,8 +176,25 @@ db.createCollection("producto", {
                         "Unisex"
                     ]
                 },
-                "imagen": {
-                    "bsonType": "string"
+                "imagenes": {
+                    "bsonType": "array",
+                    "additionalItems": true,
+                    "items": {
+                        "bsonType": "object",
+                        "properties": {
+                            "diseno": {
+                                "bsonType": "string",
+                                "enum": [
+                                    "Predeterminado",
+                                    "Personalizado"
+                                ]
+                            },
+                            "imagen": {
+                                "bsonType": "string"
+                            }
+                        },
+                        "additionalProperties": false
+                    }
                 },
                 "precio": {
                     "bsonType": "decimal"
@@ -280,15 +297,15 @@ db.createCollection("compra", {
                     "items": {
                         "bsonType": "object",
                         "properties": {
+                            "idProducto": {
+                                "bsonType": "objectId"
+                            },
                             "tipo": {
                                 "bsonType": "string",
                                 "enum": [
                                     "Producto",
                                     "Paquete"
                                 ]
-                            },
-                            "idTipo": {
-                                "bsonType": "objectId"
                             },
                             "cantidad": {
                                 "bsonType": "long"
@@ -305,23 +322,17 @@ db.createCollection("compra", {
                             "color": {
                                 "bsonType": "string"
                             },
-                            "Personalizacion": {
-                                "bsonType": "object",
-                                "properties": {
-                                    "idProducto": {
-                                        "bsonType": "objectId"
-                                    },
-                                    "detalles": {
-                                        "bsonType": "string"
-                                    }
-                                },
-                                "additionalProperties": false
+                            "imagenPersonalizada": {
+                                "bsonType": "string"
+                            },
+                            "detalles": {
+                                "bsonType": "string"
                             }
                         },
                         "additionalProperties": false,
                         "required": [
+                            "idProducto",
                             "tipo",
-                            "idTipo",
                             "cantidad"
                         ]
                     }

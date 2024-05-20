@@ -316,8 +316,7 @@
                     "childRelationships": [
                         "98bd19d0-7400-4852-b0b6-f8983b90d8ca",
                         "f485651e-f070-4867-9c70-b822c4a4597b",
-                        "190767a9-da16-4d0b-bcc2-2e884e00c66a",
-                        "5c640ef8-4606-4baf-a875-d732e3b64b85"
+                        "190767a9-da16-4d0b-bcc2-2e884e00c66a"
                     ]
                 },
                 {
@@ -361,11 +360,52 @@
                     "error": {}
                 },
                 {
+                    "name": "imagenes",
                     "hackoladeMeta": {},
                     "isActivated": true,
-                    "type": "string",
+                    "type": "array",
+                    "properties": [
+                        {
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "document",
+                            "properties": [
+                                {
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "string",
+                                    "GUID": "6ce72bae-8c57-4dec-9479-df98033ec8cd",
+                                    "name": "diseno",
+                                    "error": {
+                                        "enum": false,
+                                        "enums": [
+                                            false,
+                                            false
+                                        ]
+                                    },
+                                    "enum": [
+                                        "Predeterminado",
+                                        "Personalizado"
+                                    ]
+                                },
+                                {
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "string",
+                                    "GUID": "49cf113e-97b9-49ac-b181-6e9b43b4edb8",
+                                    "name": "imagen",
+                                    "error": {}
+                                }
+                            ],
+                            "additionalProperties": false,
+                            "GUID": "bdebfed9-7191-4393-bb06-747a2359c118",
+                            "arrayItem": true,
+                            "displayName": "personalizaciones",
+                            "error": {}
+                        }
+                    ],
+                    "additionalItems": true,
                     "GUID": "65d426c0-88b7-4e4c-a85d-9b27f0d2faa7",
-                    "name": "imagen",
                     "error": {}
                 },
                 {
@@ -597,6 +637,22 @@
                             "type": "document",
                             "properties": [
                                 {
+                                    "name": "idProducto",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "objectId",
+                                    "required": true,
+                                    "GUID": "9939d6ca-5829-4cb2-a762-5391a358bc2e",
+                                    "foreignCollection": "ea334da3-2008-4f4c-a0ca-d6b61bf167f9",
+                                    "foreignField": [
+                                        "ea334da3-2008-4f4c-a0ca-d6b61bf167f9",
+                                        "23d40cc7-650b-44e1-91d7-7e8475b7db13"
+                                    ],
+                                    "relationshipType": "Foreign Key",
+                                    "parentRelationship": "190767a9-da16-4d0b-bcc2-2e884e00c66a",
+                                    "error": {}
+                                },
+                                {
                                     "name": "tipo",
                                     "hackoladeMeta": {},
                                     "isActivated": true,
@@ -614,22 +670,6 @@
                                         "Producto",
                                         "Paquete"
                                     ]
-                                },
-                                {
-                                    "name": "idTipo",
-                                    "hackoladeMeta": {},
-                                    "isActivated": true,
-                                    "type": "objectId",
-                                    "required": true,
-                                    "GUID": "9939d6ca-5829-4cb2-a762-5391a358bc2e",
-                                    "foreignCollection": "ea334da3-2008-4f4c-a0ca-d6b61bf167f9",
-                                    "foreignField": [
-                                        "ea334da3-2008-4f4c-a0ca-d6b61bf167f9",
-                                        "23d40cc7-650b-44e1-91d7-7e8475b7db13"
-                                    ],
-                                    "relationshipType": "Foreign Key",
-                                    "parentRelationship": "190767a9-da16-4d0b-bcc2-2e884e00c66a",
-                                    "error": {}
                                 },
                                 {
                                     "name": "cantidad",
@@ -668,42 +708,20 @@
                                     "error": {}
                                 },
                                 {
-                                    "name": "Personalizacion",
                                     "hackoladeMeta": {},
                                     "isActivated": true,
-                                    "type": "document",
-                                    "properties": [
-                                        {
-                                            "name": "idProducto",
-                                            "hackoladeMeta": {},
-                                            "isActivated": true,
-                                            "type": "objectId",
-                                            "GUID": "21d52746-46c3-4e6c-b72b-ac0915405e4b",
-                                            "foreignCollection": "ea334da3-2008-4f4c-a0ca-d6b61bf167f9",
-                                            "foreignField": [
-                                                "ea334da3-2008-4f4c-a0ca-d6b61bf167f9",
-                                                "23d40cc7-650b-44e1-91d7-7e8475b7db13"
-                                            ],
-                                            "relationshipType": "Foreign Key",
-                                            "parentRelationship": "5c640ef8-4606-4baf-a875-d732e3b64b85",
-                                            "error": {},
-                                            "childRelationships": [
-                                                "84843801-e370-402e-bf52-887f9f3a97e1"
-                                            ]
-                                        },
-                                        {
-                                            "name": "detalles",
-                                            "hackoladeMeta": {},
-                                            "isActivated": true,
-                                            "type": "string",
-                                            "GUID": "71cb658c-9f10-4106-9f9c-c73e0b20d90c",
-                                            "error": {}
-                                        }
-                                    ],
-                                    "additionalProperties": false,
-                                    "error": {},
-                                    "GUID": "d7148dab-7dbf-4c6c-baad-7efd578aeb03",
-                                    "sampleName": ""
+                                    "type": "string",
+                                    "GUID": "4e0b3d15-60fd-460f-baab-276eccea4e3e",
+                                    "name": "imagenPersonalizada",
+                                    "error": {}
+                                },
+                                {
+                                    "name": "detalles",
+                                    "hackoladeMeta": {},
+                                    "isActivated": true,
+                                    "type": "string",
+                                    "GUID": "71cb658c-9f10-4106-9f9c-c73e0b20d90c",
+                                    "error": {}
                                 }
                             ],
                             "additionalProperties": false,
@@ -1063,20 +1081,20 @@
                 "dataType": "",
                 "shape": [
                     {
-                        "x": 1740.4031220386585,
-                        "y": 1350.1427622571837
+                        "x": 1925.803146452721,
+                        "y": 1191.642786671246
                     },
                     {
-                        "x": 1498.234894352663,
-                        "y": 1350.1427622571837
+                        "x": 1591.4349065596944,
+                        "y": 1191.642786671246
                     },
                     {
-                        "x": 1498.234894352663,
-                        "y": 1279.5647497016828
+                        "x": 1591.4349065596944,
+                        "y": 1033.5647497016828
                     },
                     {
-                        "x": 1256.0666666666675,
-                        "y": 1279.5647497016828
+                        "x": 1257.0666666666675,
+                        "y": 1033.5647497016828
                     }
                 ],
                 "sides": [
@@ -1117,20 +1135,20 @@
                 "dataType": "",
                 "shape": [
                     {
-                        "x": 1314.2727300566519,
-                        "y": 1550.832794411535
+                        "x": 1311.2727300566519,
+                        "y": 1368.832794411535
                     },
                     {
-                        "x": 1285.1696983616598,
-                        "y": 1550.832794411535
+                        "x": 1284.1696983616598,
+                        "y": 1368.832794411535
                     },
                     {
-                        "x": 1285.1696983616598,
-                        "y": 1385.2314163683493
+                        "x": 1284.1696983616598,
+                        "y": 1139.2314163683493
                     },
                     {
-                        "x": 1256.0666666666675,
-                        "y": 1385.2314163683493
+                        "x": 1257.0666666666675,
+                        "y": 1139.2314163683493
                     }
                 ],
                 "sides": [
@@ -1171,20 +1189,20 @@
                 "dataType": "",
                 "shape": [
                     {
-                        "x": 1242.7310599946209,
-                        "y": 1636.3611446438294
+                        "x": 1243.7310599946209,
+                        "y": 1390.3611446438294
                     },
                     {
-                        "x": 1278.5018950256363,
-                        "y": 1636.3611446438294
+                        "x": 1277.5018950256363,
+                        "y": 1390.3611446438294
                     },
                     {
-                        "x": 1278.5018950256363,
-                        "y": 1693.832794411535
+                        "x": 1277.5018950256363,
+                        "y": 1529.832794411535
                     },
                     {
-                        "x": 1314.2727300566519,
-                        "y": 1693.832794411535
+                        "x": 1311.2727300566519,
+                        "y": 1529.832794411535
                     }
                 ],
                 "sides": [
@@ -1228,11 +1246,11 @@
                 "shape": [
                     {
                         "x": 1353.540437911496,
-                        "y": 1187.898083035016
+                        "y": 941.898083035016
                     },
                     {
                         "x": 1256.0666666666675,
-                        "y": 1187.898083035016
+                        "y": 941.898083035016
                     }
                 ],
                 "sides": [
@@ -1274,20 +1292,20 @@
                 "dataType": "",
                 "shape": [
                     {
-                        "x": 1740.4031220386585,
-                        "y": 1249.9427622571836
+                        "x": 1925.803146452721,
+                        "y": 1070.892786671246
                     },
                     {
-                        "x": 1674.9717799750772,
-                        "y": 1249.9427622571836
+                        "x": 1768.1717921821084,
+                        "y": 1070.892786671246
                     },
                     {
-                        "x": 1674.9717799750772,
-                        "y": 1174.780413459143
+                        "x": 1768.1717921821084,
+                        "y": 928.7804134591429
                     },
                     {
-                        "x": 1609.540437911496,
-                        "y": 1174.780413459143
+                        "x": 1610.540437911496,
+                        "y": 928.7804134591429
                     }
                 ],
                 "sides": [
@@ -1328,141 +1346,24 @@
                 "dataType": "",
                 "shape": [
                     {
-                        "x": 1740.4031220386585,
-                        "y": 1450.3427622571835
+                        "x": 1925.803146452721,
+                        "y": 1312.392786671246
                     },
                     {
-                        "x": 1662.3379260476552,
-                        "y": 1450.3427622571835
+                        "x": 1772.0379382546864,
+                        "y": 1312.392786671246
                     },
                     {
-                        "x": 1662.3379260476552,
-                        "y": 1550.832794411535
+                        "x": 1772.0379382546864,
+                        "y": 1449.332794411535
                     },
                     {
-                        "x": 1584.2727300566519,
-                        "y": 1550.832794411535
+                        "x": 1618.2727300566519,
+                        "y": 1449.332794411535
                     }
                 ],
                 "sides": [
                     "left",
-                    "right"
-                ]
-            }
-        },
-        {
-            "name": "fk compra.detallesCompra.[0].Personalizacion.idProducto to producto._id",
-            "relationshipType": "Foreign Key",
-            "parentField": [
-                [
-                    "ea334da3-2008-4f4c-a0ca-d6b61bf167f9",
-                    "23d40cc7-650b-44e1-91d7-7e8475b7db13"
-                ]
-            ],
-            "parentCardinality": "1",
-            "childField": [
-                [
-                    "dd5dd7d7-45db-4cae-ac7f-7ac81abd62e3",
-                    "1531f4c6-2183-459d-88a8-79d8e81039c2",
-                    "51892c7c-805b-442a-ba1d-7470710104af",
-                    "d7148dab-7dbf-4c6c-baad-7efd578aeb03",
-                    "21d52746-46c3-4e6c-b72b-ac0915405e4b"
-                ]
-            ],
-            "isActivated": true,
-            "childCardinality": "1",
-            "GUID": "5c640ef8-4606-4baf-a875-d732e3b64b85",
-            "parentCollection": "ea334da3-2008-4f4c-a0ca-d6b61bf167f9",
-            "childCollection": "dd5dd7d7-45db-4cae-ac7f-7ac81abd62e3",
-            "hackoladeStyles": {
-                "GUID": "8396ba04-37ed-4f5e-97ac-0487b5c526db",
-                "autoPositioning": true,
-                "type": "Orthogonal",
-                "thickness": 2,
-                "color": "#79c4ff",
-                "dataType": "",
-                "shape": [
-                    {
-                        "x": 1740.4031220386585,
-                        "y": 1550.5427622571835
-                    },
-                    {
-                        "x": 1662.3379260476552,
-                        "y": 1550.5427622571835
-                    },
-                    {
-                        "x": 1662.3379260476552,
-                        "y": 1693.832794411535
-                    },
-                    {
-                        "x": 1584.2727300566519,
-                        "y": 1693.832794411535
-                    }
-                ],
-                "sides": [
-                    "left",
-                    "right"
-                ]
-            }
-        },
-        {
-            "name": "fk compra.detallesCompra.[0].detalles to compra.detallesCompra.[0].Personalizacion.idProducto",
-            "relationshipType": "Foreign Key",
-            "parentField": [
-                [
-                    "dd5dd7d7-45db-4cae-ac7f-7ac81abd62e3",
-                    "1531f4c6-2183-459d-88a8-79d8e81039c2",
-                    "51892c7c-805b-442a-ba1d-7470710104af",
-                    "d7148dab-7dbf-4c6c-baad-7efd578aeb03",
-                    "21d52746-46c3-4e6c-b72b-ac0915405e4b"
-                ]
-            ],
-            "parentCardinality": "1",
-            "childField": [
-                [
-                    "dd5dd7d7-45db-4cae-ac7f-7ac81abd62e3",
-                    "1531f4c6-2183-459d-88a8-79d8e81039c2",
-                    "51892c7c-805b-442a-ba1d-7470710104af",
-                    "d7148dab-7dbf-4c6c-baad-7efd578aeb03",
-                    "1a261db3-3bc0-411d-916a-4246b86a5a47"
-                ]
-            ],
-            "isActivated": true,
-            "childCardinality": "0..n",
-            "parentCollection": "dd5dd7d7-45db-4cae-ac7f-7ac81abd62e3",
-            "childCollection": "dd5dd7d7-45db-4cae-ac7f-7ac81abd62e3",
-            "GUID": "84843801-e370-402e-bf52-887f9f3a97e1",
-            "hackoladeStyles": {
-                "GUID": "578f417c-1d6b-4617-b93d-0db3a7611364",
-                "autoPositioning": true,
-                "type": "Orthogonal",
-                "thickness": 2,
-                "color": "#79c4ff",
-                "dataType": "",
-                "shape": [
-                    {
-                        "x": 1883.4031220386585,
-                        "y": 1149.7427622571836
-                    },
-                    {
-                        "x": 1883.4031220386585,
-                        "y": 1124.7427622571836
-                    },
-                    {
-                        "x": 2051.4031220386587,
-                        "y": 1124.7427622571836
-                    },
-                    {
-                        "x": 2051.4031220386587,
-                        "y": 1400.2427622571836
-                    },
-                    {
-                        "x": 2026.4031220386585,
-                        "y": 1400.2427622571836
-                    }
-                ],
-                "sides": [
-                    "top",
                     "right"
                 ]
             }
@@ -1547,13 +1448,13 @@
         "c62b7379-50f3-4b3c-bb13-b3dbc0ef7e34": "cantidad",
         "32760923-fa7c-4eb9-8e5c-74344703abdb": "fk compra.destinatario.codigoPostalCiudad to departamento.ciudades.[0].codigoPostal",
         "397c334f-74fa-48fb-97b7-07be8949eddd": "color",
-        "d7148dab-7dbf-4c6c-baad-7efd578aeb03": "Personalizacion",
-        "65d426c0-88b7-4e4c-a85d-9b27f0d2faa7": "imagen",
+        "65d426c0-88b7-4e4c-a85d-9b27f0d2faa7": "imagenes",
         "190767a9-da16-4d0b-bcc2-2e884e00c66a": "fk compra.detallesCompra.[0].idTipo to producto._id",
-        "21d52746-46c3-4e6c-b72b-ac0915405e4b": "idProducto",
-        "5c640ef8-4606-4baf-a875-d732e3b64b85": "fk compra.detallesCompra.[0].Personalizacion.idProducto to producto._id",
-        "84843801-e370-402e-bf52-887f9f3a97e1": "fk compra.detallesCompra.[0].detalles to compra.detallesCompra.[0].Personalizacion.idProducto",
-        "71cb658c-9f10-4106-9f9c-c73e0b20d90c": "detalles"
+        "6ce72bae-8c57-4dec-9479-df98033ec8cd": "diseno",
+        "49cf113e-97b9-49ac-b181-6e9b43b4edb8": "imagen",
+        "4e0b3d15-60fd-460f-baab-276eccea4e3e": "imagenPersonalizada",
+        "71cb658c-9f10-4106-9f9c-c73e0b20d90c": "detalles",
+        "9939d6ca-5829-4cb2-a762-5391a358bc2e": "idProducto"
     },
     "definitions": {
         "type": "definitions",
@@ -1635,7 +1536,7 @@
     "creationTS": "2024-04-29T14:07:30.405Z",
     "GUID": "696014d8-47b8-428b-9ff8-7d8ec01a7ec2",
     "isLineageEnabled": false,
-    "lastModifTS": "2024-05-20T16:18:43.830Z",
+    "lastModifTS": "2024-05-20T16:51:52.977Z",
     "persistenceSchemaVersion": "7",
     "isCreatedByPlugin": true,
     "pluginInformation": {
@@ -1655,8 +1556,8 @@
                 "erd": [
                     {
                         "GUID": "375e7bf2-cd92-4622-91b1-9856a4c82e97",
-                        "x": 995.0666666666676,
-                        "y": 1173.898083035016,
+                        "x": 995.0666666666675,
+                        "y": 927.898083035016,
                         "width": 261,
                         "height": 317,
                         "color": {}
@@ -1664,31 +1565,31 @@
                     {
                         "GUID": "af49f7e9-1c16-4201-9c2f-33a7171d3cd3",
                         "x": 1353.540437911496,
-                        "y": 1104.280413459143,
+                        "y": 858.2804134591429,
                         "width": 256,
                         "height": 141,
                         "color": {}
                     },
                     {
                         "GUID": "ea334da3-2008-4f4c-a0ca-d6b61bf167f9",
-                        "x": 1314.2727300566519,
-                        "y": 1407.832794411535,
-                        "width": 270,
-                        "height": 429,
+                        "x": 1310.2727300566519,
+                        "y": 1207.832794411535,
+                        "width": 307,
+                        "height": 483,
                         "color": {}
                     },
                     {
                         "GUID": "dd5dd7d7-45db-4cae-ac7f-7ac81abd62e3",
-                        "x": 1740.4031220386585,
-                        "y": 1149.7427622571836,
-                        "width": 286,
-                        "height": 501,
+                        "x": 1924.803146452721,
+                        "y": 950.1427866712461,
+                        "width": 315,
+                        "height": 483,
                         "color": {}
                     },
                     {
                         "GUID": "832787c8-51cc-4cf3-a02e-24fb2cc2dc24",
-                        "x": 989.731059994621,
-                        "y": 1547.8611446438294,
+                        "x": 989.7310599946209,
+                        "y": 1301.8611446438294,
                         "width": 253,
                         "height": 177,
                         "color": {}
@@ -1703,7 +1604,7 @@
                 "buckets": [
                     {
                         "x": 716.4,
-                        "y": 949.0314163683454,
+                        "y": 703.0314163683454,
                         "GUID": "6d26242f-c007-4371-b96d-da3a0d723b4f"
                     }
                 ],
@@ -1727,7 +1628,7 @@
                     {
                         "GUID": "0b97b419-7759-4b18-b524-29cb421591c6",
                         "x": 756.4,
-                        "y": 1237.2980830350111,
+                        "y": 991.2980830350111,
                         "height": 105,
                         "width": 204,
                         "color": {
@@ -1757,7 +1658,7 @@
                     {
                         "GUID": "48c2584e-785e-43e3-b39e-ae99241cd476",
                         "x": 922.7999999999993,
-                        "y": 1039.8980830350133,
+                        "y": 793.8980830350133,
                         "height": 81,
                         "width": 187,
                         "color": {
@@ -1787,7 +1688,7 @@
                     {
                         "GUID": "6cf9cd6b-7016-435d-86aa-d8b27f430f1a",
                         "x": 1681.1333333333298,
-                        "y": 989.0314163683454,
+                        "y": 743.0314163683454,
                         "height": 93,
                         "width": 245,
                         "color": {
@@ -1817,7 +1718,7 @@
                     {
                         "GUID": "7da2e577-4cff-43e5-b976-781eebd84c13",
                         "x": 1216.000000000003,
-                        "y": 1004.2980830350145,
+                        "y": 758.2980830350145,
                         "height": 104,
                         "width": 150,
                         "color": {
@@ -1847,7 +1748,7 @@
                     {
                         "GUID": "35a28dd9-53b7-4a62-a9fe-7c18d1ebde38",
                         "x": 1708.0458735262591,
-                        "y": 1706.0700015773505,
+                        "y": 1460.0700015773505,
                         "height": 95,
                         "width": 169,
                         "color": {
@@ -1877,7 +1778,7 @@
                     {
                         "GUID": "c21137a7-9882-41d1-804d-ac46c494c4d6",
                         "x": 792.0000000000009,
-                        "y": 1458.2980830350148,
+                        "y": 1212.2980830350148,
                         "height": 102,
                         "width": 150,
                         "color": {
@@ -1907,7 +1808,7 @@
                     {
                         "GUID": "738cba03-3f7b-4fdb-8650-86113f6d4156",
                         "x": 1031.3333333333344,
-                        "y": 1759.4314163683416,
+                        "y": 1513.4314163683416,
                         "height": 104,
                         "width": 198,
                         "color": {
