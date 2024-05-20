@@ -65,25 +65,22 @@ public class PromocionesServiceImpl implements IPromocionesService {
     public PromocionesModel updatePromo(ObjectId id, PromocionesModel promocion) {
         PromocionesModel existingPromocion = promocionesRepository.findById(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Promoción no encontrada con ID: " + id));
-
-        if (!existingPromocion.getId().equals(promocion.getId())) {
-            throw new RecursoNoEncontradoException("El id no coincide");
-        }
-
-        // Validar unicidad de los nombres de promociones dentro de la lista
-        Set<String> nombresPromociones = new HashSet<>();
-        for (ProductoPromocionModel productoPromocion : promocion.getProductoPromocion()) {
-            if (!nombresPromociones.add(productoPromocion.getNombre())) {
-                throw new RecursoYaExistenteException("La promoción \"" + productoPromocion.getNombre() + "\" ya existe.");
+    
+        if (promocion.getProductoPromocion() != null && !promocion.getProductoPromocion().isEmpty()) {
+            Set<String> nombresPromociones = new HashSet<>();
+            for (ProductoPromocionModel productoPromocion : promocion.getProductoPromocion()) {
+                if (!nombresPromociones.add(productoPromocion.getNombre())) {
+                    throw new RecursoYaExistenteException("La promoción \"" + productoPromocion.getNombre() + "\" ya existe.");
+                }
+    
+                if (productoPromocion.getFechaInicio().after(productoPromocion.getFechaFin())) {
+                    throw new ValorInvalidoException("La fecha de inicio no puede ser posterior a la fecha de fin.");
+                }
             }
-
-            // Validar las fechas de la promoción
-            if (productoPromocion.getFechaInicio().after(productoPromocion.getFechaFin())) {
-                throw new ValorInvalidoException("La fecha de inicio no puede ser posterior a la fecha de fin.");
-            }
+    
+            existingPromocion.setProductoPromocion(promocion.getProductoPromocion());
         }
-
-        existingPromocion.setProductoPromocion(promocion.getProductoPromocion());
+    
         return promocionesRepository.save(existingPromocion);
     }
 }

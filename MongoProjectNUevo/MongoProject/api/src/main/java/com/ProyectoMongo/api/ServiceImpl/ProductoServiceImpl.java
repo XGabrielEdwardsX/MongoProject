@@ -75,32 +75,41 @@ public class ProductoServiceImpl implements IProductoService {
         }
         */
 
-        existingProducto.setNombre(producto.getNombre());
-        existingProducto.setCategoria(producto.getCategoria());
-        existingProducto.setDescripcion(producto.getDescripcion());
-        existingProducto.setGenero(producto.getGenero());
-        existingProducto.setImagen(producto.getImagen());
-        existingProducto.setPrecio(producto.getPrecio());
-        existingProducto.setEsPaquete(producto.getEsPaquete());
-        existingProducto.setProductos(producto.getProductos());
-        existingProducto.setStock(producto.getStock());
-        existingProducto.setComentarios(producto.getComentarios());
-
-        /*
-        try {
+        if (producto.getNombre() != null) {
+            existingProducto.setNombre(producto.getNombre());
+        }
+        if (producto.getCategoria() != null) {
+            existingProducto.setCategoria(producto.getCategoria());
+        }
+        if (producto.getDescripcion() != null) {
+            existingProducto.setDescripcion(producto.getDescripcion());
+        }
+        if (producto.getGenero() != null) {
             if (!producto.getGenero().matches("Hombre|Mujer|Unisex")) {
                 throw new ValorInvalidoException("Valor inválido para el género: " + producto.getGenero());
             }
-        } catch (IllegalArgumentException e) {
-            throw new ValorInvalidoException("Valor inválido para el género: " + producto.getGenero());
+            existingProducto.setGenero(producto.getGenero());
         }
-        */
-       
-        // Esta es mejor, la hizo Gabriel... Sapa Jacobo
-        if (!producto.getGenero().matches("Hombre|Mujer|Unisex")) {
-            throw new ValorInvalidoException("Valor inválido para el género: " + producto.getGenero());
+        if (producto.getImagenes() != null && !producto.getImagenes().isEmpty()) {
+            existingProducto.setImagenes(producto.getImagenes());
         }
-
+        if (producto.getPrecio() != null) {
+            existingProducto.setPrecio(producto.getPrecio());
+        }
+        if (producto.getEsPaquete() != null) {
+            existingProducto.setEsPaquete(producto.getEsPaquete());
+        }
+        if (producto.getProductos() != null && !producto.getProductos().isEmpty()) {
+            existingProducto.setProductos(producto.getProductos());
+        }
+        if (producto.getStock() != null && !producto.getStock().isEmpty()) {
+            existingProducto.setStock(producto.getStock());
+        }
+        if (producto.getComentarios() != null && !producto.getComentarios().isEmpty()) {
+            existingProducto.setComentarios(producto.getComentarios());
+        }
+    
         return productoRepository.save(existingProducto);
     }
+
 }

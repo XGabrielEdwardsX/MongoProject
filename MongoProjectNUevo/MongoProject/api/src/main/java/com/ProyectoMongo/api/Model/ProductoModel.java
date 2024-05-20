@@ -22,7 +22,7 @@ public class ProductoModel {
     private String categoria;
     private String descripcion;
     private String genero; 
-    private String imagen;
+    private List<ImagenModel> imagenes;
     private BigDecimal precio;
     private Boolean esPaquete;
     private List<ProductosModel> productos;

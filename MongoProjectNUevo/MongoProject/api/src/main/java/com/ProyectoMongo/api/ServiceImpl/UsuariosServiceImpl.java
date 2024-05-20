@@ -95,63 +95,59 @@ public class UsuariosServiceImpl implements IUsuariosService {
     }
 
     @Override
-    public UsuariosModel updateUsuario(ObjectId id, UsuariosModel usuario) {
- 
-        UsuariosModel existingUsuario = usuarioRepository.findById(id)
-            .orElseThrow(() -> new RecursoNoEncontradoException("Usuario no encontrado con ID: " + id));
+public UsuariosModel updateUsuario(ObjectId id, UsuariosModel usuario) {
+    UsuariosModel existingUsuario = usuarioRepository.findById(id)
+        .orElseThrow(() -> new RecursoNoEncontradoException("Usuario con ID: " + id + " no encontrado"));
 
-
-        if (!existingUsuario.getId().equals(usuario.getId())) {
-            throw new RecursoNoEncontradoException("El id no coincide");
+    // Actualizar solo los campos presentes en la solicitud
+    if (usuario.getNombre() != null) {
+        existingUsuario.setNombre(usuario.getNombre());
+    }
+    if (usuario.getEmail() != null) {
+        if (usuarioRepository.existsByEmailAndIdNot(usuario.getEmail(), id)) {
+            throw new RecursoYaExistenteException("El correo electrónico " + usuario.getEmail() + " ya está en uso.");
         }
-
-        boolean updateEmail = !existingUsuario.getEmail().equals(usuario.getEmail());
-        boolean updatePhone = !existingUsuario.getTelefono().equals(usuario.getTelefono());
-
-        if (updateEmail && usuarioRepository.existsByEmail(usuario.getEmail())) {
-            throw new RecursoYaExistenteException("El correo electrónico ya está en uso.");
+        existingUsuario.setEmail(usuario.getEmail());
+    }
+    if (usuario.getTelefono() != null) {
+        if (usuarioRepository.existsByTelefonoAndIdNot(usuario.getTelefono(), id)) {
+            throw new RecursoYaExistenteException("El teléfono " + usuario.getTelefono() + " ya está en uso.");
         }
-        if (updatePhone && usuarioRepository.existsByTelefono(usuario.getTelefono())) {
-            throw new RecursoYaExistenteException("El teléfono ya está en uso.");
+        existingUsuario.setTelefono(usuario.getTelefono());
+    }
+    if (usuario.getEdad() != null) {
+        existingUsuario.setEdad(usuario.getEdad());
+    }
+    if (usuario.getGenero() != null) {
+        try {
+            Genero.valueOf(usuario.getGenero());
+        } catch (IllegalArgumentException e) {
+            throw new ValorInvalidoException("Valor inválido para el género: " + usuario.getGenero());
         }
-
+        existingUsuario.setGenero(usuario.getGenero());
+    }
+    if (usuario.getDirecciones() != null && !usuario.getDirecciones().isEmpty()) {
+        List<DireccionesModel> direccionesActualizadas = new ArrayList<>(existingUsuario.getDirecciones());
+        for (DireccionesModel nuevaDireccion : usuario.getDirecciones()) {
+            direccionesActualizadas.add(nuevaDireccion);
+        }
+        existingUsuario.setDirecciones(direccionesActualizadas);
+    }
+    if (usuario.getRoles() != null && !usuario.getRoles().isEmpty()) {
         Set<String> nombresUsuarios = new HashSet<>();
-        List<RolesModel> NombreUsuarioUpdate = new ArrayList<>();
+        List<RolesModel> rolesActualizados = new ArrayList<>(existingUsuario.getRoles());
         for (RolesModel rol : usuario.getRoles()) {
-
-        if (usuarioRepository.existsByRolesNombreUsuarioAndIdNot(rol.getNombreUsuario(), id)) {
-            throw new RecursoYaExistenteException("El nombre de usuario " + rol.getNombreUsuario() + " ya lo tiene otro usuario");
-        }
-
-        Set<Integer> codigosPostales = new HashSet<>();
-        departamentosRepository.findAll().forEach(departamento -> 
-            departamento.getCiudades().forEach(ciudad -> codigosPostales.add((int) ciudad.getCodigoPostal()))
-        );
-
-        for (DireccionesModel direccion : usuario.getDirecciones()) {
-            if (!codigosPostales.contains(direccion.getCodigoPostalCiudad())) {
-                throw new RecursoNoEncontradoException("Código postal " + direccion.getCodigoPostalCiudad() + " no encontrado");
+            if (usuarioRepository.existsByRolesNombreUsuarioAndIdNot(rol.getNombreUsuario(), id)) {
+                throw new RecursoYaExistenteException("El nombre de usuario " + rol.getNombreUsuario() + " ya lo tiene otro usuario");
             }
-
-        }     
-            existingUsuario.setNombre(usuario.getNombre());
-            existingUsuario.setEmail(updateEmail ? usuario.getEmail() : existingUsuario.getEmail());
-            existingUsuario.setTelefono(updatePhone ? usuario.getTelefono() : existingUsuario.getTelefono());
-            existingUsuario.setEdad(usuario.getEdad());
-            existingUsuario.setGenero(usuario.getGenero());
-            existingUsuario.setDirecciones(usuario.getDirecciones());
-            existingUsuario.setRoles(usuario.getRoles());
-
-            try {
-                Genero.valueOf(usuario.getGenero());
-            } catch (IllegalArgumentException e) {
-                throw new ValorInvalidoException("Valor inválido para el género: " + usuario.getGenero());
-            }
-            NombreUsuarioUpdate.add(rol);
+            rolesActualizados.add(rol);
             nombresUsuarios.add(rol.getNombreUsuario());
         }
-
-        existingUsuario.setRoles(NombreUsuarioUpdate);
-        return usuarioRepository.save(existingUsuario);
+        existingUsuario.setRoles(rolesActualizados);
     }
+
+    return usuarioRepository.save(existingUsuario);
 }
+
+}
+   

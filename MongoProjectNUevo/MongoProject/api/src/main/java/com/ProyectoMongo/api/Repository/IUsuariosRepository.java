@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 public interface IUsuariosRepository extends MongoRepository<UsuariosModel, ObjectId> {
     boolean existsByEmail(String email);
     boolean existsByTelefono(Long telefono);
+    boolean existsByEmailAndIdNot(String email, ObjectId id);
+    boolean existsByTelefonoAndIdNot(Long telefono, ObjectId id);
     boolean existsByRolesNombreUsuarioAndIdNot(String nombreUsuario, ObjectId id);
     boolean existsByRolesNombreUsuario(String nombreUsuario);
 }
