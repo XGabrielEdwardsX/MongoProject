@@ -1,9 +1,11 @@
 package com.ProyectoMongo.api.ServiceImpl;
+
 import com.ProyectoMongo.api.Exception.RecursoNoEncontradoException;
 import com.ProyectoMongo.api.Exception.StockInsuficienteException;
 import com.ProyectoMongo.api.Exception.ValorInvalidoException;
 import com.ProyectoMongo.api.Model.ComprasModel;
 import com.ProyectoMongo.api.Model.DetallesCompraModel;
+import com.ProyectoMongo.api.Model.ImagenModel;
 import com.ProyectoMongo.api.Model.ProductoModel;
 import com.ProyectoMongo.api.Model.StockModel;
 import com.ProyectoMongo.api.Repository.IComprasRepository;
@@ -55,7 +57,6 @@ public class ComprasServiceImpl implements IComprasService {
         compra.setFechaCompra(new Date());
 
         // Validar formato del número de tarjeta
-
         if (compra.getTarjeta().getFechaVencimiento().before(new Date())) {
             throw new ValorInvalidoException("La fecha de vencimiento de la tarjeta no puede ser en el pasado: " + compra.getTarjeta().getFechaVencimiento());
         }
@@ -141,62 +142,68 @@ public class ComprasServiceImpl implements IComprasService {
 
     @Override
     public ComprasModel updateCompra(ObjectId id, ComprasModel compra) {
-    ComprasModel existingCompra = compraRepository.findById(id)
-            .orElseThrow(() -> new RecursoNoEncontradoException("Compra no encontrada con ID: " + id));
+        final ComprasModel existingCompra = compraRepository.findById(id)
+                .orElseThrow(() -> new RecursoNoEncontradoException("Compra no encontrada con ID: " + id));
 
-    for (DetallesCompraModel nuevoDetalle : compra.getDetallesCompra()) {
-        for (DetallesCompraModel detalleOriginal : existingCompra.getDetallesCompra()) {
-            if (nuevoDetalle.getIdTipo().equals(detalleOriginal.getIdTipo()) &&
-                nuevoDetalle.getTalla().equals(detalleOriginal.getTalla()) &&
-                nuevoDetalle.getColor().equals(detalleOriginal.getColor())) {
+        for (DetallesCompraModel nuevoDetalle : compra.getDetallesCompra()) {
+            for (DetallesCompraModel detalleOriginal : existingCompra.getDetallesCompra()) {
+                if (nuevoDetalle.getIdTipo().equals(detalleOriginal.getIdTipo()) &&
+                        nuevoDetalle.getTalla().equals(detalleOriginal.getTalla()) &&
+                        nuevoDetalle.getColor().equals(detalleOriginal.getColor())) {
 
-                int diferenciaCantidad = (int) (nuevoDetalle.getCantidad() - detalleOriginal.getCantidad());
+                    int diferenciaCantidad = (int) (nuevoDetalle.getCantidad() - detalleOriginal.getCantidad());
 
-                // Solo actualizar el stock si hay cambios en la cantidad
-                if (diferenciaCantidad != 0) { 
-                    ProductoModel producto = productoRepository.findById(nuevoDetalle.getIdTipo())
-                            .orElseThrow(() -> new RecursoNoEncontradoException("El producto con ID: " + nuevoDetalle.getIdTipo() + " no encontrado"));
-
-                    for (StockModel stock : producto.getStock()) {
-                        if (stock.getTalla().equals(nuevoDetalle.getTalla()) &&
-                            stock.getColor().equals(nuevoDetalle.getColor())) {
-
-                            // Ajustar la cantidad del stock
-                            stock.setCantidad(stock.getCantidad() - diferenciaCantidad);
-
-                            // Verificar si la cantidad es válida después del cambio
-                            if (stock.getCantidad() < 0) {
-                                throw new StockInsuficienteException("Stock insuficiente para el producto con ID: " + nuevoDetalle.getIdTipo());
-                            }
-
-                            // Salir del bucle de stock
-                            break; 
+                    // Solo actualizar el stock si hay cambios en la cantidad
+                    if (diferenciaCantidad != 0) {
+                        ProductoModel producto = productoRepository.findById(nuevoDetalle.getIdTipo())
+                                .orElseThrow(() -> new RecursoNoEncontradoException("El producto con ID: " + nuevoDetalle.getIdTipo() + " no encontrado"));
+                        // Verificar la existencia de la imagen en el producto
+                        Set<String> imagenesProducto = new HashSet<>();
+                        for (ImagenModel imagen : producto.getImagenes()) {
+                            imagenesProducto.add(imagen.getImagen());
                         }
+
+                        if (!imagenesProducto.contains(nuevoDetalle.getImagenPersonalizacion())) {
+                            throw new RecursoNoEncontradoException("Imagen no encontrada para el producto con ID: " + nuevoDetalle.getIdTipo());
+                        }
+                        // Actualizar el stock si la imagen existe
+                        for (StockModel stock : producto.getStock()) {
+                            if (stock.getTalla().equals(nuevoDetalle.getTalla()) &&
+                                    stock.getColor().equals(nuevoDetalle.getColor())) {
+                                stock.setCantidad(stock.getCantidad() - diferenciaCantidad);
+
+                                // Verificar si la cantidad es válida después del cambio
+                                if (stock.getCantidad() < 0) {
+                                    throw new StockInsuficienteException("Stock insuficiente para el producto con ID: " + nuevoDetalle.getIdTipo());
+                                }
+                                break;
+                            }
+                        }
+
+                        productoRepository.save(producto);
                     }
 
-                    productoRepository.save(producto);
-                }
-                // Actualizar la cantidad del detalle original en la compra 
-                detalleOriginal.setCantidad(nuevoDetalle.getCantidad());
+                    // Actualizar la cantidad del detalle original en la compra
+                    detalleOriginal.setCantidad(nuevoDetalle.getCantidad());
 
-                // Salir del bucle de detalles originales
-                break;
+                    // Salir del bucle de detalles originales
+                    break;
+                }
             }
         }
-    }
 
-    if (!usuarioRepository.existsById(compra.getIdUsuario())) {
-        throw new RecursoNoEncontradoException("Usuario con ID: " + compra.getIdUsuario() + " no encontrado");
-    }
+        if (!usuarioRepository.existsById(compra.getIdUsuario())) {
+            throw new RecursoNoEncontradoException("Usuario con ID: " + compra.getIdUsuario() + " no encontrado");
+        }
 
-    if (compra.getTarjeta().getFechaVencimiento().before(new Date())) {
-        throw new ValorInvalidoException("La fecha de vencimiento de la tarjeta no puede ser en el pasado: " + compra.getTarjeta().getFechaVencimiento());
-    }
+        if (compra.getTarjeta().getFechaVencimiento().before(new Date())) {
+            throw new ValorInvalidoException("La fecha de vencimiento de la tarjeta no puede ser en el pasado: " + compra.getTarjeta().getFechaVencimiento());
+        }
 
-    String numeroTarjetaStr = String.valueOf(compra.getTarjeta().getNumero());
-    if (!numeroTarjetaStr.matches("^\\d{16}$")) {
-        throw new ValorInvalidoException("Formato inválido para el número de tarjeta: " + compra.getTarjeta().getNumero());
-    }
+        String numeroTarjetaStr = String.valueOf(compra.getTarjeta().getNumero());
+        if (!numeroTarjetaStr.matches("^\\d{16}$")) {
+            throw new ValorInvalidoException("Formato inválido para el número de tarjeta: " + compra.getTarjeta().getNumero());
+        }
 
         Set<Integer> codigosPostales = new HashSet<>();
         departamentosRepository.findAll().forEach(departamento ->
@@ -207,25 +214,28 @@ public class ComprasServiceImpl implements IComprasService {
             throw new RecursoNoEncontradoException("Código postal " + compra.getDestinatario().getCodigoPostalCiudad() + " no encontrado");
         }
 
+        // Actualizar otros campos de la compra si se proporcionan
+        if (compra.getIdUsuario() != null) {
+            existingCompra.setIdUsuario(compra.getIdUsuario());
+        }
+        if (compra.getTarjeta() != null) {
+            existingCompra.setTarjeta(compra.getTarjeta());
+        }
+        if (compra.getEstado() != null) {
+            existingCompra.setEstado(compra.getEstado());
+        }
+        if (compra.getDescripcion() != null) {
+            existingCompra.setDescripcion(compra.getDescripcion());
+        }
+        existingCompra.setFechaCompra(new Date());
+        if (compra.getDestinatario() != null) {
+            existingCompra.setDestinatario(compra.getDestinatario());
+        }
 
-    // Actualizar otros campos de la compra si se proporcionan
-    if (compra.getIdUsuario() != null) {
-        existingCompra.setIdUsuario(compra.getIdUsuario());
-    }
-    if (compra.getTarjeta() != null) {
-        existingCompra.setTarjeta(compra.getTarjeta());
-    }
-    if (compra.getEstado() != null) {
-        existingCompra.setEstado(compra.getEstado());
-    }
-    if (compra.getDescripcion() != null) {
-        existingCompra.setDescripcion(compra.getDescripcion());
-    }
-    existingCompra.setFechaCompra(new Date());
-    if (compra.getDestinatario() != null) {
-        existingCompra.setDestinatario(compra.getDestinatario());
-    }
+        if (compra.getDetallesCompra() != null && !compra.getDetallesCompra().isEmpty()) {
+            existingCompra.setDetallesCompra(compra.getDetallesCompra());
+        }
 
-    return compraRepository.save(existingCompra);
-}
+        return compraRepository.save(existingCompra);
+    }
 }
