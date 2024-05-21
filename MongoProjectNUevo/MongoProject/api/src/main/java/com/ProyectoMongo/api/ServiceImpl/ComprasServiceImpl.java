@@ -1,6 +1,4 @@
 package com.ProyectoMongo.api.ServiceImpl;
-
-import com.ProyectoMongo.api.Enum.Tarjeta;
 import com.ProyectoMongo.api.Exception.RecursoNoEncontradoException;
 import com.ProyectoMongo.api.Exception.StockInsuficienteException;
 import com.ProyectoMongo.api.Exception.ValorInvalidoException;
@@ -54,16 +52,6 @@ public class ComprasServiceImpl implements IComprasService {
         if (!usuarioRepository.existsById(compra.getIdUsuario())) {
             throw new RecursoNoEncontradoException("Usuario con ID: " + compra.getIdUsuario() + " no encontrado");
         }
-        String tipoTarjetaNormalizado = compra.getTarjeta().getTipo().trim().toUpperCase();
-
-        try {
-            Tarjeta.valueOf(tipoTarjetaNormalizado);
-            compra.getTarjeta().setTipo(tipoTarjetaNormalizado); // Asegurar que el tipo esté normalizado en el modelo
-
-        } catch (IllegalArgumentException e) {
-            throw new ValorInvalidoException("Valor inválido para la tarjeta: " + compra.getTarjeta().getTipo());
-        }
-
         compra.setFechaCompra(new Date());
 
         // Validar formato del número de tarjeta
@@ -152,7 +140,7 @@ public class ComprasServiceImpl implements IComprasService {
     }
 
     @Override
-public ComprasModel updateCompra(ObjectId id, ComprasModel compra) {
+    public ComprasModel updateCompra(ObjectId id, ComprasModel compra) {
     ComprasModel existingCompra = compraRepository.findById(id)
             .orElseThrow(() -> new RecursoNoEncontradoException("Compra no encontrada con ID: " + id));
 
@@ -196,6 +184,29 @@ public ComprasModel updateCompra(ObjectId id, ComprasModel compra) {
             }
         }
     }
+
+    if (!usuarioRepository.existsById(compra.getIdUsuario())) {
+        throw new RecursoNoEncontradoException("Usuario con ID: " + compra.getIdUsuario() + " no encontrado");
+    }
+
+    if (compra.getTarjeta().getFechaVencimiento().before(new Date())) {
+        throw new ValorInvalidoException("La fecha de vencimiento de la tarjeta no puede ser en el pasado: " + compra.getTarjeta().getFechaVencimiento());
+    }
+
+    String numeroTarjetaStr = String.valueOf(compra.getTarjeta().getNumero());
+    if (!numeroTarjetaStr.matches("^\\d{16}$")) {
+        throw new ValorInvalidoException("Formato inválido para el número de tarjeta: " + compra.getTarjeta().getNumero());
+    }
+
+        Set<Integer> codigosPostales = new HashSet<>();
+        departamentosRepository.findAll().forEach(departamento ->
+                departamento.getCiudades().forEach(ciudad -> codigosPostales.add((int) ciudad.getCodigoPostal()))
+        );
+
+        if (!codigosPostales.contains((int) compra.getDestinatario().getCodigoPostalCiudad())) {
+            throw new RecursoNoEncontradoException("Código postal " + compra.getDestinatario().getCodigoPostalCiudad() + " no encontrado");
+        }
+
 
     // Actualizar otros campos de la compra si se proporcionan
     if (compra.getIdUsuario() != null) {
