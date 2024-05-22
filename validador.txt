@@ -279,151 +279,156 @@ db.createCollection("producto", {
 
 
 db.createCollection("compra", {
-    "capped": false,
-    "validator": {
-        "$jsonSchema": {
+  "capped": false,
+  "validator": {
+    "$jsonSchema": {
+      "bsonType": "object",
+      "title": "compra",
+      "properties": {
+        "_id": {
+          "bsonType": "objectId"
+        },
+        "idUsuario": {
+          "bsonType": "objectId"
+        },
+        "detallesCompra": {
+          "bsonType": "array",
+          "additionalItems": true,
+          "items": {
             "bsonType": "object",
-            "title": "compra",
             "properties": {
-                "_id": {
-                    "bsonType": "objectId"
-                },
-                "idUsuario": {
-                    "bsonType": "objectId"
-                },
-                "detallesCompra": {
-                    "bsonType": "array",
-                    "additionalItems": true,
-                    "items": {
-                        "bsonType": "object",
-                        "properties": {
-                            "idProducto": {
-                                "bsonType": "objectId"
-                            },
-                            "tipo": {
-                                "bsonType": "string",
-                                "enum": [
-                                    "Producto",
-                                    "Paquete"
-                                ]
-                            },
-                            "cantidad": {
-                                "bsonType": "long"
-                            },
-                            "talla": {
-                                "bsonType": "string",
-                                "enum": [
-                                    "M",
-                                    "S",
-                                    "L",
-                                    "XL"
-                                ]
-                            },
-                            "color": {
-                                "bsonType": "string"
-                            },
-                            "imagenPersonalizada": {
-                                "bsonType": "string"
-                            },
-                            "detalles": {
-                                "bsonType": "string"
-                            }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                            "idProducto",
-                            "tipo",
-                            "cantidad"
-                        ]
-                    }
-                },
-                "tarjeta": {
-                    "bsonType": "object",
-                    "properties": {
-                        "tipo": {
-                            "bsonType": "string",
-                            "enum": [
-                                "Visa",
-                                "Mastercard",
-                                "Maestro"
-                            ]
-                        },
-                        "numero": {
-                            "bsonType": "long"
-                        },
-                        "fechaVencimiento": {
-                            "bsonType": "date"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                        "tipo",
-                        "numero",
-                        "fechaVencimiento"
-                    ]
-                },
-                "estado": {
-                    "bsonType": "string",
-                    "enum": [
-                        "Pendiente",
-                        "Completado",
-                        "Enviado",
-                        "Cancelado",
-                        "Entregado"
-                    ]
-                },
-                "descripcion": {
-                    "bsonType": "string"
-                },
-                "fechaCompra": {
-                    "bsonType": "date"
-                },
-                "destinatario": {
-                    "bsonType": "object",
-                    "properties": {
-                        "nombre": {
-                            "bsonType": "string"
-                        },
-                        "apellido": {
-                            "bsonType": "string"
-                        },
-                        "codigoPostalCiudad": {
-                            "bsonType": "number"
-                        },
-                        "direccion": {
-                            "bsonType": "string"
-                        },
-                        "detallesDireccion": {
-                            "bsonType": "string"
-                        },
-                        "telefono": {
-                            "bsonType": "number"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                        "nombre",
-                        "apellido",
-                        "codigoPostalCiudad",
-                        "direccion",
-                        "telefono"
-                    ]
-                },
-                "compraActiva": {
-                    "bsonType": "bool"
-                }
+              "idProducto": {
+                "bsonType": "objectId"
+              },
+              "tipo": {
+                "bsonType": "string",
+                "enum": [
+                  "Producto",
+                  "Paquete"
+                ]
+              },
+              "cantidad": {
+                "bsonType": "long"
+              },
+              "talla": {
+                "bsonType": "string",
+                "enum": [
+                  "M",
+                  "S",
+                  "L",
+                  "XL"
+                ]
+              },
+              "color": {
+                "bsonType": "string"
+              },
+              "imagenPersonalizada": {
+                "bsonType": "string"
+              },
+              "detalles": {
+                "bsonType": "string"
+              },
+              "precioTotal": { 
+                "bsonType": "decimal"
+              }
             },
             "additionalProperties": false,
             "required": [
-                "idUsuario",
-                "fechaCompra",
-                "compraActiva"
+              "idProducto",
+              "tipo",
+              "cantidad",
+              "precioTotal" 
             ]
+          }
+        },
+        "tarjeta": {
+          "bsonType": "object",
+          "properties": {
+            "tipo": {
+              "bsonType": "string",
+              "enum": [
+                "Visa",
+                "Mastercard",
+                "Maestro"
+              ]
+            },
+            "numero": {
+              "bsonType": "long"
+            },
+            "fechaVencimiento": {
+              "bsonType": "date"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "tipo",
+            "numero",
+            "fechaVencimiento"
+          ]
+        },
+        "estado": {
+          "bsonType": "string",
+          "enum": [
+            "Pendiente",
+            "Completado",
+            "Enviado",
+            "Cancelado",
+            "Entregado"
+          ]
+        },
+        "descripcion": {
+          "bsonType": "string"
+        },
+        "fechaCompra": {
+          "bsonType": "date"
+        },
+        "destinatario": {
+          "bsonType": "object",
+          "properties": {
+            "nombre": {
+              "bsonType": "string"
+            },
+            "apellido": {
+              "bsonType": "string"
+            },
+            "codigoPostalCiudad": {
+              "bsonType": "number"
+            },
+            "direccion": {
+              "bsonType": "string"
+            },
+            "detallesDireccion": {
+              "bsonType": "string"
+            },
+            "telefono": {
+              "bsonType": "number"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "nombre",
+            "apellido",
+            "codigoPostalCiudad",
+            "direccion",
+            "telefono"
+          ]
+        },
+        "compraActiva": {
+          "bsonType": "bool"
         }
-    },
-    "validationLevel": "moderate",
-    "validationAction": "warn"
+      },
+      "additionalProperties": false,
+      "required": [
+        "idUsuario",
+        "fechaCompra",
+        "compraActiva"
+      ]
+    }
+  },
+  "validationLevel": "moderate",
+  "validationAction": "warn"
 });
+
 
 
 
