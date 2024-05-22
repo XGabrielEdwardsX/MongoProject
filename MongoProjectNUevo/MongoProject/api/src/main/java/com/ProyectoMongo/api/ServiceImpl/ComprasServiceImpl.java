@@ -6,17 +6,21 @@ import com.ProyectoMongo.api.Exception.ValorInvalidoException;
 import com.ProyectoMongo.api.Model.ComprasModel;
 import com.ProyectoMongo.api.Model.DetallesCompraModel;
 import com.ProyectoMongo.api.Model.ProductoModel;
+import com.ProyectoMongo.api.Model.PromocionesModel;
 import com.ProyectoMongo.api.Model.StockModel;
+import com.ProyectoMongo.api.Model.ProductoPromocionModel;
 import com.ProyectoMongo.api.Repository.IComprasRepository;
 import com.ProyectoMongo.api.Repository.IDepartamentosRepository;
 import com.ProyectoMongo.api.Repository.IProductoRepository;
 import com.ProyectoMongo.api.Repository.IUsuariosRepository;
+import com.ProyectoMongo.api.Repository.IPromocionesRepository;
 import com.ProyectoMongo.api.Service.IComprasService;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -37,6 +41,9 @@ public class ComprasServiceImpl implements IComprasService {
     @Autowired
     private IDepartamentosRepository departamentosRepository;
 
+    @Autowired
+    private IPromocionesRepository promocionesRepository;
+
     @Override
     public List<ComprasModel> findAllCompras() {
         return compraRepository.findAll();
@@ -50,9 +57,15 @@ public class ComprasServiceImpl implements IComprasService {
 
     @Override
     public ComprasModel saveCompra(ComprasModel compra) {
+        if (compra.getId() == null) {
+            // Generate a new ObjectId if the id is null
+            compra.setId(new ObjectId());
+        }   
+
         if (!usuarioRepository.existsById(compra.getIdUsuario())) {
             throw new RecursoNoEncontradoException("Usuario con ID: " + compra.getIdUsuario() + " no encontrado");
         }
+
         compra.setFechaCompra(new Date());
 
         // Validar formato del número de tarjeta
@@ -75,16 +88,10 @@ public class ComprasServiceImpl implements IComprasService {
             throw new RecursoNoEncontradoException("Código postal " + compra.getDestinatario().getCodigoPostalCiudad() + " no encontrado");
         }
 
-        /*Set<String> Imagenes = new HashSet<>();
-        productoRepository.findAll().forEach(producto ->
-        producto.getImagenes().forEach(detalle -> Imagenes.add((String)) detalle.get))
-        */
-
         Set<String> imagenes = new HashSet<>();
 
         // Obtener las imágenes personalizadas de todos los productos
         productoRepository.findAll().forEach(producto -> producto.getImagenes().forEach(imagen -> imagenes.add(imagen.getImagen())));
-        System.out.println(productoRepository.findAll().get(0).getImagenes());
 
         // Iterar sobre los detalles de la compra
         for (DetallesCompraModel detalle : compra.getDetallesCompra()) {
@@ -92,8 +99,11 @@ public class ComprasServiceImpl implements IComprasService {
                 throw new RecursoNoEncontradoException("Imagen no encontrada: " + detalle.getImagenPersonalizada());
             }
         }
+        
+        
+        BigDecimal precioTotalCompra = BigDecimal.ZERO;
 
-        // Verificar existencia de los productos y stock disponible
+        // Verificar existencia de los productos, stock disponible y calcular el precio total
         for (DetallesCompraModel detalle : compra.getDetallesCompra()) {
             ProductoModel producto = productoRepository.findById(detalle.getIdTipo())
                     .orElseThrow(() -> new RecursoNoEncontradoException("El " + detalle.getTipo() + " con ID: " + detalle.getIdTipo() + " no encontrado"));
@@ -109,7 +119,6 @@ public class ComprasServiceImpl implements IComprasService {
 
                     // Restar la cantidad del detalle a la cantidad del stock
                     int newCantidad = (int) stock.getCantidad() - (int) detalle.getCantidad();
-
                     stock.setCantidad(newCantidad);
                     break;
                 }
@@ -119,10 +128,33 @@ public class ComprasServiceImpl implements IComprasService {
                 throw new StockInsuficienteException("Stock insuficiente para el producto con ID: " + detalle.getIdTipo());
             }
 
+            // Calcular precio del producto con descuento si aplica
+            BigDecimal precioProducto = producto.getPrecio();
+            Date now = new Date();
+            for (PromocionesModel promocion : promocionesRepository.findAll()) {
+                for (ProductoPromocionModel productoPromocion : promocion.getProductoPromocion()) {
+                    if (productoPromocion.getIdProducto().equals(detalle.getIdTipo()) &&
+                        now.after(productoPromocion.getFechaInicio()) && now.before(productoPromocion.getFechaFin())) {
+                        BigDecimal descuento = precioProducto.multiply(BigDecimal.valueOf(productoPromocion.getDescuento() / 100.0));
+                        precioProducto = precioProducto.subtract(descuento);
+                        break;
+                    }
+                }
+            }
+            
+            // Calcular el precio total para este detalle y sumarlo al precio total de la compra
+            BigDecimal precioTotalDetalle = precioProducto.multiply(BigDecimal.valueOf(detalle.getCantidad()));
+            detalle.setPrecio(precioTotalDetalle);
+            precioTotalCompra = precioTotalCompra.add(precioTotalDetalle);
+
             // Guardar el producto actualizado
             productoRepository.save(producto);
         }
-        
+
+        // Asignar el precio total calculado a la compra
+        compra.setPrecioTotal(precioTotalCompra);
+
+        // Guardar la compra con los detalles actualizados
         return compraRepository.save(compra);
     }
 
@@ -223,21 +255,10 @@ public class ComprasServiceImpl implements IComprasService {
             throw new RecursoNoEncontradoException("Código postal " + compra.getDestinatario().getCodigoPostalCiudad() + " no encontrado");
         }
 
-        /* Set<String> imagenes = new HashSet<>(); // Use lowercase 'imagenes' for consistency
-        System.out.println(compra.getDetallesCompra());
-        productoRepository.findAll().forEach(producto -> compra.getDetallesCompra().forEach(imagen -> imagenes.add(imagen.getImagenPersonalizada()))); 
-        
-        /*
-        if(!imagenes.contains(compra.getDetallesCompra()..getImagenPersonalizada())){
-            throw new RecursoNoEncontradoException("Imagen no encontrada" + compra.getDetallesCompra()/*.getImagenPersonalizada();
-        }
-        */
-
         Set<String> imagenes = new HashSet<>();
 
         // Obtener las imágenes personalizadas de todos los productos
         productoRepository.findAll().forEach(producto -> producto.getImagenes().forEach(imagen -> imagenes.add(imagen.getImagen())));
-        System.out.println(productoRepository.findAll().get(0).getImagenes());
 
         // Iterar sobre los detalles de la compra
         for (DetallesCompraModel detalle : compra.getDetallesCompra()) {
@@ -267,6 +288,30 @@ public class ComprasServiceImpl implements IComprasService {
                 existingCompra.setDetallesCompra(compra.getDetallesCompra());
             }  
         }
+
+        // Calcular el precio total de la compra actualizada
+        BigDecimal precioTotalCompra = BigDecimal.ZERO;
+        for (DetallesCompraModel detalle : existingCompra.getDetallesCompra()) {
+            ProductoModel producto = productoRepository.findById(detalle.getIdTipo())
+                    .orElseThrow(() -> new RecursoNoEncontradoException("El " + detalle.getTipo() + " con ID: " + detalle.getIdTipo() + " no encontrado"));
+
+            BigDecimal precioProducto = producto.getPrecio();
+            Date now = new Date();
+            for (PromocionesModel promocion : promocionesRepository.findAll()) {
+                for (ProductoPromocionModel productoPromocion : promocion.getProductoPromocion()) {
+                    if (productoPromocion.getIdProducto().equals(detalle.getIdTipo()) &&
+                        now.after(productoPromocion.getFechaInicio()) && now.before(productoPromocion.getFechaFin())) {
+                        BigDecimal descuento = precioProducto.multiply(BigDecimal.valueOf(productoPromocion.getDescuento() / 100.0));
+                        precioProducto = precioProducto.subtract(descuento);
+                        break;
+                    }
+                }
+            }
+
+            BigDecimal precioTotalDetalle = precioProducto.multiply(BigDecimal.valueOf(detalle.getCantidad()));
+            precioTotalCompra = precioTotalCompra.add(precioTotalDetalle);
+        }
+        existingCompra.setPrecioTotal(precioTotalCompra);
 
         return compraRepository.save(existingCompra);
     }

@@ -49,6 +49,8 @@ public class PromocionController {
             return ResponseEntity.ok(savedPromo);
         } catch (RecursoYaExistenteException | ValorInvalidoException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+        } catch (RecursoNoEncontradoException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }
     }
 

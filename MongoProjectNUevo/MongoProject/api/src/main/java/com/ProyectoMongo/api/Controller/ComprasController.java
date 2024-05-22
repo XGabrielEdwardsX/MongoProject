@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -61,9 +60,10 @@ public class ComprasController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateCompra(@PathVariable ObjectId id, @RequestBody ComprasModel compra) {
+    public ResponseEntity<?> updateCompra(@PathVariable String id, @RequestBody ComprasModel compra) {
         try {
-            ComprasModel updatedCompra = comprasService.updateCompra(id, compra);
+            ObjectId objectId = new ObjectId(id);
+            ComprasModel updatedCompra = comprasService.updateCompra(objectId, compra);
             return ResponseEntity.ok(updatedCompra);
         } catch (RecursoNoEncontradoException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());

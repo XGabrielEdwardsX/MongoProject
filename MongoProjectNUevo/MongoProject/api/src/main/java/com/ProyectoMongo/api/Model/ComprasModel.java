@@ -1,5 +1,5 @@
 package com.ProyectoMongo.api.Model;
-
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Document(collection = "compra")
 public class ComprasModel {
+    
     @Id
     private ObjectId id;
 
@@ -27,4 +28,5 @@ public class ComprasModel {
     private Date fechaCompra;
     private DestinatariosModel destinatario;
     private boolean compraActiva;
+    private BigDecimal precioTotal;
 }

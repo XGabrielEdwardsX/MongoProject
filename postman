@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "6d4e4bad-13e8-4fe8-adde-4a5d997be3fc",
+		"_postman_id": "242d40b2-0b87-493d-9af1-c40daff7d7fd",
 		"name": "ProyectoMongo",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "33591085",
-		"_collection_link": "https://winter-water-25973.postman.co/workspace/My-Workspace~beaa6c1a-728b-48b4-8b9b-a98afc296457/collection/33591085-6d4e4bad-13e8-4fe8-adde-4a5d997be3fc?action=share&source=collection_link&creator=33591085"
+		"_exporter_id": "33590937"
 	},
 	"item": [
 		{
@@ -286,11 +285,23 @@
 				},
 				{
 					"name": "leerProducto",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:8080/api/productos/",
+							"raw": "http://localhost:8080/api/productos/664e1d7f7913066441361328",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -299,7 +310,7 @@
 							"path": [
 								"api",
 								"productos",
-								""
+								"664e1d7f7913066441361328"
 							]
 						}
 					},
@@ -338,7 +349,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"productoPromocion\": [\r\n        {\r\n            \"nombre\": \"Descuento Primavera Zapatillas Running\",\r\n            \"idProducto\": \"66497e0fb1dec16cd32b4456\",\r\n            \"descuento\": 20,\r\n            \"fechaInicio\": \"2024-05-01T00:00:00.000Z\",\r\n            \"fechaFin\": \"2024-05-31T23:59:59.000Z\"\r\n        },\r\n        {\r\n            \"nombre\": \"Descuento Especial Pantalones de Yoga\",\r\n            \"idProducto\": \"66497e15b1dec16cd32b4457\",\r\n            \"descuento\": 15,\r\n            \"fechaInicio\": \"2024-06-01T00:00:00.000Z\",\r\n            \"fechaFin\": \"2024-06-15T23:59:59.000Z\"\r\n        },\r\n        {\r\n            \"nombre\": \"Oferta Verano Camiseta Deportiva\",\r\n            \"idProducto\": \"6649842bb1dec16cd32b4462\",\r\n            \"descuento\": 10,\r\n            \"fechaInicio\": \"2024-07-01T00:00:00.000Z\",\r\n            \"fechaFin\": \"2024-07-31T23:59:59.000Z\"\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"productoPromocion\": [\r\n        {\r\n            \"nombre\": \"Descuento Primavera Zapatillas Running\",\r\n            \"idProducto\": \"664e23957913066441361332\",\r\n            \"descuento\": 20,\r\n            \"fechaInicio\": \"2024-08-12T00:00:00.000Z\",\r\n            \"fechaFin\": \"2024-09-30T23:59:59.000Z\"\r\n\r\n        }\r\n    ] \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -367,7 +378,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/promociones/664a2dacf6bb5119ee63807c",
+							"raw": "http://localhost:8080/api/promociones/664e1de07913066441361329",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -376,7 +387,7 @@
 							"path": [
 								"api",
 								"promociones",
-								"664a2dacf6bb5119ee63807c"
+								"664e1de07913066441361329"
 							]
 						}
 					},
@@ -445,7 +456,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"idUsuario\": \"664d555bef92c833056e17e8\",\r\n  \"detallesCompra\": [\r\n    {\r\n      \"tipo\": \"Producto\",\r\n      \"idTipo\": \"664d5897ef92c833056e17ec\",  // ID del producto \"Camiseta Deportiva\"\r\n      \"cantidad\": 1,\r\n      \"talla\": \"M\",\r\n      \"color\": \"Negro\",\r\n      \"imagenPersonalizada\": \"http://ejemplo.com/imagen_pantalonNegro.jpg\",\r\n      \"detalles\": \"Texto personalizado en la espalda\"\r\n    },\r\n    {\r\n      \"tipo\": \"Producto\",\r\n      \"idTipo\": \"664d5897ef92c833056e17ec\",  // ID del nuevo producto \"Pantalón Deportivo\"\r\n      \"cantidad\": 1,\r\n      \"talla\": \"L\",\r\n      \"color\": \"Gris\",\r\n      \"imagenPersonalizada\": \"http://ejemplo.com/imagen_pantalonGris.jpg\",\r\n      \"detalles\": \"Logo personalizado en la pierna\"\r\n    }\r\n  ],\r\n  \"tarjeta\": {\r\n    \"tipo\": \"Visa\",\r\n    \"numero\": 1234567890123457,\r\n    \"fechaVencimiento\": \"2025-12-31T00:00:00.000Z\"\r\n  },\r\n  \"estado\": \"Pendiente\",\r\n  \"descripcion\": \"Compra de una camiseta y dos pantalones deportivos\",\r\n  \"destinatario\": {\r\n    \"nombre\": \"Juan Pérez\",\r\n    \"apellido\": \"Gómez\",\r\n    \"codigoPostalCiudad\": 12345,\r\n    \"direccion\": \"Calle Falsa 123\",\r\n    \"detallesDireccion\": \"Departamento 4B\",\r\n    \"telefono\": 3001234567\r\n  }\r\n}\r\n",
+							"raw": " {\r\n    \"idUsuario\": \"664e238d7913066441361331\",  // ID de usuario de ejemplo\r\n    \"detallesCompra\": [\r\n        {\r\n            \"idTipo\": \"664e23957913066441361332\",  // ID de producto de ejemplo\r\n            \"tipo\": \"Producto\",\r\n            \"cantidad\": 2,\r\n            \"talla\": \"M\",\r\n            \"color\": \"Negro\",\r\n            \"imagenPersonalizada\": \"http://ejemplo.com/imagen_pantalonNegro.jpg\",\r\n            \"detalles\": \"Detalle del producto 1\"\r\n        },\r\n        {\r\n            \"idTipo\": \"664e23957913066441361332\",  // ID de otro producto de ejemplo\r\n            \"tipo\": \"Paquete\",\r\n            \"cantidad\": 1,\r\n            \"talla\": \"L\",\r\n            \"color\": \"Gris\",\r\n            \"imagenPersonalizada\": \"http://ejemplo.com/imagen_pantalonNegro.jpg\",\r\n            \"detalles\": \"Detalle del producto 2\"\r\n        }\r\n    ],\r\n    \"tarjeta\": {\r\n        \"tipo\": \"Visa\",\r\n        \"numero\": 1234567890123456,\r\n        \"fechaVencimiento\": \"2025-12-31T00:00:00Z\"\r\n    },\r\n    \"estado\": \"Pendiente\",\r\n    \"descripcion\": \"Compra de ejemplo\",\r\n    \"fechaCompra\": \"2024-05-22T00:00:00Z\",  // Fecha de ejemplo\r\n    \"destinatario\": {\r\n        \"nombre\": \"Juan\",\r\n        \"apellido\": \"Pérez\",\r\n        \"codigoPostalCiudad\": 12345,\r\n        \"direccion\": \"Calle Falsa 123\",\r\n        \"detallesDireccion\": \"Apartamento 4B\",\r\n        \"telefono\": 987654321\r\n    },\r\n    \"compraActiva\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -504,7 +515,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8080/api/compras/664e1e3d791306644136132a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"compras",
+								"664e1e3d791306644136132a"
+							]
 						}
 					},
 					"response": []

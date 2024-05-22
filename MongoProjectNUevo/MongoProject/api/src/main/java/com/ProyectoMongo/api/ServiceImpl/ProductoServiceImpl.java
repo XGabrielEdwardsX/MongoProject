@@ -4,12 +4,17 @@ import com.ProyectoMongo.api.Exception.RecursoNoEncontradoException;
 import com.ProyectoMongo.api.Exception.RecursoYaExistenteException;
 import com.ProyectoMongo.api.Exception.ValorInvalidoException;
 import com.ProyectoMongo.api.Model.ProductoModel;
+import com.ProyectoMongo.api.Model.ProductoPromocionModel;
+import com.ProyectoMongo.api.Model.PromocionesModel;
 import com.ProyectoMongo.api.Repository.IProductoRepository;
+import com.ProyectoMongo.api.Repository.IPromocionesRepository;
 import com.ProyectoMongo.api.Service.IProductoService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +23,8 @@ public class ProductoServiceImpl implements IProductoService {
 
     @Autowired
     IProductoRepository productoRepository;
+    @Autowired
+    IPromocionesRepository promocionesRepository;
 
     @Override
     public List<ProductoModel> findAllProductos() {
@@ -26,8 +33,24 @@ public class ProductoServiceImpl implements IProductoService {
 
     @Override
     public ProductoModel findProductoById(ObjectId id) {
-        return productoRepository.findById(id)
+        ProductoModel producto = productoRepository.findById(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Producto con ID: " + id + " no encontrado"));
+
+            // Buscar promociones activas para este producto
+            List<PromocionesModel> promociones = promocionesRepository.findAll();
+            Date now = new Date();
+            for (PromocionesModel promocion : promociones) {
+                for (ProductoPromocionModel productoPromocion : promocion.getProductoPromocion()) {
+                    if (productoPromocion.getIdProducto().equals(id) &&
+                        now.after(productoPromocion.getFechaInicio()) && now.before(productoPromocion.getFechaFin())) {
+                        BigDecimal descuento = producto.getPrecio().multiply(BigDecimal.valueOf(productoPromocion.getDescuento() / 100.0));
+                        producto.setPrecio(producto.getPrecio().subtract(descuento));
+                        break;
+                    }
+                }
+            }
+
+        return producto;
     }
 
     @Override
