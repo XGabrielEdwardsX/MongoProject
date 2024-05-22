@@ -408,12 +408,16 @@ db.createCollection("compra", {
                         "direccion",
                         "telefono"
                     ]
+                },
+                "compraActiva": {
+                    "bsonType": "bool"
                 }
             },
             "additionalProperties": false,
             "required": [
                 "idUsuario",
-                "fechaCompra"
+                "fechaCompra",
+                "compraActiva"
             ]
         }
     },
