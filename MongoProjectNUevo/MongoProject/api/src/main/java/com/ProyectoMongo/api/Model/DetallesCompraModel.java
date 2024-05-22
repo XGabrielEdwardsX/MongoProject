@@ -14,7 +14,7 @@ public class DetallesCompraModel {
     private long cantidad;
     private String talla;
     private String color;
-    private String imagenPersonalizacion;
+    private String imagenPersonalizada;
     private String detalles;
 }
 

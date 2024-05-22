@@ -5,7 +5,6 @@ import com.ProyectoMongo.api.Exception.StockInsuficienteException;
 import com.ProyectoMongo.api.Exception.ValorInvalidoException;
 import com.ProyectoMongo.api.Model.ComprasModel;
 import com.ProyectoMongo.api.Model.DetallesCompraModel;
-import com.ProyectoMongo.api.Model.ImagenModel;
 import com.ProyectoMongo.api.Model.ProductoModel;
 import com.ProyectoMongo.api.Model.StockModel;
 import com.ProyectoMongo.api.Repository.IComprasRepository;
@@ -76,6 +75,24 @@ public class ComprasServiceImpl implements IComprasService {
             throw new RecursoNoEncontradoException("Código postal " + compra.getDestinatario().getCodigoPostalCiudad() + " no encontrado");
         }
 
+        /*Set<String> Imagenes = new HashSet<>();
+        productoRepository.findAll().forEach(producto ->
+        producto.getImagenes().forEach(detalle -> Imagenes.add((String)) detalle.get))
+        */
+
+        Set<String> imagenes = new HashSet<>();
+
+        // Obtener las imágenes personalizadas de todos los productos
+        productoRepository.findAll().forEach(producto -> producto.getImagenes().forEach(imagen -> imagenes.add(imagen.getImagen())));
+        System.out.println(productoRepository.findAll().get(0).getImagenes());
+
+        // Iterar sobre los detalles de la compra
+        for (DetallesCompraModel detalle : compra.getDetallesCompra()) {
+            if (!imagenes.contains(detalle.getImagenPersonalizada())) {
+                throw new RecursoNoEncontradoException("Imagen no encontrada: " + detalle.getImagenPersonalizada());
+            }
+        }
+
         // Verificar existencia de los productos y stock disponible
         for (DetallesCompraModel detalle : compra.getDetallesCompra()) {
             ProductoModel producto = productoRepository.findById(detalle.getIdTipo())
@@ -105,7 +122,7 @@ public class ComprasServiceImpl implements IComprasService {
             // Guardar el producto actualizado
             productoRepository.save(producto);
         }
-
+        
         return compraRepository.save(compra);
     }
 
@@ -148,8 +165,8 @@ public class ComprasServiceImpl implements IComprasService {
         for (DetallesCompraModel nuevoDetalle : compra.getDetallesCompra()) {
             for (DetallesCompraModel detalleOriginal : existingCompra.getDetallesCompra()) {
                 if (nuevoDetalle.getIdTipo().equals(detalleOriginal.getIdTipo()) &&
-                        nuevoDetalle.getTalla().equals(detalleOriginal.getTalla()) &&
-                        nuevoDetalle.getColor().equals(detalleOriginal.getColor())) {
+                    nuevoDetalle.getTalla().equals(detalleOriginal.getTalla()) &&
+                    nuevoDetalle.getColor().equals(detalleOriginal.getColor())) {
 
                     int diferenciaCantidad = (int) (nuevoDetalle.getCantidad() - detalleOriginal.getCantidad());
 
@@ -157,15 +174,7 @@ public class ComprasServiceImpl implements IComprasService {
                     if (diferenciaCantidad != 0) {
                         ProductoModel producto = productoRepository.findById(nuevoDetalle.getIdTipo())
                                 .orElseThrow(() -> new RecursoNoEncontradoException("El producto con ID: " + nuevoDetalle.getIdTipo() + " no encontrado"));
-                        // Verificar la existencia de la imagen en el producto
-                        Set<String> imagenesProducto = new HashSet<>();
-                        for (ImagenModel imagen : producto.getImagenes()) {
-                            imagenesProducto.add(imagen.getImagen());
-                        }
-
-                        if (!imagenesProducto.contains(nuevoDetalle.getImagenPersonalizacion())) {
-                            throw new RecursoNoEncontradoException("Imagen no encontrada para el producto con ID: " + nuevoDetalle.getIdTipo());
-                        }
+                        
                         // Actualizar el stock si la imagen existe
                         for (StockModel stock : producto.getStock()) {
                             if (stock.getTalla().equals(nuevoDetalle.getTalla()) &&
@@ -181,10 +190,10 @@ public class ComprasServiceImpl implements IComprasService {
                         }
 
                         productoRepository.save(producto);
+                    } else {
+                        // Actualizar la cantidad del detalle original en la compra
+                        detalleOriginal.setCantidad(nuevoDetalle.getCantidad());
                     }
-
-                    // Actualizar la cantidad del detalle original en la compra
-                    detalleOriginal.setCantidad(nuevoDetalle.getCantidad());
 
                     // Salir del bucle de detalles originales
                     break;
@@ -214,26 +223,49 @@ public class ComprasServiceImpl implements IComprasService {
             throw new RecursoNoEncontradoException("Código postal " + compra.getDestinatario().getCodigoPostalCiudad() + " no encontrado");
         }
 
-        // Actualizar otros campos de la compra si se proporcionan
-        if (compra.getIdUsuario() != null) {
-            existingCompra.setIdUsuario(compra.getIdUsuario());
+        /* Set<String> imagenes = new HashSet<>(); // Use lowercase 'imagenes' for consistency
+        System.out.println(compra.getDetallesCompra());
+        productoRepository.findAll().forEach(producto -> compra.getDetallesCompra().forEach(imagen -> imagenes.add(imagen.getImagenPersonalizada()))); 
+        
+        /*
+        if(!imagenes.contains(compra.getDetallesCompra()..getImagenPersonalizada())){
+            throw new RecursoNoEncontradoException("Imagen no encontrada" + compra.getDetallesCompra()/*.getImagenPersonalizada();
         }
-        if (compra.getTarjeta() != null) {
-            existingCompra.setTarjeta(compra.getTarjeta());
-        }
-        if (compra.getEstado() != null) {
-            existingCompra.setEstado(compra.getEstado());
-        }
-        if (compra.getDescripcion() != null) {
-            existingCompra.setDescripcion(compra.getDescripcion());
-        }
-        existingCompra.setFechaCompra(new Date());
-        if (compra.getDestinatario() != null) {
-            existingCompra.setDestinatario(compra.getDestinatario());
-        }
+        */
 
-        if (compra.getDetallesCompra() != null && !compra.getDetallesCompra().isEmpty()) {
-            existingCompra.setDetallesCompra(compra.getDetallesCompra());
+        Set<String> imagenes = new HashSet<>();
+
+        // Obtener las imágenes personalizadas de todos los productos
+        productoRepository.findAll().forEach(producto -> producto.getImagenes().forEach(imagen -> imagenes.add(imagen.getImagen())));
+        System.out.println(productoRepository.findAll().get(0).getImagenes());
+
+        // Iterar sobre los detalles de la compra
+        for (DetallesCompraModel detalle : compra.getDetallesCompra()) {
+            if (!imagenes.contains(detalle.getImagenPersonalizada())) {
+                throw new RecursoNoEncontradoException("Imagen no encontrada: " + detalle.getImagenPersonalizada());
+            }
+        
+            // Actualizar otros campos de la compra si se proporcionan
+            if (compra.getIdUsuario() != null) {
+                existingCompra.setIdUsuario(compra.getIdUsuario());
+            }
+            if (compra.getTarjeta() != null) {
+                existingCompra.setTarjeta(compra.getTarjeta());
+            }
+            if (compra.getEstado() != null) {
+                existingCompra.setEstado(compra.getEstado());
+            }
+            if (compra.getDescripcion() != null) {
+                existingCompra.setDescripcion(compra.getDescripcion());
+            }
+            existingCompra.setFechaCompra(new Date());
+            if (compra.getDestinatario() != null) {
+                existingCompra.setDestinatario(compra.getDestinatario());
+            }
+
+            if (compra.getDetallesCompra() != null && !compra.getDetallesCompra().isEmpty()) {
+                existingCompra.setDetallesCompra(compra.getDetallesCompra());
+            }  
         }
 
         return compraRepository.save(existingCompra);

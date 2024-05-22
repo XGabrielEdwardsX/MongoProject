@@ -12,5 +12,4 @@ public class ProductosModel {
     
     private ObjectId idProducto;
     private Long cantidad;
-    private PersonalizacionModel personalizacion;
 }

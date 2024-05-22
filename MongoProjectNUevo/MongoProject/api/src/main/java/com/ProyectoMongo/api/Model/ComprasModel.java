@@ -26,4 +26,5 @@ public class ComprasModel {
     private String descripcion;
     private Date fechaCompra;
     private DestinatariosModel destinatario;
+    private boolean compraActiva;
 }

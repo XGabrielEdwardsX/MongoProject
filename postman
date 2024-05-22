@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "45292097-0043-4875-85bd-6aea3d5a4cf7",
+		"_postman_id": "6d4e4bad-13e8-4fe8-adde-4a5d997be3fc",
 		"name": "ProyectoMongo",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "33587363"
+		"_exporter_id": "33591085",
+		"_collection_link": "https://winter-water-25973.postman.co/workspace/My-Workspace~beaa6c1a-728b-48b4-8b9b-a98afc296457/collection/33591085-6d4e4bad-13e8-4fe8-adde-4a5d997be3fc?action=share&source=collection_link&creator=33591085"
 	},
 	"item": [
 		{
@@ -230,34 +231,13 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"nombre\": \"Pantalón Deportivo\",\r\n  \"categoria\": \"Ropa Deportiva\",\r\n  \"descripcion\": \"Pantalón cómodo y ligero para actividades deportivas\",\r\n  \"genero\": \"Unisex\",\r\n  \"imagen\": \"http://ejemplo.com/imagen_pantalon.jpg\",\r\n  \"precio\": \"49.99\",\r\n  \"esPaquete\": false,\r\n  \"productos\": [],\r\n  \"stock\": [\r\n    {\r\n      \"talla\": \"M\",\r\n      \"color\": \"Negro\",\r\n      \"cantidad\": 50\r\n    },\r\n    {\r\n      \"talla\": \"L\",\r\n      \"color\": \"Gris\",\r\n      \"cantidad\": 30\r\n    }\r\n  ],\r\n  \"comentarios\": []\r\n}\r\n",
+							"raw": "{\r\n  \"nombre\": \"Pantalón Deportivo\",\r\n  \"categoria\": \"Ropa Deportiva\",\r\n  \"descripcion\": \"Pantalón cómodo y ligero para actividades deportivas\",\r\n  \"genero\": \"Unisex\",\r\n  \"imagenes\": [\r\n    {\r\n      \"imagen\": \"http://ejemplo.com/imagen_pantalonNegro.jpg\"\r\n    },\r\n    {\r\n      \"imagen\": \"http://ejemplo.com/imagen_pantalonGris.jpg\"\r\n    }\r\n  ],\r\n  \"precio\": \"49.99\",\r\n  \"esPaquete\": false,\r\n  \"productos\": [],\r\n  \"stock\": [\r\n    {\r\n      \"talla\": \"M\",\r\n      \"color\": \"Negro\",\r\n      \"cantidad\": 50\r\n    },\r\n    {\r\n      \"talla\": \"L\",\r\n      \"color\": \"Gris\",\r\n      \"cantidad\": 30\r\n    }\r\n  ],\r\n  \"comentarios\": []\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/productos/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"productos",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "leerProducto",
-					"request": {
-						"method": "GET",
-						"header": [],
 						"url": {
 							"raw": "http://localhost:8080/api/productos/",
 							"protocol": "http",
@@ -299,6 +279,27 @@
 								"api",
 								"productos",
 								"664982a9b1dec16cd32b445c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "leerProducto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/productos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"productos",
+								""
 							]
 						}
 					},
@@ -444,7 +445,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"idUsuario\": \"664a2dacf6bb5119ee63807c\",\r\n  \"detallesCompra\": [\r\n    {\r\n      \"tipo\": \"Producto\",\r\n      \"idTipo\": \"664a2db7f6bb5119ee63807d\",  // ID del producto \"Camiseta Deportiva\"\r\n      \"cantidad\": 800,\r\n      \"talla\": \"M\",\r\n      \"colorDisponible\": \"Rojo\",\r\n      \"personalizacion\": {\r\n        \"imagenPersonalizada\": \"https://example.com/image1.png\",\r\n        \"colorPersonalizado\": \"Verde\",\r\n        \"detalles\": \"Texto personalizado en la espalda\"\r\n      }\r\n    },\r\n    {\r\n      \"tipo\": \"Producto\",\r\n      \"idTipo\": \"664a2db7f6bb5119ee63807d\",  // ID del nuevo producto \"Pantalón Deportivo\"\r\n      \"cantidad\": 150,\r\n      \"talla\": \"L\",\r\n      \"colorDisponible\": \"Gris\",\r\n      \"personalizacion\": {\r\n        \"imagenPersonalizada\": \"https://example.com/image2.png\",\r\n        \"colorPersonalizado\": \"Azul\",\r\n        \"detalles\": \"Logo personalizado en la pierna\"\r\n      }\r\n    }\r\n  ],\r\n  \"tarjeta\": {\r\n    \"tipo\": \"Visa\",\r\n    \"numero\": 1234567890123457,\r\n    \"fechaVencimiento\": \"2025-12-31T00:00:00.000Z\"\r\n  },\r\n  \"estado\": \"Pendiente\",\r\n  \"descripcion\": \"Compra de una camiseta y dos pantalones deportivos\",\r\n  \"destinatario\": {\r\n    \"nombre\": \"Juan Pérez\",\r\n    \"apellido\": \"Gómez\",\r\n    \"codigoPostalCiudad\": 12345,\r\n    \"direccion\": \"Calle Falsa 123\",\r\n    \"detallesDireccion\": \"Departamento 4B\",\r\n    \"telefono\": 3001234567\r\n  }\r\n}\r\n",
+							"raw": "{\r\n  \"idUsuario\": \"664d555bef92c833056e17e8\",\r\n  \"detallesCompra\": [\r\n    {\r\n      \"tipo\": \"Producto\",\r\n      \"idTipo\": \"664d5897ef92c833056e17ec\",  // ID del producto \"Camiseta Deportiva\"\r\n      \"cantidad\": 1,\r\n      \"talla\": \"M\",\r\n      \"color\": \"Negro\",\r\n      \"imagenPersonalizada\": \"http://ejemplo.com/imagen_pantalonNegro.jpg\",\r\n      \"detalles\": \"Texto personalizado en la espalda\"\r\n    },\r\n    {\r\n      \"tipo\": \"Producto\",\r\n      \"idTipo\": \"664d5897ef92c833056e17ec\",  // ID del nuevo producto \"Pantalón Deportivo\"\r\n      \"cantidad\": 1,\r\n      \"talla\": \"L\",\r\n      \"color\": \"Gris\",\r\n      \"imagenPersonalizada\": \"http://ejemplo.com/imagen_pantalonGris.jpg\",\r\n      \"detalles\": \"Logo personalizado en la pierna\"\r\n    }\r\n  ],\r\n  \"tarjeta\": {\r\n    \"tipo\": \"Visa\",\r\n    \"numero\": 1234567890123457,\r\n    \"fechaVencimiento\": \"2025-12-31T00:00:00.000Z\"\r\n  },\r\n  \"estado\": \"Pendiente\",\r\n  \"descripcion\": \"Compra de una camiseta y dos pantalones deportivos\",\r\n  \"destinatario\": {\r\n    \"nombre\": \"Juan Pérez\",\r\n    \"apellido\": \"Gómez\",\r\n    \"codigoPostalCiudad\": 12345,\r\n    \"direccion\": \"Calle Falsa 123\",\r\n    \"detallesDireccion\": \"Departamento 4B\",\r\n    \"telefono\": 3001234567\r\n  }\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -474,7 +475,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"idUsuario\": \"664a2dacf6bb5119ee63807c\",\r\n  \"detallesCompra\": [\r\n    {\r\n      \"tipo\": \"Producto\",\r\n      \"idTipo\": \"664a2db7f6bb5119ee63807d\",  // ID del producto \"Camiseta Deportiva\"\r\n      \"cantidad\": 1,\r\n      \"talla\": \"M\",\r\n      \"colorDisponible\": \"Rojo\",\r\n      \"personalizacion\": {\r\n        \"imagenPersonalizada\": \"https://example.com/image1.png\",\r\n        \"colorPersonalizado\": \"Verde\",\r\n        \"detalles\": \"Texto personalizado en la espalda\"\r\n      }\r\n    },\r\n    {\r\n      \"tipo\": \"Producto\",\r\n      \"idTipo\": \"664a2db7f6bb5119ee63807d\",  // ID del nuevo producto \"Pantalón Deportivo\"\r\n      \"cantidad\": 2,\r\n      \"talla\": \"L\",\r\n      \"colorDisponible\": \"Gris\",\r\n      \"personalizacion\": {\r\n        \"imagenPersonalizada\": \"https://example.com/image2.png\",\r\n        \"colorPersonalizado\": \"Azul\",\r\n        \"detalles\": \"Logo personalizado en la pierna\"\r\n      }\r\n    }\r\n  ],\r\n  \"tarjeta\": {\r\n    \"tipo\": \"Visa\",\r\n    \"numero\": 1234567890532357,\r\n    \"fechaVencimiento\": \"2025-12-31T00:00:00.000Z\"\r\n  },\r\n  \"estado\": \"Pendiente\",\r\n  \"descripcion\": \"Compra de una camiseta y dos pantalones deportivos\",\r\n  \"destinatario\": {\r\n    \"nombre\": \"Juan Pérez\",\r\n    \"apellido\": \"Gómez\",\r\n    \"codigoPostalCiudad\": 67890,\r\n    \"direccion\": \"Calle Falsa 123\",\r\n    \"detallesDireccion\": \"Departamento 4B\",\r\n    \"telefono\": 3001234567\r\n  }\r\n}\r\n",
+							"raw": "{\r\n  \"idUsuario\": \"664d555bef92c833056e17e8\",\r\n  \"detallesCompra\": [\r\n    {\r\n      \"tipo\": \"Producto\",\r\n      \"idTipo\": \"664d5897ef92c833056e17ec\",  // ID del producto \"Camiseta Deportiva\"\r\n      \"cantidad\": 10,\r\n      \"talla\": \"M\",\r\n      \"color\": \"Negro\",\r\n      \"imagenPersonalizada\": \"http://ejemplo.com/imagen_pantalonNegro.jpg\",\r\n      \"detalles\": \"Texto personalizado en la espalda\"\r\n    },\r\n    {\r\n      \"tipo\": \"Producto\",\r\n      \"idTipo\": \"664d5897ef92c833056e17ec\",  // ID del nuevo producto \"Pantalón Deportivo\"\r\n      \"cantidad\": 2,\r\n      \"talla\": \"L\",\r\n      \"color\": \"Gris\",\r\n      \"imagenPersonalizada\": \"http://ejemplo.com/imagen_pantalonGris.jpg\",\r\n      \"detalles\": \"Logo personalizado en la pierna\"\r\n    }\r\n  ],\r\n  \"tarjeta\": {\r\n    \"tipo\": \"Visa\",\r\n    \"numero\": 1234567890532357,\r\n    \"fechaVencimiento\": \"2025-12-31T00:00:00.000Z\"\r\n  },\r\n  \"estado\": \"Pendiente\",\r\n  \"descripcion\": \"Compra de una camiseta y dos pantalones deportivos\",\r\n  \"destinatario\": {\r\n    \"nombre\": \"Juan Pérez\",\r\n    \"apellido\": \"Gómez\",\r\n    \"codigoPostalCiudad\": 67890,\r\n    \"direccion\": \"Calle Falsa 1234\",\r\n    \"detallesDireccion\": \"Departamento 4B\",\r\n    \"telefono\": 3001234567\r\n  },\r\n  \"compraActiva\": false\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -482,7 +483,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/compras/664a3cd9a1bbfa2093d9100b",
+							"raw": "http://localhost:8080/api/compras/664d6350ef92c833056e1805",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -491,7 +492,48 @@
 							"path": [
 								"api",
 								"compras",
-								"664a3cd9a1bbfa2093d9100b"
+								"664d6350ef92c833056e1805"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "leerCompra",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminarCompra",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/compras/664d58d1ef92c833056e17ed",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"compras",
+								"664d58d1ef92c833056e17ed"
 							]
 						}
 					},
