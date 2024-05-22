@@ -210,7 +210,7 @@ public class ComprasServiceImpl implements IComprasService {
                         // Actualizar el stock si la imagen existe
                         for (StockModel stock : producto.getStock()) {
                             if (stock.getTalla().equals(nuevoDetalle.getTalla()) &&
-                                    stock.getColor().equals(nuevoDetalle.getColor())) {
+                                stock.getColor().equals(nuevoDetalle.getColor())) {
                                 stock.setCantidad(stock.getCantidad() - diferenciaCantidad);
 
                                 // Verificar si la cantidad es válida después del cambio
