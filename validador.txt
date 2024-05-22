@@ -458,16 +458,12 @@ db.createCollection("promociones", {
                             },
                             "fechaFin": {
                                 "bsonType": "date"
-                            },
-                            "activa": {
-                                "bsonType": "bool"
-                            }
+				}
                         },
                         "additionalProperties": false,
                         "required": [
                             "descuento",
-                            "fechaInicio",
-                            "activa"
+                            "fechaInicio"
                         ]
                     }
                 }
