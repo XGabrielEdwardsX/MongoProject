@@ -336,8 +336,7 @@ db.createCollection("compra", {
             "required": [
               "idProducto",
               "tipo",
-              "cantidad",
-              "precioTotal" 
+              "cantidad"
             ]
           }
         },
