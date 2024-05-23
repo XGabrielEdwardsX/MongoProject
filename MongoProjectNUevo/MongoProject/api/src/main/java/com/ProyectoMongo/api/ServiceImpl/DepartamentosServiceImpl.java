@@ -98,23 +98,30 @@ public DepartamentosModel updateDepartamento(ObjectId id, DepartamentosModel dep
                 .map(CiudadesModel::getCodigoPostal)
                 .collect(Collectors.toSet());
 
-        List<CiudadesModel> ciudadesActualizadas = new ArrayList<>();
+        List<CiudadesModel> ciudadesActualizadas = existingDepartamento.getCiudades();
+        // List<CiudadesModel> ciudadesActualizadas = new ArrayList<>();
 
         for (CiudadesModel ciudad : departamento.getCiudades()) {
             String nombreNormalizado = ciudad.getNombre().trim().toLowerCase();
             ciudad.setNombre(nombreNormalizado);
 
             // Verificar si el nombre de la ciudad ya existe en otro departamento
-            if (departamentosRepository.existsByCiudadesNombreAndIdNot(ciudad.getNombre(), id)) {
+            if (departamentosRepository.existsByCiudadesNombre(ciudad.getNombre())) {
                 throw new RecursoYaExistenteException("La ciudad " + ciudad.getNombre() + " ya existe en otro departamento.");
             }
 
             // Verificar si el código postal ya existe en OTRO departamento o en el mismo departamento pero en otra ciudad
-            if (departamentosRepository.existsByCiudadesCodigoPostalAndIdNot(ciudad.getCodigoPostal(), id) ||
-                    (codigosPostalesExistentes.contains(ciudad.getCodigoPostal()) &&
-                            !existingDepartamento.getCiudades().stream()
-                                    .filter(c -> c.getCodigoPostal() == ciudad.getCodigoPostal())
-                                    .anyMatch(c -> c.getNombre().equals(ciudad.getNombre())))) {
+            // if (departamentosRepository.existsByCiudadesCodigoPostalAndIdNot(ciudad.getCodigoPostal(), id) ||
+            //         (codigosPostalesExistentes.contains(ciudad.getCodigoPostal()) &&
+            //                 !existingDepartamento.getCiudades().stream()
+            //                         .filter(c -> c.getCodigoPostal() == ciudad.getCodigoPostal())
+            //                         .anyMatch(c -> c.getNombre().equals(ciudad.getNombre())))) {
+            //     throw new RecursoYaExistenteException("El código postal " + ciudad.getCodigoPostal() + " ya existe en otro departamento o en otra ciudad del mismo departamento.");
+            // }
+            if (
+                departamentosRepository.existsByCiudadesCodigoPostal(ciudad.getCodigoPostal()) ||
+                (codigosPostalesExistentes.contains(ciudad.getCodigoPostal()))
+                ) {
                 throw new RecursoYaExistenteException("El código postal " + ciudad.getCodigoPostal() + " ya existe en otro departamento o en otra ciudad del mismo departamento.");
             }
 

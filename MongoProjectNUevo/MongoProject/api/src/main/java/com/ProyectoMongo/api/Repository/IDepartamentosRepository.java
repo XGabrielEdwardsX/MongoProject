@@ -16,6 +16,6 @@ public interface IDepartamentosRepository extends MongoRepository<DepartamentosM
     boolean existsByCiudades(List<CiudadesModel> ciudad);
     boolean existsByCiudadesNombre(String nombre);
     boolean existsByCiudadesCodigoPostal(int codigoPostal);
-    boolean existsByCiudadesNombreAndIdNot(String nombre, ObjectId id);
-    boolean existsByCiudadesCodigoPostalAndIdNot(int codigoPostal, ObjectId id);
+    boolean existsByCiudadesNombre(String nombre);
+    boolean existsByCiudadesCodigoPostal(int codigoPostal);
 }
