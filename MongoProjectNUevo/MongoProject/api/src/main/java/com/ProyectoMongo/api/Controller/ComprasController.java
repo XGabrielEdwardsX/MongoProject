@@ -1,5 +1,6 @@
 package com.ProyectoMongo.api.Controller;
 
+import com.ProyectoMongo.api.Exception.CompraActivaException;
 import com.ProyectoMongo.api.Exception.RecursoNoEncontradoException;
 import com.ProyectoMongo.api.Exception.StockInsuficienteException;
 import com.ProyectoMongo.api.Exception.ValorInvalidoException;
@@ -71,6 +72,8 @@ public class ComprasController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
         }  catch (StockInsuficienteException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
-        } 
+        }  catch (CompraActivaException ex){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+        }
     }
 }

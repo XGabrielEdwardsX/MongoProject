@@ -1,5 +1,6 @@
 package com.ProyectoMongo.api.ServiceImpl;
 
+import com.ProyectoMongo.api.Exception.CompraActivaException;
 import com.ProyectoMongo.api.Exception.RecursoNoEncontradoException;
 import com.ProyectoMongo.api.Exception.StockInsuficienteException;
 import com.ProyectoMongo.api.Exception.ValorInvalidoException;
@@ -194,11 +195,20 @@ public class ComprasServiceImpl implements IComprasService {
         final ComprasModel existingCompra = compraRepository.findById(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Compra no encontrada con ID: " + id));
 
-        for (DetallesCompraModel nuevoDetalle : compra.getDetallesCompra()) {
-            for (DetallesCompraModel detalleOriginal : existingCompra.getDetallesCompra()) {
-                if (nuevoDetalle.getIdTipo().equals(detalleOriginal.getIdTipo()) &&
-                    nuevoDetalle.getTalla().equals(detalleOriginal.getTalla()) &&
-                    nuevoDetalle.getColor().equals(detalleOriginal.getColor())) {
+            if (existingCompra.isCompraActiva()) {
+                throw new CompraActivaException("No se puede actualizar una compra activa.");
+            }
+        
+         // Permitir la actualización solo si se está estableciendo compraActiva a true
+         if (compra.isCompraActiva()) {
+            existingCompra.setCompraActiva(true);
+            } else {
+            for (DetallesCompraModel nuevoDetalle : compra.getDetallesCompra()) {
+                for (DetallesCompraModel detalleOriginal : existingCompra.getDetallesCompra()) {
+                    if (nuevoDetalle.getIdTipo().equals(detalleOriginal.getIdTipo()) &&
+                        nuevoDetalle.getTalla().equals(detalleOriginal.getTalla()) &&
+                        nuevoDetalle.getColor().equals(detalleOriginal.getColor())) {
+                        }
 
                     int diferenciaCantidad = (int) (nuevoDetalle.getCantidad() - detalleOriginal.getCantidad());
 
