@@ -1,7 +1,9 @@
 package com.ProyectoMongo.api.Service;
 
+import com.ProyectoMongo.api.Model.ComentariosModel;
 import com.ProyectoMongo.api.Model.ProductoModel;
 import org.bson.types.ObjectId;
+
 import java.util.List;
 
 public interface IProductoService {
@@ -10,4 +12,5 @@ public interface IProductoService {
     ProductoModel saveProducto(ProductoModel producto);
     ProductoModel deleteProducto(ObjectId id);
     ProductoModel updateProducto(ObjectId id, ProductoModel producto);
+    boolean agregarComentario(ObjectId idProducto, ComentariosModel comentario);
 }

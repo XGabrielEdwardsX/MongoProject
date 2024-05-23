@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class DepartamentosServiceImpl implements IDepartamentosService {
@@ -83,60 +84,49 @@ public class DepartamentosServiceImpl implements IDepartamentosService {
     } 
 
     @Override
-    public DepartamentosModel updateDepartamento(ObjectId id, DepartamentosModel departamento) {
-        DepartamentosModel existingDepartamento = departamentosRepository.findById(id)
-            .orElseThrow(() -> new RecursoNoEncontradoException("Departamento con ID: " + id + " no encontrado"));
-    
-        // Actualizar solo los campos presentes en la solicitud
-        if (departamento.getNombre() != null) {
-            existingDepartamento.setNombre(departamento.getNombre());
-        }
-    
-        if (departamento.getCiudades() != null && !departamento.getCiudades().isEmpty()) {
-            Set<String> nombresCiudades = new HashSet<>();
-            Set<Integer> codigosPostales = new HashSet<>();
-            List<CiudadesModel> ciudadesActualizadas = new ArrayList<>(existingDepartamento.getCiudades());
-    
-            for (CiudadesModel ciudad : departamento.getCiudades()) {
-                String nombreNormalizado = ciudad.getNombre().trim().toLowerCase();
-                ciudad.setNombre(nombreNormalizado);
-    
-                if (nombresCiudades.contains(ciudad.getNombre())) {
-                    throw new RecursoYaExistenteException("La ciudad " + ciudad.getNombre() + " ya existe en este departamento.");
-                }
-    
-                if (!codigosPostales.add(ciudad.getCodigoPostal())) {
-                    throw new RecursoYaExistenteException("El código postal " + ciudad.getCodigoPostal() + " ya existe en otro departamento.");
-                }
-    
-                if (departamentosRepository.existsByCiudadesNombreAndIdNot(ciudad.getNombre(), id)) {
-                    throw new RecursoYaExistenteException("La ciudad " + ciudad.getNombre() + " ya existe en otro departamento.");
-                }
-    
-                if (departamentosRepository.existsByCiudadesCodigoPostalAndIdNot(ciudad.getCodigoPostal(), id)) {
-                    throw new RecursoYaExistenteException("El código postal " + ciudad.getCodigoPostal() + " ya existe en otro departamento.");
-                }
-    
-                // Añadir la nueva ciudad si no existe
-                boolean ciudadExistente = false;
-                for (CiudadesModel ciudadExistenteModel : ciudadesActualizadas) {
-                    if (ciudadExistenteModel.getNombre().equals(ciudad.getNombre()) &&
-                        ciudadExistenteModel.getCodigoPostal() == ciudad.getCodigoPostal()) {
-                        ciudadExistente = true;
-                        break;
-                    }
-                }
-                if (!ciudadExistente) {
-                    ciudadesActualizadas.add(ciudad);
-                }
-    
-                nombresCiudades.add(ciudad.getNombre());
-            }
-    
-            existingDepartamento.setCiudades(ciudadesActualizadas);
-        }
-    
-        return departamentosRepository.save(existingDepartamento);
+public DepartamentosModel updateDepartamento(ObjectId id, DepartamentosModel departamento) {
+    DepartamentosModel existingDepartamento = departamentosRepository.findById(id)
+        .orElseThrow(() -> new RecursoNoEncontradoException("Departamento con ID: " + id + " no encontrado"));
+
+    if (departamento.getNombre() != null) {
+        existingDepartamento.setNombre(departamento.getNombre());
     }
-    
+
+    if (departamento.getCiudades() != null && !departamento.getCiudades().isEmpty()) {
+        // Utilizar un Set para rastrear ciudades existentes por código postal
+        Set<Integer> codigosPostalesExistentes = existingDepartamento.getCiudades().stream()
+                .map(CiudadesModel::getCodigoPostal)
+                .collect(Collectors.toSet());
+
+        List<CiudadesModel> ciudadesActualizadas = new ArrayList<>();
+
+        for (CiudadesModel ciudad : departamento.getCiudades()) {
+            String nombreNormalizado = ciudad.getNombre().trim().toLowerCase();
+            ciudad.setNombre(nombreNormalizado);
+
+            // Verificar si el nombre de la ciudad ya existe en otro departamento
+            if (departamentosRepository.existsByCiudadesNombreAndIdNot(ciudad.getNombre(), id)) {
+                throw new RecursoYaExistenteException("La ciudad " + ciudad.getNombre() + " ya existe en otro departamento.");
+            }
+
+            // Verificar si el código postal ya existe en OTRO departamento o en el mismo departamento pero en otra ciudad
+            if (departamentosRepository.existsByCiudadesCodigoPostalAndIdNot(ciudad.getCodigoPostal(), id) ||
+                    (codigosPostalesExistentes.contains(ciudad.getCodigoPostal()) &&
+                            !existingDepartamento.getCiudades().stream()
+                                    .filter(c -> c.getCodigoPostal() == ciudad.getCodigoPostal())
+                                    .anyMatch(c -> c.getNombre().equals(ciudad.getNombre())))) {
+                throw new RecursoYaExistenteException("El código postal " + ciudad.getCodigoPostal() + " ya existe en otro departamento o en otra ciudad del mismo departamento.");
+            }
+
+            // Agregar el nuevo código postal a la lista de existentes
+            codigosPostalesExistentes.add(ciudad.getCodigoPostal());
+
+            ciudadesActualizadas.add(ciudad);
+        }
+
+        existingDepartamento.setCiudades(ciudadesActualizadas);
+    }
+
+    return departamentosRepository.save(existingDepartamento);
+}
 }
