@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controlador REST para manejar las operaciones relacionadas con los departamentos.
+ */
 @RestController
 @RequestMapping("/api/departamentos")
 public class DepartamentoController {
@@ -19,11 +22,20 @@ public class DepartamentoController {
     @Autowired
     private IDepartamentosService departamentosService;
 
+    /**
+     * Obtener todos los departamentos.
+     * @return Lista de todos los departamentos.
+     */
     @GetMapping("/")
     public List<DepartamentosModel> getAllDepartamentos() {
         return departamentosService.findAllDepartamentos();
     }
 
+    /**
+     * Obtener un departamento por su ID.
+     * @param id ID del departamento.
+     * @return El departamento correspondiente al ID proporcionado.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<?> getDepartamentoById(@PathVariable String id) {
         try {
@@ -34,6 +46,11 @@ public class DepartamentoController {
         }
     }
 
+    /**
+     * Crear un nuevo departamento.
+     * @param departamento Objeto del departamento a crear.
+     * @return El departamento creado.
+     */
     @PostMapping("/")
     public ResponseEntity<?> createDepartamento(@RequestBody DepartamentosModel departamento) {
         try {
@@ -46,25 +63,36 @@ public class DepartamentoController {
         }
     }
 
-   @DeleteMapping("/{id}")
-public ResponseEntity<?> deleteDepartamento(@PathVariable String id) {
-    ObjectId objectId = new ObjectId(id);  // Convert String to ObjectId
-    try {
-        DepartamentosModel deleteDepartamento = departamentosService.deleteDepartamento(objectId);
-        return ResponseEntity.ok(deleteDepartamento);
-    } catch (RecursoNoEncontradoException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    /**
+     * Eliminar un departamento por su ID.
+     * @param id ID del departamento a eliminar.
+     * @return El departamento eliminado.
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteDepartamento(@PathVariable String id) {
+        ObjectId objectId = new ObjectId(id);  // Convertir String a ObjectId
+        try {
+            DepartamentosModel deleteDepartamento = departamentosService.deleteDepartamento(objectId);
+            return ResponseEntity.ok(deleteDepartamento);
+        } catch (RecursoNoEncontradoException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
     }
-}
 
+    /**
+     * Actualizar un departamento existente.
+     * @param id ID del departamento a actualizar.
+     * @param departamento Objeto del departamento con los datos actualizados.
+     * @return El departamento actualizado.
+     */
     @PutMapping("/{id}")
-public ResponseEntity<?> updateDepartamento(@PathVariable ObjectId id, @RequestBody DepartamentosModel departamento) {
-    try {
-        DepartamentosModel updatedDepartamento = departamentosService.updateDepartamento(id, departamento);
-        return ResponseEntity.ok(updatedDepartamento);
-    } catch (RecursoYaExistenteException ex) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
-        }catch(RecursoNoEncontradoException ex){
+    public ResponseEntity<?> updateDepartamento(@PathVariable ObjectId id, @RequestBody DepartamentosModel departamento) {
+        try {
+            DepartamentosModel updatedDepartamento = departamentosService.updateDepartamento(id, departamento);
+            return ResponseEntity.ok(updatedDepartamento);
+        } catch (RecursoYaExistenteException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+        } catch(RecursoNoEncontradoException ex){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }
     }   

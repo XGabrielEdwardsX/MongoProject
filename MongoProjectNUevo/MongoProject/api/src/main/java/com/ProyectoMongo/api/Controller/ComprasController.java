@@ -13,6 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+/**
+ * Controlador REST para manejar las operaciones relacionadas con las compras.
+ */
 @RestController
 @RequestMapping("/api/compras")
 public class ComprasController {
@@ -20,21 +23,35 @@ public class ComprasController {
     @Autowired
     private IComprasService comprasService;
 
+    /**
+     * Obtener todas las compras.
+     * @return Lista de todas las compras.
+     */
     @GetMapping("/")
     public List<ComprasModel> getAllCompras() {
         return comprasService.findAllCompras();
     }
 
+    /**
+     * Obtener una compra por su ID.
+     * @param id ID de la compra.
+     * @return La compra correspondiente al ID proporcionado.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<?> getCompraById(@PathVariable String id) {
-    try {
-        ComprasModel compra = comprasService.findCompraById(new ObjectId(id));
-        return ResponseEntity.ok(compra);
-    } catch (RecursoNoEncontradoException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        try {
+            ComprasModel compra = comprasService.findCompraById(new ObjectId(id));
+            return ResponseEntity.ok(compra);
+        } catch (RecursoNoEncontradoException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
     }
-}
 
+    /**
+     * Crear una nueva compra.
+     * @param compra Objeto de compra a crear.
+     * @return La compra creada.
+     */
     @PostMapping("/")
     public ResponseEntity<?> createCompra(@RequestBody ComprasModel compra) {
         try {
@@ -49,6 +66,11 @@ public class ComprasController {
         } 
     }
 
+    /**
+     * Eliminar una compra por su ID.
+     * @param id ID de la compra a eliminar.
+     * @return La compra eliminada.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCompra(@PathVariable String id) {
         ObjectId objectId = new ObjectId(id);
@@ -60,6 +82,12 @@ public class ComprasController {
         }
     }
 
+    /**
+     * Actualizar una compra existente.
+     * @param id ID de la compra a actualizar.
+     * @param compra Objeto de compra con los datos actualizados.
+     * @return La compra actualizada.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<?> updateCompra(@PathVariable String id, @RequestBody ComprasModel compra) {
         try {
@@ -70,9 +98,9 @@ public class ComprasController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         } catch (ValorInvalidoException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
-        }  catch (StockInsuficienteException ex) {
+        } catch (StockInsuficienteException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
-        }  catch (CompraActivaException ex){
+        } catch (CompraActivaException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
         }
     }

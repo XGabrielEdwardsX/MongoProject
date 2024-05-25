@@ -21,17 +21,29 @@ import com.ProyectoMongo.api.Exception.ValorInvalidoException;
 import com.ProyectoMongo.api.Model.PromocionesModel;
 import com.ProyectoMongo.api.Service.IPromocionesService;
 
+/**
+ * Controlador REST para manejar las operaciones relacionadas con las promociones.
+ */
 @RestController
 @RequestMapping("/api/promociones")
 public class PromocionController {
     @Autowired
     private IPromocionesService promocionesService;
-
+    
+    /**
+     * Obtener todas las promociones.
+     * @return Lista de todas las promociones.
+     */
     @GetMapping("/")
     public List<PromocionesModel> getAllPromos() {
         return promocionesService.findAllPromos();
     }
 
+    /**
+     * Obtener una promoción por su ID.
+     * @param id ID de la promoción.
+     * @return La promoción correspondiente al ID proporcionado.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<?> getPromoById(@PathVariable String id) {
         try {
@@ -42,6 +54,11 @@ public class PromocionController {
         }
     }
     
+    /**
+     * Crear una nueva promoción.
+     * @param promo Objeto de la promoción a crear.
+     * @return La promoción creada.
+     */
     @PostMapping("/")
     public ResponseEntity<?> createPromo(@RequestBody PromocionesModel promo) {
         try {
@@ -54,6 +71,11 @@ public class PromocionController {
         }
     }
 
+    /**
+     * Eliminar una promoción por su ID.
+     * @param id ID de la promoción a eliminar.
+     * @return La promoción eliminada.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePromo(@PathVariable String id) {
         ObjectId objectId = new ObjectId(id);
@@ -65,6 +87,12 @@ public class PromocionController {
         }
     }
 
+    /**
+     * Actualizar una promoción existente.
+     * @param id ID de la promoción a actualizar.
+     * @param promo Objeto de la promoción con los datos actualizados.
+     * @return La promoción actualizada.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<?> updatePromo(@PathVariable ObjectId id, @RequestBody PromocionesModel promo) {
         try {

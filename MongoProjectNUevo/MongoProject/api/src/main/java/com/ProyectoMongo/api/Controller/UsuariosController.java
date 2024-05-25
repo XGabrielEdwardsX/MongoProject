@@ -13,17 +13,30 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controlador REST para manejar las operaciones relacionadas con los usuarios.
+ */
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuariosController {
+    
     @Autowired
     private IUsuariosService usuariosService;
 
+    /**
+     * Obtener todos los usuarios.
+     * @return Lista de todos los usuarios.
+     */
     @GetMapping("/")
     public List<UsuariosModel> getAllUsuarios() {
         return usuariosService.findAllUsuarios();
     }
 
+    /**
+     * Obtener un usuario por su ID.
+     * @param id ID del usuario.
+     * @return El usuario correspondiente al ID proporcionado.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<?> getUsuarioById(@PathVariable String id) {
         try {
@@ -34,6 +47,11 @@ public class UsuariosController {
         }
     }
 
+    /**
+     * Crear un nuevo usuario.
+     * @param usuario Objeto del usuario a crear.
+     * @return El usuario creado.
+     */
     @PostMapping("/")
     public ResponseEntity<?> createUsuario(@RequestBody UsuariosModel usuario) {
         try {
@@ -44,9 +62,13 @@ public class UsuariosController {
         } catch (RecursoNoEncontradoException ex){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }
-
     }
 
+    /**
+     * Eliminar un usuario por su ID.
+     * @param id ID del usuario a eliminar.
+     * @return El usuario eliminado.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUsuario(@PathVariable String id) {
         ObjectId objectId = new ObjectId(id);
@@ -58,6 +80,12 @@ public class UsuariosController {
         }
     }
 
+    /**
+     * Actualizar un usuario existente.
+     * @param id ID del usuario a actualizar.
+     * @param usuario Objeto del usuario con los datos actualizados.
+     * @return El usuario actualizado.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<?> updateUsuario(@PathVariable ObjectId id, @RequestBody UsuariosModel usuario) {
         try {

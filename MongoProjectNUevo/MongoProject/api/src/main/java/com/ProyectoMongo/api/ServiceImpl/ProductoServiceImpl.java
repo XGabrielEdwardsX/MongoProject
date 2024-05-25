@@ -9,6 +9,7 @@ import com.ProyectoMongo.api.Model.ProductoPromocionModel;
 import com.ProyectoMongo.api.Model.PromocionesModel;
 import com.ProyectoMongo.api.Repository.IProductoRepository;
 import com.ProyectoMongo.api.Repository.IPromocionesRepository;
+import com.ProyectoMongo.api.Repository.IComprasRepository;
 import com.ProyectoMongo.api.Service.IProductoService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +29,10 @@ public class ProductoServiceImpl implements IProductoService {
     
     @Autowired
     IPromocionesRepository promocionesRepository;
+
+    @Autowired
+    IComprasRepository compraRepository;
+    
 
     @Override
     public List<ProductoModel> findAllProductos() {
@@ -137,34 +143,29 @@ public class ProductoServiceImpl implements IProductoService {
         return productoRepository.save(existingProducto);
     }
 
-    @Override
-    public boolean agregarComentario(ObjectId idProducto, ComentariosModel comentario) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'agregarComentario'");
-    }
+    //*
 
-      /* @Override
-    public boolean agregarComentario(ObjectId idProducto, ComentariosModel comentario) {
+    @Override
+    public ProductoModel agregarComentario(ObjectId idProducto, ComentariosModel comentario) {
         ProductoModel producto = productoRepository.findById(idProducto)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Producto no encontrado con ID: " + idProducto));
 
-        // Aquí debes verificar si el usuario ha comprado el producto
-        // Este ejemplo asume que existe un método usuarioHaCompradoProducto
-       if (!usuarioHaCompradoProducto(comentario.getUsuarioId(), idProducto)) {
-            return false;
+        // Verificar si el usuario ha comprado el producto
+        if (!usuarioHaCompradoProducto(comentario.getIdUsuario(), idProducto)) {
+            throw new RecursoNoEncontradoException("Usuario con ID: " + comentario.getIdUsuario() + " no ha comprado el producto con ID: " + idProducto);
         }
 
         List<ComentariosModel> comentarios = producto.getComentarios();
         comentarios.add(comentario);
         producto.setComentarios(comentarios);
 
-        productoRepository.save(producto);
-        return true;
+        return productoRepository.save(producto);
     }
 
     private boolean usuarioHaCompradoProducto(ObjectId usuarioId, ObjectId productoId) {
-        // Implementar la lógica para verificar si el usuario ha comprado el producto
-        // Esto puede incluir llamadas a otros repositorios o servicios
-        return true; // Cambiar esta línea por la lógica real */
+        return compraRepository.findAll().stream()
+                .anyMatch(compra -> compra.getIdUsuario().equals(usuarioId) &&
+                                    compra.getDetallesCompra().stream()
+                                          .anyMatch(detalle -> detalle.getIdTipo().equals(productoId)));
+    }
 }
-

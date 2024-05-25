@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controlador REST para manejar las operaciones relacionadas con los productos.
+ */
 @RestController
 @RequestMapping("/api/productos")
 public class ProductoController {
@@ -21,11 +24,20 @@ public class ProductoController {
     @Autowired
     private IProductoService productoService;
 
+    /**
+     * Obtener todos los productos.
+     * @return Lista de todos los productos.
+     */
     @GetMapping("/")
     public List<ProductoModel> getAllProductos() {
         return productoService.findAllProductos();
     }
 
+    /**
+     * Obtener un producto por su ID.
+     * @param id ID del producto.
+     * @return El producto correspondiente al ID proporcionado.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<?> getProductoById(@PathVariable String id) {
         try {
@@ -36,6 +48,11 @@ public class ProductoController {
         }
     }
 
+    /**
+     * Crear un nuevo producto.
+     * @param producto Objeto del producto a crear.
+     * @return El producto creado.
+     */
     @PostMapping("/")
     public ResponseEntity<?> createProducto(@RequestBody ProductoModel producto) {
         try {
@@ -46,6 +63,11 @@ public class ProductoController {
         }
     }
 
+    /**
+     * Eliminar un producto por su ID.
+     * @param id ID del producto a eliminar.
+     * @return El producto eliminado.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProducto(@PathVariable String id) {
         try {
@@ -57,6 +79,12 @@ public class ProductoController {
         }
     }
 
+    /**
+     * Actualizar un producto existente.
+     * @param id ID del producto a actualizar.
+     * @param producto Objeto del producto con los datos actualizados.
+     * @return El producto actualizado.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<?> updateProducto(@PathVariable String id, @RequestBody ProductoModel producto) {
         try {
@@ -70,14 +98,24 @@ public class ProductoController {
         }
     }
 
-    @PostMapping("/{id}/comentarios")
+    /**
+     * Agregar un comentario a un producto.
+     * @param id ID del producto.
+     * @param comentario Objeto del comentario a agregar.
+     * @return Mensaje de éxito o error.
+     */
+    @PostMapping("/comentarios/{id}")
     public ResponseEntity<?> agregarComentario(@PathVariable String id, @RequestBody ComentariosModel comentario) {
-        ObjectId idProducto = new ObjectId(id);
-        boolean agregado = productoService.agregarComentario(idProducto, comentario);
-        if (agregado) {
-            return ResponseEntity.ok("Comentario agregado exitosamente.");
-        } else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("El usuario no ha comprado este producto.");
+        try {
+            ObjectId idProducto = new ObjectId(id);
+            ProductoModel agregado = productoService.agregarComentario(idProducto, comentario);
+            if (agregado != null) {
+                return ResponseEntity.ok("Comentario agregado exitosamente.");
+            } else {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("El usuario no ha comprado este producto.");
+            }
+        } catch (RecursoNoEncontradoException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }
     }
 }

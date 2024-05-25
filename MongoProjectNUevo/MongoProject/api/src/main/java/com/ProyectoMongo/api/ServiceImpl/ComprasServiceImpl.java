@@ -1,20 +1,8 @@
 package com.ProyectoMongo.api.ServiceImpl;
 
-import com.ProyectoMongo.api.Exception.CompraActivaException;
-import com.ProyectoMongo.api.Exception.RecursoNoEncontradoException;
-import com.ProyectoMongo.api.Exception.StockInsuficienteException;
-import com.ProyectoMongo.api.Exception.ValorInvalidoException;
-import com.ProyectoMongo.api.Model.ComprasModel;
-import com.ProyectoMongo.api.Model.DetallesCompraModel;
-import com.ProyectoMongo.api.Model.ProductoModel;
-import com.ProyectoMongo.api.Model.PromocionesModel;
-import com.ProyectoMongo.api.Model.StockModel;
-import com.ProyectoMongo.api.Model.ProductoPromocionModel;
-import com.ProyectoMongo.api.Repository.IComprasRepository;
-import com.ProyectoMongo.api.Repository.IDepartamentosRepository;
-import com.ProyectoMongo.api.Repository.IProductoRepository;
-import com.ProyectoMongo.api.Repository.IUsuariosRepository;
-import com.ProyectoMongo.api.Repository.IPromocionesRepository;
+import com.ProyectoMongo.api.Exception.*;
+import com.ProyectoMongo.api.Model.*;
+import com.ProyectoMongo.api.Repository.*;
 import com.ProyectoMongo.api.Service.IComprasService;
 
 import org.bson.types.ObjectId;
@@ -27,6 +15,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * ComprasServiceImpl implementa la interfaz IComprasService y proporciona
+ * la lógica de negocio para manejar las operaciones relacionadas con las compras.
+ * 
+ * @see IComprasService
+ */
 @Service
 public class ComprasServiceImpl implements IComprasService {
 
@@ -45,21 +39,42 @@ public class ComprasServiceImpl implements IComprasService {
     @Autowired
     private IPromocionesRepository promocionesRepository;
 
+    /**
+     * Recupera todas las compras almacenadas.
+     * 
+     * @return una lista de todas las compras
+     */
     @Override
     public List<ComprasModel> findAllCompras() {
         return compraRepository.findAll();
     }
 
+    /**
+     * Recupera una compra por su ID.
+     * 
+     * @param id el identificador único de la compra
+     * @return la compra encontrada
+     * @throws RecursoNoEncontradoException si la compra no es encontrada
+     */
     @Override
     public ComprasModel findCompraById(ObjectId id) {
         return compraRepository.findById(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Compra con ID: " + id + " no encontrada"));
     }
 
+    /**
+     * Guarda una nueva compra o actualiza una existente.
+     * 
+     * @param compra la compra a guardar
+     * @return la compra guardada
+     * @throws RecursoNoEncontradoException si el usuario o una imagen personalizada no son encontrados
+     * @throws ValorInvalidoException si el formato del número de tarjeta es inválido o la fecha de vencimiento es en el pasado
+     * @throws StockInsuficienteException si el stock de un producto es insuficiente
+     */
     @Override
     public ComprasModel saveCompra(ComprasModel compra) {
         if (compra.getId() == null) {
-            // Generate a new ObjectId if the id is null
+            // Genera un nuevo ObjectId si el id es nulo
             compra.setId(new ObjectId());
         }   
 
@@ -100,7 +115,6 @@ public class ComprasServiceImpl implements IComprasService {
                 throw new RecursoNoEncontradoException("Imagen no encontrada: " + detalle.getImagenPersonalizada());
             }
         }
-        
         
         BigDecimal precioTotalCompra = BigDecimal.ZERO;
 
@@ -159,12 +173,19 @@ public class ComprasServiceImpl implements IComprasService {
         return compraRepository.save(compra);
     }
 
+    /**
+     * Elimina una compra por su ID.
+     * 
+     * @param id el identificador único de la compra
+     * @return la compra eliminada
+     * @throws RecursoNoEncontradoException si la compra no es encontrada
+     */
     @Override
     public ComprasModel deleteCompra(ObjectId id) {
         ComprasModel compra = compraRepository.findById(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Compra con ID: " + id + " no encontrada"));
 
-        // Reintegran las cantidades al stock
+        // Reintegrar las cantidades al stock
         for (DetallesCompraModel detalle : compra.getDetallesCompra()) {
             ProductoModel producto = productoRepository.findById(detalle.getIdTipo())
                     .orElseThrow(() -> new RecursoNoEncontradoException("El " + detalle.getTipo() + " con ID: " + detalle.getIdTipo() + " no encontrado"));
@@ -190,55 +211,66 @@ public class ComprasServiceImpl implements IComprasService {
         return compra;
     }
 
+    /**
+     * Actualiza una compra existente por su ID.
+     * 
+     * @param id el identificador único de la compra a actualizar
+     * @param compra la compra con los nuevos datos
+     * @return la compra actualizada
+     * @throws RecursoNoEncontradoException si la compra o los recursos asociados no son encontrados
+     * @throws CompraActivaException si se intenta actualizar una compra activa
+     * @throws StockInsuficienteException si el stock de un producto es insuficiente
+     * @throws ValorInvalidoException si el formato del número de tarjeta es inválido o la fecha de vencimiento es en el pasado
+     */
     @Override
     public ComprasModel updateCompra(ObjectId id, ComprasModel compra) {
         final ComprasModel existingCompra = compraRepository.findById(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Compra no encontrada con ID: " + id));
 
-            if (existingCompra.isCompraActiva()) {
-                throw new CompraActivaException("No se puede actualizar una compra activa.");
-            }
+        if (existingCompra.isCompraActiva()) {
+            throw new CompraActivaException("No se puede actualizar una compra activa.");
+        }
         
-         // Permitir la actualización solo si se está estableciendo compraActiva a true
-         if (compra.isCompraActiva()) {
+        // Permitir la actualización solo si se está estableciendo compraActiva a true
+        if (compra.isCompraActiva()) {
             existingCompra.setCompraActiva(true);
-            } else {
+        } else {
             for (DetallesCompraModel nuevoDetalle : compra.getDetallesCompra()) {
                 for (DetallesCompraModel detalleOriginal : existingCompra.getDetallesCompra()) {
                     if (nuevoDetalle.getIdTipo().equals(detalleOriginal.getIdTipo()) &&
                         nuevoDetalle.getTalla().equals(detalleOriginal.getTalla()) &&
                         nuevoDetalle.getColor().equals(detalleOriginal.getColor())) {
-                        }
 
-                    int diferenciaCantidad = (int) (nuevoDetalle.getCantidad() - detalleOriginal.getCantidad());
+                        int diferenciaCantidad = (int) (nuevoDetalle.getCantidad() - detalleOriginal.getCantidad());
 
-                    // Solo actualizar el stock si hay cambios en la cantidad
-                    if (diferenciaCantidad != 0) {
-                        ProductoModel producto = productoRepository.findById(nuevoDetalle.getIdTipo())
-                                .orElseThrow(() -> new RecursoNoEncontradoException("El producto con ID: " + nuevoDetalle.getIdTipo() + " no encontrado"));
-                        
-                        // Actualizar el stock si la imagen existe
-                        for (StockModel stock : producto.getStock()) {
-                            if (stock.getTalla().equals(nuevoDetalle.getTalla()) &&
-                                stock.getColor().equals(nuevoDetalle.getColor())) {
-                                stock.setCantidad(stock.getCantidad() - diferenciaCantidad);
+                        // Solo actualizar el stock si hay cambios en la cantidad
+                        if (diferenciaCantidad != 0) {
+                            ProductoModel producto = productoRepository.findById(nuevoDetalle.getIdTipo())
+                                    .orElseThrow(() -> new RecursoNoEncontradoException("El producto con ID: " + nuevoDetalle.getIdTipo() + " no encontrado"));
+                            
+                            // Actualizar el stock si la imagen existe
+                            for (StockModel stock : producto.getStock()) {
+                                if (stock.getTalla().equals(nuevoDetalle.getTalla()) &&
+                                    stock.getColor().equals(nuevoDetalle.getColor())) {
+                                    stock.setCantidad(stock.getCantidad() - diferenciaCantidad);
 
-                                // Verificar si la cantidad es válida después del cambio
-                                if (stock.getCantidad() < 0) {
-                                    throw new StockInsuficienteException("Stock insuficiente para el producto con ID: " + nuevoDetalle.getIdTipo());
+                                    // Verificar si la cantidad es válida después del cambio
+                                    if (stock.getCantidad() < 0) {
+                                        throw new StockInsuficienteException("Stock insuficiente para el producto con ID: " + nuevoDetalle.getIdTipo());
+                                    }
+                                    break;
                                 }
-                                break;
                             }
+
+                            productoRepository.save(producto);
+                        } else {
+                            // Actualizar la cantidad del detalle original en la compra
+                            detalleOriginal.setCantidad(nuevoDetalle.getCantidad());
                         }
 
-                        productoRepository.save(producto);
-                    } else {
-                        // Actualizar la cantidad del detalle original en la compra
-                        detalleOriginal.setCantidad(nuevoDetalle.getCantidad());
+                        // Salir del bucle de detalles originales
+                        break;
                     }
-
-                    // Salir del bucle de detalles originales
-                    break;
                 }
             }
         }
@@ -275,28 +307,28 @@ public class ComprasServiceImpl implements IComprasService {
             if (!imagenes.contains(detalle.getImagenPersonalizada())) {
                 throw new RecursoNoEncontradoException("Imagen no encontrada: " + detalle.getImagenPersonalizada());
             }
-        
-            // Actualizar otros campos de la compra si se proporcionan
-            if (compra.getIdUsuario() != null) {
-                existingCompra.setIdUsuario(compra.getIdUsuario());
-            }
-            if (compra.getTarjeta() != null) {
-                existingCompra.setTarjeta(compra.getTarjeta());
-            }
-            if (compra.getEstado() != null) {
-                existingCompra.setEstado(compra.getEstado());
-            }
-            if (compra.getDescripcion() != null) {
-                existingCompra.setDescripcion(compra.getDescripcion());
-            }
-            existingCompra.setFechaCompra(new Date());
-            if (compra.getDestinatario() != null) {
-                existingCompra.setDestinatario(compra.getDestinatario());
-            }
+        }
 
-            if (compra.getDetallesCompra() != null && !compra.getDetallesCompra().isEmpty()) {
-                existingCompra.setDetallesCompra(compra.getDetallesCompra());
-            }  
+        // Actualizar otros campos de la compra si se proporcionan
+        if (compra.getIdUsuario() != null) {
+            existingCompra.setIdUsuario(compra.getIdUsuario());
+        }
+        if (compra.getTarjeta() != null) {
+            existingCompra.setTarjeta(compra.getTarjeta());
+        }
+        if (compra.getEstado() != null) {
+            existingCompra.setEstado(compra.getEstado());
+        }
+        if (compra.getDescripcion() != null) {
+            existingCompra.setDescripcion(compra.getDescripcion());
+        }
+        existingCompra.setFechaCompra(new Date());
+        if (compra.getDestinatario() != null) {
+            existingCompra.setDestinatario(compra.getDestinatario());
+        }
+
+        if (compra.getDetallesCompra() != null && !compra.getDetallesCompra().isEmpty()) {
+            existingCompra.setDetallesCompra(compra.getDetallesCompra());
         }
 
         // Calcular el precio total de la compra actualizada
