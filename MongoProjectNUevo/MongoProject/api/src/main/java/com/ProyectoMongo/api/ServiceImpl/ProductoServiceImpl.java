@@ -7,6 +7,8 @@ import com.ProyectoMongo.api.Model.ComentariosModel;
 import com.ProyectoMongo.api.Model.ProductoModel;
 import com.ProyectoMongo.api.Model.ProductoPromocionModel;
 import com.ProyectoMongo.api.Model.PromocionesModel;
+import com.ProyectoMongo.api.Model.StockModel;
+import com.ProyectoMongo.api.Repository.IComprasRepository;
 import com.ProyectoMongo.api.Repository.IProductoRepository;
 import com.ProyectoMongo.api.Repository.IPromocionesRepository;
 import com.ProyectoMongo.api.Repository.IComprasRepository;
@@ -35,17 +37,30 @@ public class ProductoServiceImpl implements IProductoService {
 
     @Autowired
     IProductoRepository productoRepository;
-    
+
     @Autowired
     IPromocionesRepository promocionesRepository;
 
     @Autowired
     IComprasRepository compraRepository;
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+
+    @Autowired
+    ComprasServiceImpl comprasServiceImpl;
+
+=======
+>>>>>>> Stashed changes
     
     /**
     * Obtener todos los productos.
     * @return Lista de todos los productos.
     */
+<<<<<<< Updated upstream
+=======
+>>>>>>> b967f0a6647f8c517ec95741685ebd875a374d91
+>>>>>>> Stashed changes
     @Override
     public List<ProductoModel> findAllProductos() {
         return productoRepository.findAll();
@@ -63,19 +78,39 @@ public class ProductoServiceImpl implements IProductoService {
         ProductoModel producto = productoRepository.findById(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Producto con ID: " + id + " no encontrado"));
 
+<<<<<<< Updated upstream
          // Verifica si hay promociones aplicables al producto   
+=======
+<<<<<<< HEAD
+        BigDecimal precioConDescuento = producto.getPrecioOriginal();
+        if (precioConDescuento == null) {
+            precioConDescuento = producto.getPrecio(); // Para productos antiguos que no tienen precioOriginal
+        }
+
+=======
+         // Verifica si hay promociones aplicables al producto   
+>>>>>>> b967f0a6647f8c517ec95741685ebd875a374d91
+>>>>>>> Stashed changes
         List<PromocionesModel> promociones = promocionesRepository.findAll();
         Date now = new Date();
         for (PromocionesModel promocion : promociones) {
             for (ProductoPromocionModel productoPromocion : promocion.getProductoPromocion()) {
                 if (productoPromocion.getIdProducto().equals(id) &&
                     now.after(productoPromocion.getFechaInicio()) && now.before(productoPromocion.getFechaFin())) {
-                    BigDecimal descuento = producto.getPrecio().multiply(BigDecimal.valueOf(productoPromocion.getDescuento() / 100.0));
-                    producto.setPrecio(producto.getPrecio().subtract(descuento));
+                    BigDecimal descuento = precioConDescuento.multiply(BigDecimal.valueOf(productoPromocion.getDescuento() / 100.0));
+                    precioConDescuento = precioConDescuento.subtract(descuento);
+
+                    if (producto.getPrecioOriginal() == null) {
+                        producto.setPrecioOriginal(producto.getPrecio()); // Guardar el precio original solo una vez
+                    }
+
                     break;
                 }
             }
         }
+
+        producto.setPrecio(precioConDescuento);
+        productoRepository.save(producto);
 
         return producto;
     }
@@ -97,6 +132,20 @@ public class ProductoServiceImpl implements IProductoService {
         if (!producto.getGenero().matches("Hombre|Mujer|Unisex")) {
             throw new ValorInvalidoException("Valor inválido para el género: " + producto.getGenero());
         }
+
+        if (producto.getPrecioOriginal() == null) {
+            throw new ValorInvalidoException("El precio original no puede ser nulo");
+        }
+
+        producto.initializePrecio(); // Inicializar el precio basado en precioOriginal
+
+        for (StockModel stock : producto.getStock()) {
+            if (stock.getCantidad() < 0) {
+                throw new ValorInvalidoException("La cantidad no puede ser negativa");
+            }
+        }
+
+        producto.setComentarios(null);
 
         return productoRepository.save(producto);
     }
@@ -141,6 +190,22 @@ public class ProductoServiceImpl implements IProductoService {
         if (updateNombre && productoRepository.existsByNombre(producto.getNombre())) {
             throw new RecursoYaExistenteException("Ya existe un producto con este nombre");
         }
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+
+        if (producto.getPrecioOriginal().compareTo(BigDecimal.ZERO) < 0) {
+            throw new ValorInvalidoException("El precio original no puede ser negativo");
+        }
+
+        for (StockModel stock : producto.getStock()) {
+            if (stock.getCantidad() < 0) {
+                throw new ValorInvalidoException("La cantidad no puede ser negativa");
+            }
+        }
+=======
+>>>>>>> b967f0a6647f8c517ec95741685ebd875a374d91
+>>>>>>> Stashed changes
 
         if (producto.getNombre() != null) {
             existingProducto.setNombre(producto.getNombre());
@@ -160,8 +225,8 @@ public class ProductoServiceImpl implements IProductoService {
         if (producto.getImagenes() != null && !producto.getImagenes().isEmpty()) {
             existingProducto.setImagenes(producto.getImagenes());
         }
-        if (producto.getPrecio() != null) {
-            existingProducto.setPrecio(producto.getPrecio());
+        if (producto.getPrecioOriginal() != null) {
+            existingProducto.setPrecioOriginal(producto.getPrecioOriginal());
         }
         if (producto.getEsPaquete() != null) {
             existingProducto.setEsPaquete(producto.getEsPaquete());
@@ -172,10 +237,17 @@ public class ProductoServiceImpl implements IProductoService {
         if (producto.getStock() != null && !producto.getStock().isEmpty()) {
             existingProducto.setStock(producto.getStock());
         }
+
         if (producto.getComentarios() != null && !producto.getComentarios().isEmpty()) {
+            for (ComentariosModel comentario : producto.getComentarios()) {
+                if (!comprasServiceImpl.usuarioHaCompradoProducto(comentario.getIdUsuario(), id)) {
+                    throw new ValorInvalidoException("El usuario " + comentario.getIdUsuario() + " no ha comprado este producto y no puede comentar sobre él.");
+                }
+            }
             existingProducto.setComentarios(producto.getComentarios());
         }
-    
+
+        existingProducto.initializePrecio(); // Inicializar el precio basado en precioOriginal
         return productoRepository.save(existingProducto);
     }
     /**
@@ -188,7 +260,41 @@ public class ProductoServiceImpl implements IProductoService {
     * Este método agrega un comentario a un producto solo si el usuario ha comprado el producto.
     */
     @Override
+<<<<<<< Updated upstream
     public ProductoModel agregarComentario(ObjectId idProducto, ComentariosModel comentario) {
+        ProductoModel producto = productoRepository.findById(idProducto)
+                .orElseThrow(() -> new RecursoNoEncontradoException("Producto no encontrado con ID: " + idProducto));
+
+        if (!usuarioHaCompradoProducto(comentario.getIdUsuario(), idProducto)) {
+            throw new RecursoNoEncontradoException("Usuario con ID: " + comentario.getIdUsuario() + " no ha comprado el producto con ID: " + idProducto);
+=======
+<<<<<<< HEAD
+    public void agregarComentario(ObjectId idProducto, ComentariosModel comentario) {
+        ProductoModel producto = productoRepository.findById(idProducto)
+                .orElseThrow(() -> new RecursoNoEncontradoException("Producto no encontrado con ID: " + idProducto));
+
+        comentario.setPuedeComentar(comprasServiceImpl.usuarioHaCompradoProducto(comentario.getIdUsuario(), idProducto));
+
+        if (!comentario.isPuedeComentar()) {
+            throw new ValorInvalidoException("El usuario no ha comprado este producto y no puede comentar sobre él.");
+>>>>>>> Stashed changes
+        }
+
+        List<ComentariosModel> comentarios = producto.getComentarios();
+        comentarios.add(comentario);
+        producto.setComentarios(comentarios);
+
+<<<<<<< Updated upstream
+=======
+        productoRepository.save(producto);
+    }
+}
+
+      /* @Override
+    public boolean agregarComentario(ObjectId idProducto, ComentariosModel comentario) {
+=======
+    public ProductoModel agregarComentario(ObjectId idProducto, ComentariosModel comentario) {
+>>>>>>> b967f0a6647f8c517ec95741685ebd875a374d91
         ProductoModel producto = productoRepository.findById(idProducto)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Producto no encontrado con ID: " + idProducto));
 
@@ -200,13 +306,29 @@ public class ProductoServiceImpl implements IProductoService {
         comentarios.add(comentario);
         producto.setComentarios(comentarios);
 
+>>>>>>> Stashed changes
         return productoRepository.save(producto);
     }
 
     private boolean usuarioHaCompradoProducto(ObjectId usuarioId, ObjectId productoId) {
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+        // Implementar la lógica para verificar si el usuario ha comprado el producto
+        // Esto puede incluir llamadas a otros repositorios o servicios
+        return true; // Cambiar esta línea por la lógica real */
+
+
+=======
+>>>>>>> Stashed changes
         return compraRepository.findAll().stream()
                 .anyMatch(compra -> compra.getIdUsuario().equals(usuarioId) &&
                                     compra.getDetallesCompra().stream()
                                           .anyMatch(detalle -> detalle.getIdTipo().equals(productoId)));
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> b967f0a6647f8c517ec95741685ebd875a374d91
+>>>>>>> Stashed changes

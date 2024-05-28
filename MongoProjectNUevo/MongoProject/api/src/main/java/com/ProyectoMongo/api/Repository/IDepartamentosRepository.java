@@ -43,5 +43,12 @@ public interface IDepartamentosRepository extends MongoRepository<DepartamentosM
      * @return Verdadero si existe una ciudad con el código postal dado dentro del departamento, falso de lo contrario.
      */
     boolean existsByCiudadesCodigoPostal(int codigoPostal);
+<<<<<<< Updated upstream
     // boolean existsByCiudadesCodigoPostalAndIdNot(int codigoPostal, ObjectId id);
+=======
+<<<<<<< HEAD
+=======
+    // boolean existsByCiudadesCodigoPostalAndIdNot(int codigoPostal, ObjectId id);
+>>>>>>> b967f0a6647f8c517ec95741685ebd875a374d91
+>>>>>>> Stashed changes
 }

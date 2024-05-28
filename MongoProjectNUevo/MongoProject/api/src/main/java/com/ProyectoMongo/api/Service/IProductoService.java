@@ -45,6 +45,12 @@ public interface IProductoService {
      * @return El producto actualizado.
      */
     ProductoModel updateProducto(ObjectId id, ProductoModel producto);
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+    void agregarComentario(ObjectId idProducto, ComentariosModel comentario);
+=======
+>>>>>>> Stashed changes
 
     /**
      * Agrega un comentario a un producto existente.
@@ -53,4 +59,8 @@ public interface IProductoService {
      * @return El producto con el comentario agregado.
      */
     ProductoModel agregarComentario(ObjectId idProducto, ComentariosModel comentario);
+<<<<<<< Updated upstream
+=======
+>>>>>>> b967f0a6647f8c517ec95741685ebd875a374d91
+>>>>>>> Stashed changes
 }

@@ -63,6 +63,21 @@ public class DepartamentoController {
         }
     }
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteDepartamento(@PathVariable String id) {
+        ObjectId objectId = new ObjectId(id);  // Convert String to ObjectId
+        try {
+            DepartamentosModel deleteDepartamento = departamentosService.deleteDepartamento(objectId);
+                return ResponseEntity.ok(deleteDepartamento);
+                } catch (RecursoNoEncontradoException ex) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+            }
+        }  
+=======
+>>>>>>> Stashed changes
     /**
      * Eliminar un departamento por su ID.
      * @param id ID del departamento a eliminar.
@@ -78,6 +93,10 @@ public class DepartamentoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }
     }
+<<<<<<< Updated upstream
+=======
+>>>>>>> b967f0a6647f8c517ec95741685ebd875a374d91
+>>>>>>> Stashed changes
 
     /**
      * Actualizar un departamento existente.

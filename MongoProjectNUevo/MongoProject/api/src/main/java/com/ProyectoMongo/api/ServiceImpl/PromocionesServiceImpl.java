@@ -66,34 +66,75 @@ public class PromocionesServiceImpl implements IPromocionesService {
     */   
     @Override
     public PromocionesModel savepromo(PromocionesModel promocion) {
+<<<<<<< Updated upstream
         // Verifica si los productos asociados a la promoción existen
+=======
+<<<<<<< HEAD
+=======
+        // Verifica si los productos asociados a la promoción existen
+>>>>>>> b967f0a6647f8c517ec95741685ebd875a374d91
+>>>>>>> Stashed changes
         for (ProductoPromocionModel productoPromocion : promocion.getProductoPromocion()) {
             Optional<ProductoModel> producto = productoRepository.findById(productoPromocion.getIdProducto());
             if (!producto.isPresent()) {
                 throw new RecursoNoEncontradoException("Producto con ID: " + productoPromocion.getIdProducto() + " no encontrado.");
             }
         }
+<<<<<<< HEAD
+
+=======
         
         // Verifica si hay promociones duplicadas y valida las fechas
+<<<<<<< Updated upstream
+=======
+>>>>>>> b967f0a6647f8c517ec95741685ebd875a374d91
+>>>>>>> Stashed changes
         Set<String> nombresPromociones = new HashSet<>();
         for (ProductoPromocionModel productoPromocion : promocion.getProductoPromocion()) {
             if (!nombresPromociones.add(productoPromocion.getNombre())) {
                 throw new RecursoYaExistenteException("La promoción \"" + productoPromocion.getNombre() + "\" ya existe.");
             }
 
+<<<<<<< Updated upstream
             Date now = new Date(); 
 
             
             if (productoPromocion.getFechaInicio().after(productoPromocion.getFechaFin())) {
                 throw new ValorInvalidoException("La fecha de inicio no puede ser posterior a la fecha de fin.");
             }
+=======
+<<<<<<< HEAD
+            if (productoPromocion.getFechaInicio().after(productoPromocion.getFechaFin())) {
+                throw new ValorInvalidoException("La fecha de inicio no puede ser posterior a la fecha de fin.");
+            }
+
+            // Comentamos esta validación para permitir la fecha de inicio inmediata
+            // if (productoPromocion.getFechaInicio().before(now)) {
+            //     throw new ValorInvalidoException("La fecha de inicio no puede ser anterior a hoy.");
+            // }
+
+            if (productoPromocion.getDescuento() < 0) {
+                throw new ValorInvalidoException("El descuento no puede ser negativo.");
+            }
+=======
+            Date now = new Date(); 
+
+            
+            if (productoPromocion.getFechaInicio().after(productoPromocion.getFechaFin())) {
+                throw new ValorInvalidoException("La fecha de inicio no puede ser posterior a la fecha de fin.");
+            }
+>>>>>>> Stashed changes
             
             if (productoPromocion.getFechaInicio().before(now)) {
                 throw new ValorInvalidoException("La fecha de inicio no puede ser anterior a hoy.");
             }
            
+<<<<<<< Updated upstream
+=======
+>>>>>>> b967f0a6647f8c517ec95741685ebd875a374d91
+>>>>>>> Stashed changes
         }
-    
+
         return promocionesRepository.save(promocion);
     }
 
@@ -104,15 +145,35 @@ public class PromocionesServiceImpl implements IPromocionesService {
     * @throws RecursoNoEncontradoException si la promoción no es encontrada.
     */
     @Override
-    public PromocionesModel deletePromo(ObjectId id) {
-        Optional<PromocionesModel> promocion = promocionesRepository.findById(id);
-        if (promocion.isPresent()) {
-            promocionesRepository.deleteById(id);
-            return promocion.get();
-        }
-        throw new RecursoNoEncontradoException("Promoción con ID: " + id + " no encontrada");
-    }
+public PromocionesModel deletePromo(ObjectId id) {
+    Optional<PromocionesModel> promocion = promocionesRepository.findById(id);
+    if (promocion.isPresent()) {
+        PromocionesModel promo = promocion.get();
 
+<<<<<<< Updated upstream
+=======
+        for (ProductoPromocionModel productoPromocion : promo.getProductoPromocion()) {
+            ProductoModel producto = productoRepository.findById(productoPromocion.getIdProducto())
+                    .orElseThrow(() -> new RecursoNoEncontradoException("Producto con ID: " + productoPromocion.getIdProducto() + " no encontrado"));
+
+            if (producto.getPrecioOriginal() != null) {
+                producto.setPrecio(producto.getPrecioOriginal()); // Restaurar el precio original
+                // No limpiar el campo de precio original, ya que queremos mantener su valor
+            } else {
+                // Si precioOriginal es nulo, utilizamos el precio actual (sin descuentos)
+                producto.setPrecio(producto.getPrecio());
+            }
+            productoRepository.save(producto);
+        }
+
+        promocionesRepository.deleteById(id);
+        return promocion.get();
+    }
+    throw new RecursoNoEncontradoException("Promoción con ID: " + id + " no encontrada");
+}
+
+
+>>>>>>> Stashed changes
     /**
     * Actualizar una promoción existente.
     * @param id ID de la promoción a actualizar.
@@ -126,22 +187,26 @@ public class PromocionesServiceImpl implements IPromocionesService {
     public PromocionesModel updatePromo(ObjectId id, PromocionesModel promocion) {
         PromocionesModel existingPromocion = promocionesRepository.findById(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Promoción no encontrada con ID: " + id));
-    
+
         if (promocion.getProductoPromocion() != null && !promocion.getProductoPromocion().isEmpty()) {
             Set<String> nombresPromociones = new HashSet<>();
             for (ProductoPromocionModel productoPromocion : promocion.getProductoPromocion()) {
                 if (!nombresPromociones.add(productoPromocion.getNombre())) {
                     throw new RecursoYaExistenteException("La promoción \"" + productoPromocion.getNombre() + "\" ya existe.");
                 }
-    
+
                 if (productoPromocion.getFechaInicio().after(productoPromocion.getFechaFin())) {
                     throw new ValorInvalidoException("La fecha de inicio no puede ser posterior a la fecha de fin.");
                 }
+
+                if (productoPromocion.getDescuento() < 0) {
+                    throw new ValorInvalidoException("El descuento no puede ser negativo.");
+                }
             }
-    
+
             existingPromocion.setProductoPromocion(promocion.getProductoPromocion());
         }
-    
+
         return promocionesRepository.save(existingPromocion);
     }
 }

@@ -48,6 +48,13 @@ public class ProductoModel {
      * Lista de imágenes asociadas al producto.
      */
     private List<ImagenModel> imagenes;
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+    private BigDecimal precioOriginal;
+    private BigDecimal precio; // precio con descuento
+=======
+>>>>>>> Stashed changes
 
     /**
      * Precio del producto.
@@ -57,6 +64,10 @@ public class ProductoModel {
     /**
      * Indica si el producto es parte de un paquete.
      */
+<<<<<<< Updated upstream
+=======
+>>>>>>> b967f0a6647f8c517ec95741685ebd875a374d91
+>>>>>>> Stashed changes
     private Boolean esPaquete;
 
     /**
@@ -73,4 +84,11 @@ public class ProductoModel {
      * Lista de comentarios realizados sobre el producto.
      */
     private List<ComentariosModel> comentarios;
+
+ // Método para inicializar el precio basado en precioOriginal si es nulo
+    public void initializePrecio() {
+    if (this.precio == null && this.precioOriginal != null) {
+        this.precio = this.precioOriginal;
+    }
+}
 }

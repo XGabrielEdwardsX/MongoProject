@@ -3,7 +3,6 @@ package com.ProyectoMongo.api.Controller;
 import com.ProyectoMongo.api.Exception.RecursoNoEncontradoException;
 import com.ProyectoMongo.api.Exception.RecursoYaExistenteException;
 import com.ProyectoMongo.api.Exception.ValorInvalidoException;
-import com.ProyectoMongo.api.Model.ComentariosModel;
 import com.ProyectoMongo.api.Model.ProductoModel;
 import com.ProyectoMongo.api.Service.IProductoService;
 import org.bson.types.ObjectId;
@@ -45,6 +44,8 @@ public class ProductoController {
             return ResponseEntity.ok(producto);
         } catch (RecursoNoEncontradoException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        } catch(ValorInvalidoException ex){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
         }
     }
 
@@ -95,9 +96,14 @@ public class ProductoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         } catch (RecursoYaExistenteException | ValorInvalidoException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
-        }
+        } 
     }
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
     /**
      * Agregar un comentario a un producto.
      * @param id ID del producto.
@@ -118,4 +124,5 @@ public class ProductoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }
     }
+>>>>>>> b967f0a6647f8c517ec95741685ebd875a374d91
 }

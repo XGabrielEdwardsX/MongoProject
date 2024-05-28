@@ -196,9 +196,12 @@ db.createCollection("producto", {
                         "additionalProperties": false
                     }
                 },
-                "precio": {
+                "precioOriginal": {
                     "bsonType": "decimal"
                 },
+		"precio":{
+		    "bsonType: "decimal"
+		},	
                 "esPaquete": {
                     "bsonType": "bool"
                 },

@@ -37,4 +37,13 @@ public class ComentariosModel {
      * La fecha en la que se realizó el comentario.
      */
     private Date fecha;
+<<<<<<< Updated upstream
 }
+=======
+<<<<<<< HEAD
+    private boolean puedeComentar;
+}
+=======
+}
+>>>>>>> b967f0a6647f8c517ec95741685ebd875a374d91
+>>>>>>> Stashed changes
