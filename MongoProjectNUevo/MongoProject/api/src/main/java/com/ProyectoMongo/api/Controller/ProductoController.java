@@ -80,12 +80,7 @@ public class ProductoController {
         }
     }
 
-    /**
-     * Actualizar un producto existente.
-     * @param id ID del producto a actualizar.
-     * @param producto Objeto del producto con los datos actualizados.
-     * @return El producto actualizado.
-     */
+
     @PutMapping("/{id}")
     public ResponseEntity<?> updateProducto(@PathVariable String id, @RequestBody ProductoModel producto) {
         try {
@@ -99,18 +94,7 @@ public class ProductoController {
         } 
     }
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
-    /**
-     * Agregar un comentario a un producto.
-     * @param id ID del producto.
-     * @param comentario Objeto del comentario a agregar.
-     * @return Mensaje de éxito o error.
-     */
-    @PostMapping("/comentarios/{id}")
+    /* @PostMapping("/comentarios/{id}")
     public ResponseEntity<?> agregarComentario(@PathVariable String id, @RequestBody ComentariosModel comentario) {
         try {
             ObjectId idProducto = new ObjectId(id);
@@ -123,6 +107,5 @@ public class ProductoController {
         } catch (RecursoNoEncontradoException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }
-    }
->>>>>>> b967f0a6647f8c517ec95741685ebd875a374d91
+    } */
 }
